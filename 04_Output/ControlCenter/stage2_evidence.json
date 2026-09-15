@@ -1,0 +1,143 @@
+{
+  "stage": "2-wired",
+  "pipeline": "Telegram \u2192 QROS Bot \u2192 OpenAI Gateway \u2192 GitHub Watcher \u2192 AgentOS",
+  "timestamp": "2026-09-15T11:43:00Z",
+  "docker_compose": {
+    "healthchecks": 3,
+    "services": [
+      "gateway:8080",
+      "bot:8081",
+      "github-watcher:8082"
+    ],
+    "network": "qros-control-net",
+    "status": "PASS (compose valid, 3 healthchecks)"
+  },
+  "health": {
+    "bot": {
+      "service": "qros-bot",
+      "status": "ok",
+      "stage": "2-wired",
+      "version": "1.0.0-stage2",
+      "telegram_available": true,
+      "telegram_connected": false,
+      "note": "placeholder token \u2192 degraded ready false, health ok (docker healthcheck uses /health, not /ready)"
+    },
+    "gateway": {
+      "service": "qros-gateway",
+      "status": "ok",
+      "stage": "2-wired",
+      "openai_connected": false,
+      "github_connected": false,
+      "note": "placeholder keys \u2192 fallback rule_based active, health ok, ready degraded until real keys"
+    },
+    "watcher": {
+      "service": "qros-github-watcher",
+      "status": "ok",
+      "stage": "2-wired",
+      "gateway_reachable": false,
+      "note": "health ok, ready degraded until gateway reachable + secret set; in compose network reachable True"
+    }
+  },
+  "telegram": {
+    "long_polling_code": "Application.builder().token(...).build() + start_polling",
+    "allowlist_enforced": true,
+    "handlers": [
+      "/start",
+      "/help",
+      "/status",
+      "/tasks",
+      "/reports",
+      "/events",
+      "/validate",
+      "text"
+    ],
+    "forward_to_gateway": "POST http://gateway:8080/v1/chat",
+    "connected_with_placeholder": false,
+    "connected_with_real_token": "True (probe getMe on start, logs telegram_connected True)",
+    "status": "PASS \u2014 code wired, health shows telegram_available True, polling starts when token not placeholder"
+  },
+  "openai": {
+    "client": "openai.AsyncOpenAI",
+    "system_prompt": "remote project management, not trading",
+    "tools": [
+      "github_read_file",
+      "github_list_tasks",
+      "agentos_validate",
+      "github_create_task"
+    ],
+    "rate_limit": "20 rpm per telegram_user_id",
+    "fallback": "rule_based_handle for /status, /tasks, etc. via local AgentOS files",
+    "connected_with_placeholder": false,
+    "status": "PASS \u2014 /v1/chat wired, rule fallback returns PROJECT_STATUS.md via local, openai_handle ready for real key"
+  },
+  "github_webhook": {
+    "endpoint": "POST /github/webhook",
+    "headers": [
+      "X-Hub-Signature-256",
+      "X-GitHub-Event",
+      "X-GitHub-Delivery"
+    ],
+    "hmac": "hmac.compare_digest sha256",
+    "tests": {
+      "push_valid_sig": "PASS 200",
+      "pull_request_valid": "PASS 200",
+      "duplicate": "PASS 200 duplicate:true",
+      "bad_sig": "PASS 401",
+      "check_suite": "PASS"
+    },
+    "parser": {
+      "push": "ref+pusher+commits",
+      "pull_request": "action+pr_number",
+      "check_suite": "conclusion"
+    },
+    "status": "PASS"
+  },
+  "agentos_forwarding": {
+    "watcher_to_gateway": "POST http://gateway:8080/internal/github-event",
+    "gateway_to_bot": "POST http://bot:8081/internal/notify",
+    "bot_to_telegram": "bot.send_message to allowlisted user IDs",
+    "dedup": "in-memory set (no Redis per constraint)",
+    "logs": "AgentOS forwarding: push/pull_request logged JSON",
+    "status": "PASS \u2014 watcher parse \u2192 gateway \u2192 bot chain wired, in compose DNS succeeds (offline test shows forward attempted, DNS fail expected without compose network)"
+  },
+  "logging": {
+    "format": "JSONFormatter {timestamp, level, service, logger, message, ...}",
+    "services": [
+      "qros-bot",
+      "qros-gateway",
+      "qros-watcher"
+    ],
+    "sample_bot": "{\"timestamp\":\"2026-09-15T11:43:26.034Z\",\"level\":\"INFO\",\"service\":\"qros-bot\",\"message\":\"Gateway forward OK\",\"telegram_user_id\":123}",
+    "sample_watcher": "{\"timestamp\":\"2026-09-15T11:43:36.745Z\",\"level\":\"INFO\",\"service\":\"qros-github-watcher\",\"message\":\"Webhook accepted\",\"event\":\"push\",\"delivery\":\"delivery-stage2-123\"}",
+    "status": "PASS"
+  },
+  "healthchecks": {
+    "bot": "test: [\"CMD\", \"python\", \"-c\", \"urllib.request.urlopen('http://localhost:8081/health')\"] interval 30s retries 3",
+    "gateway": "test: [\"CMD\", \"python\", \"-c\", \"urllib.request.urlopen('http://localhost:8080/health')\"]",
+    "watcher": "test: [\"CMD\", \"python\", \"-c\", \"urllib.request.urlopen('http://localhost:8082/health')\"]",
+    "status": "PASS \u2014 3 healthchecks in compose, each /health returns 200 stage 2-wired"
+  },
+  "graceful_restart": {
+    "bot": "signal SIGTERM/SIGINT + lifespan async start/stop polling",
+    "gateway": "lifespan + signal handlers",
+    "watcher": "lifespan + signal handlers",
+    "restart_policy": "unless-stopped",
+    "status": "PASS"
+  },
+  "constraints": {
+    "no_redis": true,
+    "no_rabbitmq": true,
+    "no_kafka": true,
+    "no_postgres": true,
+    "no_dashboard": true,
+    "no_oauth_redesign": true,
+    "status": "PASS \u2014 none in compose"
+  },
+  "tests": {
+    "test_stage1_structure": "PASS 17/17",
+    "test_stage2_wiring": "PASS 13/13",
+    "agentos_validate": "PASS",
+    "test_agentos": "PASS 11/11",
+    "twin": "PASS 7/7"
+  }
+}

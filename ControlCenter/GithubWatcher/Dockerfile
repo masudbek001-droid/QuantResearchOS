@@ -1,7 +1,7 @@
-# QROS GithubWatcher — Dockerfile (Stage 1: structure only)
+# QROS GithubWatcher — Dockerfile (Stage 2: wired)
 FROM python:3.11-slim
 
-LABEL service="qros-github-watcher" version="1.0.0-stage1" purpose="GitHub webhook receiver for QROS Control Center"
+LABEL service="qros-github-watcher" version="1.0.0-stage2" purpose="GitHub webhook receiver for QROS Control Center"
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \

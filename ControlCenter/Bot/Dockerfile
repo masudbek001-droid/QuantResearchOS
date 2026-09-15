@@ -1,7 +1,7 @@
-# QROS Bot — Dockerfile (Stage 1: structure only, no business logic)
+# QROS Bot — Dockerfile (Stage 2: wired, no business logic)
 FROM python:3.11-slim
 
-LABEL service="qros-bot" version="1.0.0-stage1" purpose="remote project management — Telegram front for QROS Control Center"
+LABEL service="qros-bot" version="1.0.0-stage2" purpose="remote project management — Telegram front for QROS Control Center"
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \

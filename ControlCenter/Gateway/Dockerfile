@@ -1,7 +1,7 @@
-# QROS Gateway — Dockerfile (Stage 1: structure only)
+# QROS Gateway — Dockerfile (Stage 2: wired)
 FROM python:3.11-slim
 
-LABEL service="qros-gateway" version="1.0.0-stage1" purpose="OpenAI routing for QROS Control Center — Telegram → GitHub → AgentOS"
+LABEL service="qros-gateway" version="1.0.0-stage2" purpose="OpenAI routing for QROS Control Center — Telegram → GitHub → AgentOS"
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \

@@ -1,4 +1,4 @@
-# QROS Control Center v1 — Docker Compose (Stage 1: structure only)
+# QROS Control Center v1 — Docker Compose (Stage 2: wired — longevity managed, health + graceful restart)
 # Purpose: remote project management — Telegram → Bot → OpenAI Gateway → GitHub → AgentOS → Arena+Kilo
 # No trading logic, no AI promotion, no AgentOS mutation. See ARCHITECTURE.md, SECURITY.md, INSTALL.md.
 # Usage:
@@ -13,7 +13,7 @@ services:
     build:
       context: ./ControlCenter/Gateway
       dockerfile: Dockerfile
-    image: qros/gateway:1.0.0-stage1
+    image: qros/gateway:1.0.0-stage2
     container_name: qros-gateway
     restart: unless-stopped
     expose:
@@ -49,7 +49,7 @@ services:
     build:
       context: ./ControlCenter/Bot
       dockerfile: Dockerfile
-    image: qros/bot:1.0.0-stage1
+    image: qros/bot:1.0.0-stage2
     container_name: qros-bot
     restart: unless-stopped
     expose:
@@ -86,7 +86,7 @@ services:
     build:
       context: ./ControlCenter/GithubWatcher
       dockerfile: Dockerfile
-    image: qros/github-watcher:1.0.0-stage1
+    image: qros/github-watcher:1.0.0-stage2
     container_name: qros-github-watcher
     restart: unless-stopped
     expose:

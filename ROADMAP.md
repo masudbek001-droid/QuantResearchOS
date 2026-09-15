@@ -22,10 +22,11 @@
 | AgentOS v1.0 | **Git-native collaboration layer — 8-file bus, 10 workers 1:1, CLI/validate/tests, example, no Telegram** | — | 0021 |
 | Market Digital Twin | **Single source of truth simulator — 5 MQL (TwinTypes/Clock/Bus/Validator/Core+Adapters), 100 bars FNV-1a 0 mismatches, 5 consumers identical** | — | 0022 |
 | QROS Control Center Stage 1 | **Remote project management structure — Bot+Gateway+Watcher stubs, compose + env + docs, 17 checks PASS (MISSION-001 Stage 1)** | — | 0023 |
+| QROS Control Center Stage 2 | **Wired pipeline — Telegram polling + OpenAI + webhook + parser + AgentOS forwarding + health + logs + graceful (MISSION-003 Stage 2)** | — | 0024 |
 
 ## ▶ Current
 
-* **Stable through Stage 15 + 5 advisory + AgentOS v1.0 + Market Digital Twin + Control Center Stage 1 (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, shadow-AI, **5 advisory layers (ADR-0016..0020)**, **AgentOS 8-file bus (ADR-0021)**, **Market Digital Twin single source (ADR-0022, 100 bars exact, 5 consumers)** and **Control Center Stage 1 structure (ADR-0023, 17 checks PASS, MISSION-001)** are validated. EA now 64 .mqh (58+6 Twin) + 7 scripts + 5 advisory tests + AgentOS (11 workers) + Twin (TwinEventBus 5 consumers) + Control Center (Bot+Gateway+Watcher stubs); advisory+Git+Twin single source, default OFF. Next is Control Center Stage 2 (wire Telegram/OpenAI/GitHub) or Twin consumer migration.
+* **Stable through Stage 15 + 5 advisory + AgentOS v1.0 + Market Digital Twin + Control Center Stage 2 (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, shadow-AI, **5 advisory layers (ADR-0016..0020)**, **AgentOS 8-file bus (ADR-0021)**, **Market Digital Twin single source (ADR-0022, 100 bars exact, 5 consumers)** and **Control Center Stage 2 wired (ADR-0024, 13 checks wiring PASS, health/webhook/parser/forwarding, MISSION-003)** are validated. EA now 64 .mqh (58+6 Twin) + 7 scripts + 5 advisory tests + AgentOS (11 workers) + Twin (TwinEventBus 5 consumers) + Control Center (Bot+Gateway+Watcher wired, Telegram→Gateway→GitHub→AgentOS); advisory+Git+Twin single source, default OFF. Next is LIVE secrets or Twin consumer migration.
 
 ## 📋 Planned
 
@@ -39,7 +40,8 @@
 | AgentOS v1.0 | **DONE** (this sprint, ADR-0021) — 8-file bus + validate + example PASS |
 | Market Digital Twin | **DONE** (TASK-0005 via AgentOS, ADR-0022) — exact 100 bars, 5 consumers identical PASS |
 | QROS Control Center Stage 1 | **DONE** (MISSION-001 Stage 1, ADR-0023) — Bot+Gateway+Watcher structure + compose/env/docs PASS |
-| **Next** | Control Center Stage 2 — wire Bot polling + Gateway OpenAI + Watcher forward + Redis dedup (until public webhook/secret blocker) |
+| QROS Control Center Stage 2 | **DONE** (MISSION-003 Stage 2, ADR-0024) — polling + OpenAI + webhook + parser + forwarding + health + logs + graceful PASS |
+| **Next** | LIVE secrets — provide real TELEGRAM_BOT_TOKEN + OPENAI_API_KEY + GITHUB_TOKEN + WATCHER_PUBLIC_URL → docker compose up -d → ready:true (until MT5/secret blocker) |
 | Twin consumer migration | Replay/Training/Risk/Research/AI default to Twin (until MT5 compile blocker) |
 | **Future** | Production promotion — wire advisory behind flag, Strategy Tester regression, checksum/rollback (requires ADR) |
 | Future | Multi-broker backtesting farm (DataSources registry is multi-broker ready); live walk-forward re-validation calendar; Strategy Tester / demo campaign before any live deployment |

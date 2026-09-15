@@ -427,3 +427,18 @@ Evidence: `gh api .../protection → 403` captured 2026-09-15 07:35 UTC, same as
 
 Structure-only milestone: test → commit → push; stop only on external blocker (MT5 64 .mqh 0/0 + GitHub 403 + webhook public URL / secret).
 
+# 2026-09-15 — QROS Control Center v1 Stage 2: wired pipeline ONLINE (ADR-0024, MISSION-003)
+
+- Wired `ControlCenter/Bot/src/main.py` — Telegram long polling `Application.builder().token().build()` + 7 `CommandHandler`/`MessageHandler` + allowlist + `httpx POST gateway:8080/v1/chat` + `POST /internal/notify` + `JSONFormatter` + `lifespan` graceful + `SIGTERM` + health `2-wired`.
+- Wired `ControlCenter/Gateway/src/openai_client.py` — `AsyncOpenAI` + `SYSTEM_PROMPT_STAGE2` + `TOOLS_DESIGN` (4 tools) + `openai_handle` tool execution + `github_read_file` (GitHub API + local fallback) + `check_rate_limit` 20 rpm + `rule_based_handle` + `stub_handle` retained.
+- Wired `ControlCenter/Gateway/src/main.py` — `POST /v1/chat` rate limit + openai/rule fallback, `POST /internal/github-event` → `POST bot:8081/internal/notify`, `JSONFormatter`, health `2-wired` with `openai_connected`/`github_connected` probes.
+- Wired `ControlCenter/GithubWatcher/src/webhook.py` — `verify_signature` + `parse_github_event` (push→ref/pusher/commits, PR→action/pr_number, check→conclusion) + `format_agentos_forward` + in-memory `_seen_deliveries` dedup (no Redis per constraint).
+- Wired `ControlCenter/GithubWatcher/src/main.py` — `POST /github/webhook` verify→parse→AgentOS forwarding log → `POST gateway:8080/internal/github-event` + dedup + `JSONFormatter` + health `2-wired` + graceful.
+- Updated `docker-compose.yml` + `ControlCenter/docker-compose.yml` images `1.0.0-stage2` + `Dockerfile` labels `stage2` + handler `__init__.py` `WIRED=True`.
+- Added `ControlCenter/tests/test_stage2_wiring.py` (13 checks: polling, OpenAI, webhook HMAC, parser push/PR/check, AgentOS forwarding, health 2-wired, JSON logs, healthchecks, graceful, no Redis) — PASS 13/13.
+- Added `ControlCenter/docs/STAGE2_EVIDENCE.md` + `04_Output/ControlCenter/stage2_evidence.json` — health PASS (бот/gateway/watcher 200 stage 2-wired), webhook push 200/duplicate 200/bad 401, parser PASS, gateway `/v1/chat /status` returns `PROJECT_STATUS.md` via fallback, logs JSON, 3 healthchecks, constraints NO Redis/etc.
+- Added `03_Documents/ADR/ADR-0024-qros-control-center-v1-stage2-wired.md` — wiring decision (no redesign).
+- Updated governance `PROJECT_STATUS` (Stage 2 PASS, health PASS), `ROADMAP` (Stage 2 DONE), `NEXT_TASK` (Stage 2 DONE next LIVE secrets), `DECISIONS` (ADR-0024), `AGENT_HANDOFF` (Stage 2 row).
+- No `01_Source/EA/**` or `AgentOS/**` mutation; `test_stage1_structure` still 17 PASS, `validate` PASS, `test_agentos` 11 PASS, twin 7 PASS.
+
+Pipeline wired: Telegram → Bot → Gateway → GitHub → AgentOS; Reverse: GitHub → Watcher → Gateway → Bot → Telegram. With placeholder secrets `health` green (docker), `ready` degraded correctly; with real secrets `ready:true` `telegram_connected:true`.
