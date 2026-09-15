@@ -347,3 +347,11 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextContinuousLearning.mqh` — CAIContinuousLearning/SLearningAdvisory, CheckDrift risk+council+ai → drift 0..1 urgent≥0.70, dormant OFF.
 - Added `06_Tools/continuous_learning_advisory.py` — loads risk+council+wf+stat, drift 1.0 URGENT (high vol + council CAUTION + logistic 0.3901), writes `04_Output/Learning/learning_advisory_report.json` + `03_Documents/Reports/LEARNING_ADVISORY_REPORT.md`.
 - Added `01_Source/Tests/test_continuous_learning_advisory.py` — 0 tokens, 0 TradeManager, drift bounds, hint enums, JSON schema PASS [QROS_CONTINUOUS_LEARNING] STATUS=PASS.
+
+# 2026-09-15 — AI Council + Continuous Learning docs: status/roadmap/handoff (Sprints 12-13)
+
+- Updated `PROJECT_STATUS.md`: Milestone Sprint 13 Continuous Learning PASS (ADR-0020), Sprint 13 PASS, Completed Sprints +AI Council +Continuous Learning, Validation Stages +Council +Learning PASS, Current Task → Continuous Learning PASS (58 .mqh drift 1.0 URGENT), Next Task → ALL advisory PASS next production promotion BLOCKED MT5 compile (58 .mqh), Module Status +AI Council +Learning rows (58 .mqh +5 advisory layers).
+- Updated `ROADMAP.md`: Completed +Sprint 12 AI Council (ADR-0019) +Sprint 13 Continuous Learning (ADR-0020), Current → Stage15+5 advisory stable (58 .mqh), Planned 12/13 DONE, added Next production promotion.
+- Updated `NEXT_TASK.md`: Stage15+5 advisory COMPLETE PASS, Current Active Task → ALL advisory 9-13 DONE BLOCKED MT5 compile, next production promotion ADR.
+- Updated `DECISIONS.md`: added ADR-0019/0020 register rows.
+- Updated `AGENT_HANDOFF.md`: added Sprint 12/13 rows, Current Milestone Sprint 13 PASS, Active Task ALL DONE, Version Pins +Council +Learning PASS.
