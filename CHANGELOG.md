@@ -337,3 +337,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextAICouncil.mqh` — CAIAICouncil/SCouncilAdvisory, Convene weighted 0.35/0.25/0.25/0.15 → 0.50..1.50, dormant OFF, Validate.
 - Added `06_Tools/ai_council_advisory.py` — loads risk+research+bus+wf, computes council_mult per regime (calm 0.95 NORMAL, reduced 0.85 REDUCED, caution 0.83 CAUTION), writes `04_Output/Council/council_report.json` + `03_Documents/Reports/COUNCIL_REPORT.md`.
 - Added `01_Source/Tests/test_ai_council_advisory.py` — 0 tokens, 0 TradeManager, multiplier bounds, vote enums, JSON schema PASS [QROS_AI_COUNCIL] STATUS=PASS.
+
+# 2026-09-15 — ADR-0020: Continuous Learning drift & retrain advisory (Sprint 13)
+
+- Added `03_Documents/ADR/ADR-0020-continuous-learning-advisory.md` — Continuous Learning drift score 0..1 → retrain hint NONE/SCHEDULED/URGENT (Risk CAUTION + Council CAUTION + WF low), Python + MQL CAIContinuousLearning dormant OFF.
