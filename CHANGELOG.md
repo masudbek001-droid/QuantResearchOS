@@ -267,3 +267,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Chief Risk AI research: advisory tool & reports
 
 - Added `06_Tools/chief_risk_advisory.py` — loads statistical_baseline_report.json (56,514 H1, WR 54.96% PF 1.95) + walk-forward (logistic 0.3901 RF 0.4183) + supervised, builds volatility/hourly/confidence/daily/carry advisory tables (deterministic 0.50..1.50), writes `04_Output/Risk/risk_advisory_report.json` (6.0K) and `03_Documents/Reports/RISK_ADVISORY_REPORT.md` (3.4K), no lookahead, advisory-only, 0.50..1.50 verified.
+
+# 2026-09-15 — Chief Risk AI validation: safety & advisory tests
+
+- Added `01_Source/Tests/test_chief_risk_ai.py` — validates advisory mqh exists, 0 forbidden tokens (OrderSend/PositionClose/CTrade/CRiskManager/CExitEngine etc), TradeManager 0 calls, multiplier bounds 0.50..1.50 for all regimes, vol 1.00/0.85/0.50, hourly 1.00/0.70, confidence 0.80/0.50, daily 80% ELEVATED, carry CAUTION blocks, risk json schema, no lookahead, tool loads baseline/wf. Evidence: [QROS_CHIEF_RISK] STATUS=PASS.
