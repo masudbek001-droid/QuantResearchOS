@@ -295,3 +295,11 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Chief Research AI validation: synthesis & safety tests
 
 - Added `01_Source/Tests/test_chief_research_ai.py` — validates mqh exists, 0 forbidden tokens, TradeManager 0 calls, synthesis JSON schema (feature/window/next hints, confidence 0..1), advisory_only true, hints PASS. Evidence: [QROS_CHIEF_RESEARCH] STATUS=PASS.
+
+# 2026-09-15 — Chief Research AI docs: status/roadmap/handoff
+
+- Updated `PROJECT_STATUS.md`: Milestone Sprint 10 Chief Research AI PASS (ADR-0017), Sprint 10 PASS, Completed Sprints +Chief Research AI, Validation Stages +Chief Research AI PASS, Current Task → Chief Research AI PASS (55 .mqh), Next Task → Decision Bus next + BLOCKED MT5 compile (55 .mqh), Overall AI 60% (shadow+risk+research advisory), Module Status 55 .mqh + Research advisory row.
+- Updated `ROADMAP.md`: Completed +Sprint 10 Chief Research AI (ADR-0017), Current → Stage 15 + Risk + Research stable (55 .mqh), Planned 10 DONE, added 11 Decision Bus next.
+- Updated `NEXT_TASK.md`: Stage 15+Risk+Research COMPLETE PASS, Current Active Task → Chief Research AI DONE next Decision Bus, BLOCKED MT5 compile, next authorized work Decision Bus ADR-0018.
+- Updated `DECISIONS.md`: added ADR-0017 register row.
+- Updated `AGENT_HANDOFF.md`: added Sprint 10 row, Current Milestone Sprint 10 PASS, Active Task Chief Research AI DONE, Next blocked MT5, Version Pins +Chief Research AI PASS.
