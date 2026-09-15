@@ -315,3 +315,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Decision Bus research: consensus tool & reports
 
 - Added `06_Tools/decision_bus_advisory.py` — loads risk_advisory_report.json + research_synthesis_report.json + baseline + walk_forward, computes bus_multiplier per regime (low 0.90 NORMAL, normal/worst 0.54 REDUCED, high 0.50 CAUTION), flag/hint enums, writes `04_Output/DecisionBus/decision_bus_report.json` (1.2K) and `03_Documents/Reports/DECISION_BUS_REPORT.md` (1.6K), advisory only.
+
+# 2026-09-15 — Decision Bus validation: consensus & safety tests
+
+- Added `01_Source/Tests/test_decision_bus_advisory.py` — validates mqh exists, 0 forbidden tokens, TradeManager 0 calls, bus JSON schema (multiplier 0.50..1.50, flags NORMAL/REDUCED/CAUTION), advisory_only true. Evidence: [QROS_DECISION_BUS] STATUS=PASS.
