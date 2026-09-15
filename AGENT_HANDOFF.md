@@ -74,8 +74,8 @@ Market Data (Ticks/Bars)
 
 ## 4. Current State
 
-- **Current Milestone**: Sprint 9 — Chief Risk AI Advisory **PASS** (2026-09-15, ADR-0016) — Stage 15 stable.
-- **Active Task**: Chief Risk AI DONE (CAIRiskAdvisory + Python tool + report + test PASS). Next is Chief Research AI (requires new ADR).
+- **Current Milestone**: Market Digital Twin — Single Source of Truth **PASS** (2026-09-15, ADR-0022, TASK-0005 via AgentOS) — Stage 15 + 5 advisory + AgentOS + Twin.
+- **Active Task**: Market Digital Twin DONE (5 MQL + Python validator + 5 adapters, 100 bars exact, 5 consumers identical, single source). Next is Twin consumer migration (Replay/Training/Risk/Research/AI default to Twin).
 - **Immediate Next Tasks**:
   1. Keep AI shadow-only; no trading decision may consume predictions yet (ADR-0015 gated).
   2. If future advisory AI behavior is desired, create a new ADR and Strategy Tester / replay gate first.
@@ -145,6 +145,7 @@ Market Data (Ticks/Bars)
 - **Dataset Version**: Pipeline validation `906001`/`907001`; training feature vectors `v907100` (56,499 rows, 22-feature contract)
 - **Current Models**: 2 baseline models registered in `CBEA_Models.db` (Models v2) — `QROS_LogisticRegression_Baseline_v1` and `QROS_RandomForest_Baseline_v1` — research/shadow-only, ONNX PASS, not loaded into live trading (ADR-0015)
 - **Chief Risk AI**: **PASS** — 1 MQL advisory (54 .mqh), 1 Python tool, 2 reports, 1 test (OBSERVE_ONLY)
+- **Market Digital Twin**: **PASS** — 5 MQL Twin, 100 bars exact, 5 consumers identical
 - **Stage 15 Status**: **PASS** — architecture, DB, build, and docs reconciled to Stage 14 reality
 - **Next blocked**: MT5 compile verification (Linux sandbox)
 

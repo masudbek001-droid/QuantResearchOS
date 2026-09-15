@@ -20,10 +20,11 @@
 | Sprint 12 | **AI Council** — multi-agent weighted consensus (CAIAICouncil), Risk0.35/Research0.25/Shadow0.25/Bus0.15, council_report.json, council test PASS | — | 0019 |
 | Sprint 13 | **Continuous Learning** — drift & retrain advisory (CAIContinuousLearning), drift 1.0 URGENT, learning_advisory_report.json, learning test PASS | — | 0020 |
 | AgentOS v1.0 | **Git-native collaboration layer — 8-file bus, 10 workers 1:1, CLI/validate/tests, example, no Telegram** | — | 0021 |
+| Market Digital Twin | **Single source of truth simulator — 5 MQL (TwinTypes/Clock/Bus/Validator/Core+Adapters), 100 bars FNV-1a 0 mismatches, 5 consumers identical** | — | 0022 |
 
 ## ▶ Current
 
-* **Stable through Stage 15 + 5 advisory + AgentOS v1.0 (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, shadow-AI, **5 advisory layers (ADR-0016..0020)** and **AgentOS 8-file bus (ADR-0021)** are validated. EA still 58 .mqh + 7 scripts + 5 advisory tests + AgentOS (10 workers, CLI/validate, example); advisory + Git-only bus, default OFF. Next is AgentOS improvements until blocker.
+* **Stable through Stage 15 + 5 advisory + AgentOS v1.0 + Market Digital Twin (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, shadow-AI, **5 advisory layers (ADR-0016..0020)**, **AgentOS 8-file bus (ADR-0021)** and **Market Digital Twin single source (ADR-0022, 100 bars exact, 5 consumers)** are validated. EA now 64 .mqh (58+6 Twin) + 7 scripts + 5 advisory tests + AgentOS (11 workers) + Twin (TwinEventBus 5 consumers); advisory+Git+Twin single source, default OFF. Next is Twin consumer migration (Replay/Training/Risk/Research/AI switch to Twin by default).
 
 ## 📋 Planned
 
@@ -35,7 +36,8 @@
 | **12** | **AI Council** — **DONE** (this sprint, ADR-0019) — multi-agent consensus PASS |
 | **13** | **Continuous Learning** — **DONE** (this sprint, ADR-0020) — drift advisory PASS |
 | AgentOS v1.0 | **DONE** (this sprint, ADR-0021) — 8-file bus + validate + example PASS |
-| **Next** | AgentOS improvements — schema JSON, CI, PR template (until GitHub/Telegram blocker) |
+| Market Digital Twin | **DONE** (TASK-0005 via AgentOS, ADR-0022) — exact 100 bars, 5 consumers identical PASS |
+| **Next** | Twin consumer migration — Replay/Training/Risk/Research/AI default to Twin (until MT5 compile blocker) |
 | **Future** | Production promotion — wire advisory behind flag, Strategy Tester regression, checksum/rollback (requires ADR) |
 | Future | Multi-broker backtesting farm (DataSources registry is multi-broker ready); live walk-forward re-validation calendar; Strategy Tester / demo campaign before any live deployment |
 

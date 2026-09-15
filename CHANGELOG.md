@@ -401,3 +401,11 @@ Improvement is additive; no trading/AI logic touched; validate still PASS.
 - Telegram remains not implemented per task (Git-only bus).
 
 Evidence: `gh api .../protection → 403` captured 2026-09-15 07:35 UTC, same as MT5 compile blocker (Linux sandbox no MetaEditor for 58 .mqh 0/0).
+
+# 2026-09-15 — Market Digital Twin docs: status/roadmap/handoff to Twin PASS (TASK-0005 via AgentOS)
+
+- Updated `PROJECT_STATUS.md`: Milestone Market Digital Twin PASS (ADR-0022, TASK-0005 via AgentOS), Current Sprint Twin PASS, Completed Sprints +Twin, Validation Stages +Twin PASS (100 bars exact, 5 consumers identical), Current Task → Twin 6 MQL single source, Next Task → Twin consumer migration until MT5 blocker, Module Status 64 .mqh (58+6 Twin) + Twin row.
+- Updated `ROADMAP.md`: Added Market Digital Twin DONE (ADR-0022, TASK-0005), Current → Stage15+5 advisory+AgentOS+Twin stable (64 .mqh), Planned Twin DONE next Twin consumer migration.
+- Updated `NEXT_TASK.md`: Stage15+5 advisory+AgentOS+Twin COMPLETE PASS, Current Active Task → Twin DONE next Twin consumer migration, next authorized work Twin migration + production promotion.
+- Updated `DECISIONS.md`: added ADR-0022 register row (Twin single source).
+- Updated `AGENT_HANDOFF.md`: added Twin row, Current Milestone Twin PASS, Active Task Twin DONE.
