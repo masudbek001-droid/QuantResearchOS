@@ -279,3 +279,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `NEXT_TASK.md`: Stage 15+Chief Risk AI COMPLETE PASS, Current Active Task → Chief Risk AI DONE next Chief Research AI, BLOCKED MT5 compile, next authorized work Chief Research AI ADR-0017.
 - Updated `DECISIONS.md`: added ADR-0016 register row (Chief Risk AI advisory).
 - Updated `AGENT_HANDOFF.md`: added Sprint 9 row, Current Milestone Sprint 9 PASS, Active Task Chief Risk AI DONE, Next blocked MT5, Version Pins +Chief Risk AI PASS.
+
+# 2026-09-15 — ADR-0017: Chief Research AI Synthesis (Sprint 10)
+
+- Added `03_Documents/ADR/ADR-0017-chief-research-ai-synthesis.md` — Chief Research AI synthesis advisory (Sprint 10). Python synthesis of statistical baseline + walk-forward + risk advisory into next-experiment hints (ABLATE_ATR/HOUR, TRY_GRADIENT_BOOST, EXPAND_WINDOW), plus MQL advisory stub CAIResearchAdvisory (dormant OFF, explicit Update, 0 trading tokens), gates (risk PASS + synthesis PASS + 0 tokens), rollback Reset().
