@@ -319,3 +319,11 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Decision Bus validation: consensus & safety tests
 
 - Added `01_Source/Tests/test_decision_bus_advisory.py` — validates mqh exists, 0 forbidden tokens, TradeManager 0 calls, bus JSON schema (multiplier 0.50..1.50, flags NORMAL/REDUCED/CAUTION), advisory_only true. Evidence: [QROS_DECISION_BUS] STATUS=PASS.
+
+# 2026-09-15 — Decision Bus docs: status/roadmap/handoff
+
+- Updated `PROJECT_STATUS.md`: Milestone Sprint 11 Decision Bus PASS (ADR-0018), Sprint 11 PASS, Completed Sprints +Decision Bus, Validation Stages +Decision Bus PASS, Current Task → Decision Bus PASS (56 .mqh), Next Task → AI Council next + BLOCKED MT5 compile (56 .mqh), Module Status +Decision Bus row.
+- Updated `ROADMAP.md`: Completed +Sprint 11 Decision Bus (ADR-0018), Current → Stage 15+Risk+Research+Bus stable (56 .mqh), Planned 11 DONE, added 12 AI Council next.
+- Updated `NEXT_TASK.md`: Stage 15+Risk+Research+Bus COMPLETE PASS, Current Active Task → Decision Bus DONE next AI Council, BLOCKED MT5 compile, next AI Council ADR-0019.
+- Updated `DECISIONS.md`: added ADR-0018 register row.
+- Updated `AGENT_HANDOFF.md`: added Sprint 11 row, Current Milestone Sprint 11 PASS, Active Task Decision Bus DONE, Next blocked MT5, Version Pins +Decision Bus PASS.

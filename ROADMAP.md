@@ -16,10 +16,11 @@
 | Stages 12–15 | AI promotion safety gates, shadow-only inference, shadow safety audit, final architecture/documentation reconciliation — PASS | — | 0015 |
 | Sprint 9 | **Chief Risk AI** — advisory risk layer (CAIRiskAdvisory), volatility/hourly/confidence/daily/carry tables, risk_advisory_report.json, safety test PASS | — | 0016 |
 | Sprint 10 | **Chief Research AI** — research synthesis (CAIResearchAdvisory), feature/window/next hints, research_synthesis_report.json, synthesis test PASS | — | 0017 |
+| Sprint 11 | **Decision Bus** — advisory consensus routing (CAIDecisionBus), risk×research×shadow multiplier 0.50..1.50, decision_bus_report.json, bus test PASS | — | 0018 |
 
 ## ▶ Current
 
-* **Stable through Stage 15 + Chief Risk AI + Chief Research AI (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, shadow-AI, **advisory Risk AI (ADR-0016)** and **advisory Research AI (ADR-0017)** are validated. EA now 55 .mqh (was 53) + 7 scripts + 2 advisory tests; advisory only, default OFF. Next work is Decision Bus (requires new ADR).
+* **Stable through Stage 15 + Chief Risk AI + Chief Research AI + Decision Bus (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, shadow-AI, **advisory Risk AI (ADR-0016)**, **advisory Research AI (ADR-0017)** and **advisory Decision Bus (ADR-0018)** are validated. EA now 56 .mqh (was 53) + 7 scripts + 3 advisory tests; advisory only, default OFF. Next work is AI Council (requires new ADR).
 
 ## 📋 Planned
 
@@ -27,7 +28,8 @@
 |---|---|
 | **9** | **Chief Risk AI** — **DONE** (this sprint, ADR-0016) — advisory risk layer PASS |
 | **10** | **Chief Research AI** — **DONE** (this sprint, ADR-0017) — synthesis advisory PASS |
-| **11 (next)** | Decision Bus — advisory decision routing, risk+research+shadow consensus (requires ADR) |
+| **11** | **Decision Bus** — **DONE** (this sprint, ADR-0018) — advisory consensus PASS |
+| **12 (next)** | AI Council — multi-agent advisory consensus (requires ADR) |
 | Future | Multi-broker backtesting farm (DataSources registry is multi-broker ready); live walk-forward re-validation calendar; Strategy Tester / demo campaign before any live deployment |
 
 ## 🔭 Future
