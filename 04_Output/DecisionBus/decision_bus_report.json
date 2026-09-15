@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-09-15 06:47 UTC",
+  "sources": {
+    "risk": "04_Output/Risk/risk_advisory_report.json",
+    "research": "04_Output/Research/research_synthesis_report.json",
+    "baseline": "04_Output/Statistics/statistical_baseline_report.json"
+  },
+  "inputs": {
+    "risk_high_mult": 0.5,
+    "risk_normal_mult": 0.85,
+    "research_confidence": 0.65,
+    "research_feature_hint": "ABLATE_ATR",
+    "logistic_wf": 0.390131
+  },
+  "bus": {
+    "multiplier_range": [
+      0.5,
+      1.5
+    ],
+    "flag_enum": [
+      "NORMAL",
+      "REDUCED",
+      "CAUTION",
+      "ELEVATED"
+    ],
+    "hint_enum": [
+      "NONE",
+      "RISK",
+      "RESEARCH",
+      "SHADOW"
+    ],
+    "examples": {
+      "low_vol_hour12": {
+        "multiplier": 0.9,
+        "flag": "NORMAL"
+      },
+      "normal_vol_hour21": {
+        "multiplier": 0.54,
+        "flag": "REDUCED"
+      },
+      "high_vol_low_conf": {
+        "multiplier": 0.5,
+        "flag": "CAUTION"
+      }
+    }
+  },
+  "consensus_rule": "ELEVATED (daily 80%) > CAUTION (RISK CAUTION or RESEARCH GB) > REDUCED (mult<0.90) > NORMAL; multiplier= risk_mult * research_shave(<0.55->0.85) * shadow_shave(<0.35->0.80) clamped 0.50..1.50",
+  "advisory_only": true
+}

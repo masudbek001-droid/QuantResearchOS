@@ -311,3 +311,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Decision Bus MQL: CAIDecisionBus (ADR-0018)
 
 - Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextDecisionBus.mqh` — class `CAIDecisionBus` with `SBusAdvisory`/`ENUM_BUS_FLAG`/`ENUM_BUS_HINT`, dormant OFF, explicit `Route(SRiskAdvisory,SResearchAdvisory,CAIContext)` → bus_multiplier = risk*research_shave*shadow_shave clamped 0.50..1.50, flag priority ELEVATED>CAUTION>REDUCED>NORMAL, validates, ToString, 0 tokens.
+
+# 2026-09-15 — Decision Bus research: consensus tool & reports
+
+- Added `06_Tools/decision_bus_advisory.py` — loads risk_advisory_report.json + research_synthesis_report.json + baseline + walk_forward, computes bus_multiplier per regime (low 0.90 NORMAL, normal/worst 0.54 REDUCED, high 0.50 CAUTION), flag/hint enums, writes `04_Output/DecisionBus/decision_bus_report.json` (1.2K) and `03_Documents/Reports/DECISION_BUS_REPORT.md` (1.6K), advisory only.
