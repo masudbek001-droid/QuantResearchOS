@@ -196,3 +196,8 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 
 - Added missing ADR-0015 row to `DECISIONS.md` (AI Promotion and Safety Gates, staged promotion, mandatory gates, shadow-only, date 2026-09-15 Stages 12–14).
 - Preserved ADR-0014 and DEC-0014/0015 ordering; register now covers ADR-0001..0015 fully.
+
+# 2026-09-15 — Consistency audit: AGENT_HANDOFF synchronization
+
+- Updated `AGENT_HANDOFF.md` §4 Current State: Stage 15 now PASS/stable, Active Task none, Immediate Next Tasks reflect ADR-0015 shadow-only and optional README/PDF refresh.
+- Updated §7 Version Pins: Dataset Version now lists 906001/907001 + v907100 training vectors; Current Model(s) now lists 2 baseline models (LogisticRegression/RandomForest) shadow-only, not 'None yet'; added Stage 15 PASS pin.

@@ -73,12 +73,12 @@ Market Data (Ticks/Bars)
 
 ## 4. Current State
 
-- **Current Milestone**: Stage 15 — final architecture/documentation reconciliation.
-- **Active Task**: synchronize root audit deliverables, handoff files, architecture maps, restore guide, README, and reports with the validated Stage 14 state.
+- **Current Milestone**: Stage 15 — Final Architecture/Documentation Reconciliation **PASS** (2026-09-15). Stable.
+- **Active Task**: None — project is stable through Stage 14 validated runtime + Stage 15 reconciliation. Next work is optional README/PDF/manual refresh or a new ADR-controlled validation stage.
 - **Immediate Next Tasks**:
-  1. Complete Stage 15 final documentation reconciliation.
-  2. Keep AI shadow-only; no trading decision may consume predictions yet.
-  3. If future advisory AI behavior is desired, create a new ADR and tester/replay gate first.
+  1. Keep AI shadow-only; no trading decision may consume predictions yet (ADR-0015 gated).
+  2. If future advisory AI behavior is desired, create a new ADR and Strategy Tester / replay gate first.
+  3. Optional: refresh `README.md` / `CandleBreakoutEA_Qollanma.pdf` package or run `06_Tools/build.py` to re-verify 0/0 before any live deployment.
 
 ---
 
@@ -141,8 +141,9 @@ Market Data (Ticks/Bars)
 - **Database Schema Version**: `11` (chain: 1→2→3→4→5→6→7→8→9→10→11)
 - **Feature Version**: `1` (22 standard features catalogued in `CFeatureRegistry`)
 - **Label Version**: `1` (lookahead: 3 bars, threshold: 0.5 range)
-- **Dataset Version**: Initial pipeline validation on `906001`
-- **Current Model**: None yet (reserved for Sprint 7/8)
+- **Dataset Version**: Pipeline validation `906001`/`907001`; training feature vectors `v907100` (56,499 rows, 22-feature contract)
+- **Current Models**: 2 baseline models registered in `CBEA_Models.db` (Models v2) — `QROS_LogisticRegression_Baseline_v1` and `QROS_RandomForest_Baseline_v1` — research/shadow-only, ONNX PASS, not loaded into live trading (ADR-0015)
+- **Stage 15 Status**: **PASS** — architecture, DB, build, and docs reconciled to Stage 14 reality
 
 ---
 
