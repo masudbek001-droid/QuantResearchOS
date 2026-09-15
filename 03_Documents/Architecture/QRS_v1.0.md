@@ -6,7 +6,7 @@ an ADR.
 
 ## Q-1 Compilation
 * The MetaQuotes compiler (MetaEditor64) reports **0 errors and 0 warnings** on every build.
-* Validation is performed by `tools/build.py`, which stages the sources into a genuine MT5 data
+* Validation is performed by `06_Tools/build.py` *(historically `tools/build.py`)*, which stages the sources into a genuine MT5 data
   folder (stock library intact) and fails unless the `.ex5` binary is produced.
 
 ## Q-2 Trading correctness invariants

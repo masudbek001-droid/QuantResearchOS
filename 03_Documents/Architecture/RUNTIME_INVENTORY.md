@@ -36,8 +36,8 @@ sites were collected by repository scan on 2026-09-10.
 | `CandleBreakoutEA.ex5` | resource | compiled binary (109 536 B) |
 | `CandleBreakoutEA_package.zip` | resource | delivery package (18 entries) |
 | `CandleBreakoutEA_Qollanma.pdf` | resource | Uzbek manual (16 pages) |
-| `tools/build.py` | script | compile harness (MetaEditor64 under Wine) |
-| `tools/build_manual.py`, `tools/manual_style.py`, `tools/manual_diagrams.py` | scripts | PDF manual generator |
+| `06_Tools/build.py` *(tools/build.py)* | script | compile harness (MetaEditor64 under Wine) |
+| `06_Tools/build_manual.py`, `06_Tools/manual_style.py`, `06_Tools/manual_diagrams.py` | scripts | PDF manual generator |
 | `tools/compile_mq5.py` | script | legacy single-file compile helper |
 | `tools/mt5setup.exe` | resource | MT5 installer used by the harness |
 | `preview/` | resource | PDF page renders for visual QA |

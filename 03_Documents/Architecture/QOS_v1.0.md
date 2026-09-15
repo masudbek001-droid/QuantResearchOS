@@ -33,7 +33,7 @@ Changes require an ADR.
   the frozen architecture version.
 
 ## O-4 Verification before release
-1. `tools/build.py` → `VERDICT: PASS - 0 errors, 0 warnings, binary produced`.
+1. `06_Tools/build.py` *(historically `tools/build.py`)* → `VERDICT: PASS - 0 errors, 0 warnings, binary produced`.
 2. Grep-level consistency checks (no stale tags, no duplicated helpers) where applicable.
 3. Strategy Tester / demo run before any live deployment (compile validation does not cover
    broker behaviour: fills, expirations, stops level, hedging/netting).

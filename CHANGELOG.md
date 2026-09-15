@@ -230,3 +230,10 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `05_Training/Models/README.md`: walk-forward/ONNX/replay now PASS but still shadow-only per ADR-0015 (was 'still required').
 - Updated `05_Training/ONNX/README.md`: same PASS note + checksum + shadow-only via CAIShadowInference, blocked until advisory ADR.
 - Updated `05_Training/Datasets/README.md`: 56,499 vectors materialized (Stage 8 PASS) and DatasetBuilder canonical path note.
+
+# 2026-09-15 — Consistency audit: Build manual & architecture path sync + PDF regeneration
+
+- Updated `06_Tools/build_manual.py`: binary 205,146 → 207,814 bytes, modules 52 → 53, path tools/build.py → 06_Tools/build.py, file count 10 → 53+9, regenerated Uzbek PDF manual (17 pages, 1,604,976 bytes).
+- Updated `03_Documents/Architecture/QRS_v1.0.md` and `QOS_v1.0.md`: tools/build.py → 06_Tools/build.py with historical note per DEC-0014 reorganization.
+- Updated `03_Documents/Architecture/RUNTIME_INVENTORY.md`: same path corrections.
+- Synchronized shipped PDF `03_Documents/Manuals/CandleBreakoutEA_Qollanma.pdf` to rebuilt artifact.
