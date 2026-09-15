@@ -186,3 +186,8 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Replaced stale Current section (\"Sprint 6B awaits command\") with stable Stage 15 PASS state and 0/0 compile reference (207,814 bytes).
 - Rewrote Planned table: Sprint 6B/7/8 moved from future to completed; next planned is Sprint 9 Advisory AI (ADR-controlled) and future farm/calendar/tester campaigns.
 - Synchronized `PROJECT_STATUS.md` Current Milestone / Current Sprint / Completed Sprints to reflect Stage 15 stability and 53 .mqh + 1 .mq5 EA build unit.
+
+# 2026-09-15 — Consistency audit: AGENT_GUIDE synchronization
+
+- Updated `AGENT_GUIDE.md` step 5: replaced stale 'Do not start Sprint 6B' with 'Do not start a new sprint' and noted Sprints 6B–8 / Stages 8–15 are complete; next work needs a new ADR.
+- Updated 'Which files must be read first' #5: changed latest ADR from ADR-0013 to ADR-0015 (AI promotion and safety gates) with prior chain 0001–0014 still binding.
