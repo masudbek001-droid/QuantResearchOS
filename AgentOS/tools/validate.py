@@ -113,27 +113,28 @@ def main():
     except Exception as e:
         passed = fail(f"WORKER_REGISTRY parse error: {e}") and False
 
-    # 3. LOCK_MANAGER: No duplicate ACTIVE path
+    # 3. LOCK_MANAGER: No duplicate ACTIVE path (scan whole file via regex — handles two tables)
     try:
         lm_text = read("LOCK_MANAGER.md")
-        # parse Active Locks table
-        active_rows = parse_table(lm_text, r"\|\s*LockID\s*\|\s*Path\s*\|")
-        # The file has two tables with same header; we need to capture only ACTIVE section until "## Denied"
-        # Simpler: regex find ACTIVE rows
-        active_paths = []
-        for r in active_rows:
-            if r.get("Status") == "ACTIVE":
-                active_paths.append(r.get("Path"))
+        # regex captures ACTIVE rows across both Active and Denied sections
+        active_paths_raw = re.findall(r"\|\s*LOCK-\d+\s*\|\s*([^\|]+?)\s*\|\s*[^|]+\|\s*[^|]+\|[^|]*\|[^|]*\|\s*ACTIVE", lm_text)
+        # strip backticks/spaces
+        active_paths = [p.strip().strip("`").strip() for p in active_paths_raw]
         if len(active_paths) != len(set(active_paths)):
             passed = fail(f"LOCK_MANAGER duplicate ACTIVE Path: {active_paths}") and False
         else:
-            ok(f"LOCK_MANAGER no duplicate ACTIVE Path (0 ACTIVE at init is OK, found {len(active_paths)})")
-        # check format
-        for r in active_rows:
-            if r.get("Status") == "ACTIVE":
-                # Expires > Acquired lexicographically works for UTC format but check non-empty
-                if not r.get("Acquired") or not r.get("Expires"):
-                    passed = fail(f"LOCK_MANAGER ACTIVE missing Acquired/Expires: {r}") and False
+            ok(f"LOCK_MANAGER no duplicate ACTIVE Path (found {len(active_paths)} ACTIVE)")
+        # also validate each ACTIVE row has Acquired/Expires via parse_table fallback (only Active section)
+        # Use regex to extract full ACTIVE rows for format check
+        active_rows_raw = re.findall(r"(\|\s*LOCK-\d+\s*\|[^\n]*\|\s*ACTIVE[^\n]*)", lm_text)
+        for row in active_rows_raw:
+            cols = [c.strip().strip("`") for c in row.strip().strip("|").split("|")]
+            # cols: LockID, Path, Worker, TaskID, Acquired, Expires, Status
+            if len(cols) >= 6:
+                acq = cols[4] if len(cols)>4 else ""
+                exp = cols[5] if len(cols)>5 else ""
+                if not acq or not exp:
+                    passed = fail(f"LOCK_MANAGER ACTIVE missing Acquired/Expires: {row}") and False
         ok("LOCK_MANAGER format PASS")
     except Exception as e:
         passed = fail(f"LOCK_MANAGER parse error: {e}") and False

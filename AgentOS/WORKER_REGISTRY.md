@@ -34,8 +34,9 @@
 | worker-research | MOD-RESEARCH | module-worker | ACTIVE | - | `worker/worker-research/` | `mql, research, python` |
 | worker-tools | MOD-TOOLS | module-worker | ACTIVE | - | `worker/worker-tools/` | `python, build, tests` |
 | worker-docs | MOD-DOCS | module-worker | ACTIVE | - | `worker/worker-docs/` | `docs, manual, pdf` |
+| worker-twin | MOD-TWIN | module-worker | ACTIVE | 2026-09-15 11:00 UTC | `worker/worker-twin/` | `mql, twin, market-sim, python` |
 
-> 10 workers for 10 modules — satisfies 1:1 invariant. `worker-core` is FROZEN (owns MIPS v1.0, read-only without ADR). All workers communicate only through `AgentOS/` files.
+> 11 workers for 11 modules — satisfies 1:1 invariant. `worker-core` is FROZEN (owns MIPS v1.0, read-only without ADR). All workers communicate only through `AgentOS/` files.
 
 ---
 
@@ -67,4 +68,4 @@ python AgentOS/tools/agentos_cli.py worker heartbeat --id worker-research
 
 ---
 
-*Last heartbeat sweep: 2026-09-15 07:35 UTC — 10 ACTIVE, 0 INACTIVE.*
+*Last heartbeat sweep: 2026-09-15 11:00 UTC — 11 ACTIVE, 0 INACTIVE.*
