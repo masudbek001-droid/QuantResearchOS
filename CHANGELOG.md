@@ -331,3 +331,9 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — ADR-0019: AI Council multi-agent advisory (Sprint 12)
 
 - Added `03_Documents/ADR/ADR-0019-ai-council-advisory.md` — AI Council weighted consensus (Risk 0.35/Research 0.25/Shadow 0.25/Bus 0.15) → council_multiplier 0.50..1.50, confidence, vote ELEVATED>CAUTION>REDUCED>NORMAL, Python + MQL CAIAICouncil dormant OFF.
+
+# 2026-09-15 — AI Council MQL + Python + validation
+
+- Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextAICouncil.mqh` — CAIAICouncil/SCouncilAdvisory, Convene weighted 0.35/0.25/0.25/0.15 → 0.50..1.50, dormant OFF, Validate.
+- Added `06_Tools/ai_council_advisory.py` — loads risk+research+bus+wf, computes council_mult per regime (calm 0.95 NORMAL, reduced 0.85 REDUCED, caution 0.83 CAUTION), writes `04_Output/Council/council_report.json` + `03_Documents/Reports/COUNCIL_REPORT.md`.
+- Added `01_Source/Tests/test_ai_council_advisory.py` — 0 tokens, 0 TradeManager, multiplier bounds, vote enums, JSON schema PASS [QROS_AI_COUNCIL] STATUS=PASS.
