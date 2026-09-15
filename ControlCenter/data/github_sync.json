@@ -1,0 +1,9 @@
+{
+  "mapping": {
+    "MSQ-0001": "TASK-9001",
+    "MSQ-0002": "TASK-9002",
+    "MSQ-0003": "TASK-9003",
+    "MSQ-0004": "TASK-9004"
+  },
+  "note": "MissionID -> TaskID (GitHub sync offline fallback)"
+}

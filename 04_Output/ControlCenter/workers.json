@@ -1,0 +1,31 @@
+{
+  "workers": [
+    {
+      "worker_id": "worker-arena",
+      "role": "arena",
+      "status": "ACTIVE",
+      "last_heartbeat": "2026-09-15T13:35:37Z",
+      "capabilities": [
+        "arena",
+        "git",
+        "queue",
+        "docker"
+      ],
+      "endpoint": "http://arena:8000"
+    },
+    {
+      "worker_id": "worker-kilo",
+      "role": "kilo",
+      "status": "ACTIVE",
+      "last_heartbeat": "2026-09-15T13:35:37Z",
+      "capabilities": [
+        "kilo",
+        "local",
+        "mt5",
+        "build"
+      ],
+      "endpoint": "http://kilo:8000"
+    }
+  ],
+  "updated_at": "2026-09-15T13:35:37Z"
+}

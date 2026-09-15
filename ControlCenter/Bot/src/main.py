@@ -1,15 +1,19 @@
 """
-QROS Bot — main (Stage 2: wired — Telegram long polling + Gateway forwarding + health + structured logging + graceful restart).
+QROS Bot — main (Stage 3: wired + orchestration — Telegram dispatcher + Mission Queue + health + structured logging + graceful restart).
 
 Pipeline: Telegram → QROS Bot → OpenAI Gateway → GitHub → AgentOS
+           Telegram → Bot Dispatcher → Mission Queue → Arena/Kilo → GitHub Task sync → AgentOS
 Reverse: GitHub → Watcher → Gateway → Bot → Telegram
 
-Stage 2 wires:
-- Structured JSON logging
-- Health /ready with telegram_connected + gateway_reachable
-- Telegram long polling (allowlist, handlers → Gateway POST /v1/chat)
-- Internal /internal/notify for Gateway/Watcher → Telegram
-- Graceful shutdown (SIGTERM cancels polling, stops FastAPI)
+Stage 3 adds:
+- Telegram command dispatcher (MissionQueue)
+- Mission lifecycle CREATED→QUEUED→ASSIGNED→RUNNING→REVIEW→DONE→ARCHIVED + retry/timeout/cancel
+- Arena/Kilo worker registration + history
+- GitHub task sync (offline fallback)
+
+Stage 2 wiring retained (long polling, gateway forwarding, health, JSON logs, graceful).
+
+No trading/AgentOS redesign, no Twin changes.
 """
 from __future__ import annotations
 
@@ -30,6 +34,23 @@ import uvicorn
 
 from src.config import BotSettings
 
+# ── Orchestrator imports (Stage 3) ─────────────────────────────────────────
+try:
+    import pathlib as _pl
+    _orch_path = _pl.Path(__file__).resolve().parents[2] / "Orchestrator" / "src"
+    if str(_orch_path) not in sys.path:
+        sys.path.insert(0, str(_orch_path))
+    from mission import MissionStatus  # type: ignore
+    from queue import MissionQueue  # type: ignore
+    from worker_registry import WorkerRegistry  # type: ignore
+    from dispatcher import TelegramCommandDispatcher  # type: ignore
+    from github_sync import GitHubSync  # type: ignore
+    ORCH_AVAILABLE = True
+except Exception as e:
+    # Fallback if orchestrator not yet importable (offline tests should still pass health)
+    ORCH_AVAILABLE = False
+    MissionStatus = None  # type: ignore
+
 # ── Structured JSON logging ────────────────────────────────────────────────
 class JSONFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
@@ -40,10 +61,9 @@ class JSONFormatter(logging.Formatter):
             "logger": record.name,
             "message": record.getMessage(),
         }
-        # add extra fields if present
         if hasattr(record, "extra"):
             payload.update(record.extra)
-        for k in ("telegram_user_id", "command", "gateway_status", "event", "delivery"):
+        for k in ("telegram_user_id", "command", "gateway_status", "event", "delivery", "mission_id", "worker_id"):
             if hasattr(record, k):
                 payload[k] = getattr(record, k)
         return json.dumps(payload, ensure_ascii=False)
@@ -57,12 +77,27 @@ log = logging.getLogger("qros.bot")
 
 settings = BotSettings()
 
-# ── Gateway forwarding ─────────────────────────────────────────────────────
+# ── Orchestrator instances (Stage 3) ───────────────────────────────────────
+if ORCH_AVAILABLE:
+    _workers = WorkerRegistry()
+    _workers.ensure_defaults()
+    _queue = MissionQueue(workers=_workers)
+    _github_sync = GitHubSync()
+    dispatcher = TelegramCommandDispatcher(queue=_queue, workers=_workers, github_sync=_github_sync)
+    log.info(f"Orchestrator wired — workers: {[w.worker_id for w in _workers.list_active()]} missions: {len(_queue.missions)}")
+else:
+    dispatcher = None
+    _workers = None
+    _queue = None
+    _github_sync = None
+    log.warning("Orchestrator not available — dispatcher disabled (health-only)")
+
+# ── Gateway forwarding (Stage 2) ───────────────────────────────────────────
 async def forward_to_gateway(telegram_user_id: int, text: str, context: dict | None = None) -> dict:
     url = f"{settings.gateway_internal_url.rstrip('/')}/v1/chat"
     payload = {"telegram_user_id": telegram_user_id, "text": text, "context": context or {}}
     try:
-        async with httpx.AsyncClient(timeout=settings.gateway_internal_url and 15 or 15) as client:
+        async with httpx.AsyncClient(timeout=15) as client:
             r = await client.post(url, json=payload)
             r.raise_for_status()
             data = r.json()
@@ -72,7 +107,7 @@ async def forward_to_gateway(telegram_user_id: int, text: str, context: dict | N
         log.error(f"Gateway forward failed: {e}", extra={"extra": {"telegram_user_id": telegram_user_id}})
         return {"reply": f"⚠️ Gateway unavailable ({e}). Try /status again in 30s.", "stage": "error"}
 
-# ── Telegram polling (optional — requires token & library) ─────────────────
+# ── Telegram polling ───────────────────────────────────────────────────────
 telegram_app = None
 telegram_task: asyncio.Task | None = None
 telegram_connected = False
@@ -88,7 +123,7 @@ except Exception as e:
 async def check_allowlist(user_id: int) -> bool:
     return user_id in settings.allowed_user_ids_list
 
-# Handlers — all forward to Gateway
+# ── Handlers ───────────────────────────────────────────────────────────────
 async def handle_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_allowlist(update.effective_user.id):
         log.warning("unauthorized /start", extra={"extra": {"telegram_user_id": update.effective_user.id}})
@@ -97,33 +132,80 @@ async def handle_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "👋 QROS Control Center online.\n"
         "Pipeline: Telegram → Bot → Gateway → GitHub → AgentOS\n"
-        "Commands: /help /status /tasks /reports /events /validate"
+        "Mission: /mission help | /mission create <title> | /mission list | /queue\n"
+        "Legacy: /help /status /tasks /reports /events /validate"
     )
 
 async def handle_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_allowlist(update.effective_user.id):
         await update.message.reply_text("⛔ Not authorized.")
         return
-    await update.message.reply_text(
-        "QROS Control Center — remote project management (not trading, not AI)\n"
-        "/start — greeting\n"
-        "/help — this list\n"
-        "/status — PROJECT_STATUS.md via Gateway+GitHub\n"
-        "/tasks — TASK_QUEUE.md via Gateway\n"
-        "/reports — REPORT_QUEUE.md\n"
-        "/events — EVENT_BUS tail\n"
-        "/validate — AgentOS validate\n"
-        "Any text → Gateway → OpenAI → GitHub → AgentOS"
-    )
+    # Stage 3 help includes mission help
+    if ORCH_AVAILABLE and dispatcher:
+        help_text = dispatcher.dispatch("/mission help", update.effective_user.id)
+        await update.message.reply_text(
+            "QROS Control Center — remote project management (not trading, not AI)\n"
+            "/start — greeting\n"
+            "/help — this list\n"
+            "/status — PROJECT_STATUS.md via Gateway+GitHub\n"
+            "/tasks — TASK_QUEUE.md via Gateway\n"
+            "/reports — REPORT_QUEUE.md\n"
+            "/events — EVENT_BUS tail\n"
+            "/validate — AgentOS validate\n"
+            "--- Mission Queue (Stage 3) ---\n" + help_text
+        )
+    else:
+        await update.message.reply_text(
+            "QROS Control Center — remote project management (not trading, not AI)\n"
+            "/start — greeting\n"
+            "/help — this list\n"
+            "/status — PROJECT_STATUS.md via Gateway+GitHub\n"
+            "/tasks — TASK_QUEUE.md via Gateway\n"
+            "/reports — REPORT_QUEUE.md\n"
+            "/events — EVENT_BUS tail\n"
+            "/validate — AgentOS validate\n"
+            "Any text → Gateway → OpenAI → GitHub → AgentOS"
+        )
+
+async def handle_mission(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_allowlist(update.effective_user.id):
+        await update.message.reply_text("⛔ Not authorized.")
+        return
+    if not ORCH_AVAILABLE or not dispatcher:
+        await update.message.reply_text("⚠️ Mission Queue unavailable (orchestrator not loaded).")
+        return
+    text = update.message.text or ""
+    # Full text includes command and args, e.g., "/mission create Foo"
+    reply = dispatcher.dispatch(text, update.effective_user.id)
+    if not reply:
+        reply = "Unknown mission command. Try /mission help"
+    log.info(f"Mission dispatch {text[:60]} → {reply[:60]}", extra={"extra": {"telegram_user_id": update.effective_user.id, "command": text[:40]}})
+    await update.message.reply_text(reply[:4096])
+
+async def handle_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not await check_allowlist(update.effective_user.id):
+        await update.message.reply_text("⛔ Not authorized.")
+        return
+    if not ORCH_AVAILABLE or not dispatcher:
+        await update.message.reply_text("⚠️ Queue unavailable")
+        return
+    reply = dispatcher.dispatch("/mission list QUEUED", update.effective_user.id)
+    await update.message.reply_text(reply[:4096])
 
 async def _gateway_and_reply(update: Update, text: str):
     if not await check_allowlist(update.effective_user.id):
         await update.message.reply_text("⛔ Not authorized.")
         return
+    # Intercept mission commands before Gateway
+    if text.strip().lower().startswith("/mission") or text.strip().lower().startswith("/queue"):
+        if ORCH_AVAILABLE and dispatcher:
+            reply = dispatcher.dispatch(text, update.effective_user.id)
+            if reply:
+                await update.message.reply_text(reply[:4096])
+                return
     ctx = {"chat_id": update.effective_chat.id, "username": update.effective_user.username}
     data = await forward_to_gateway(update.effective_user.id, text, ctx)
     reply = data.get("reply") or data.get("message") or "[no reply]"
-    # Telegram limit 4096
     for i in range(0, len(reply), 4096):
         await update.message.reply_text(reply[i:i+4096])
 
@@ -148,6 +230,10 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message or not update.message.text:
         return
     if update.message.text.startswith("/"):
+        # Check if it's a mission command that wasn't caught by specific handler
+        if update.message.text.lower().startswith("/mission") or update.message.text.lower().startswith("/queue"):
+            await handle_mission(update, context)
+            return
         return
     await _gateway_and_reply(update, update.message.text)
 
@@ -166,16 +252,17 @@ async def start_telegram_polling():
         telegram_app = Application.builder().token(settings.telegram_bot_token).build()
         telegram_app.add_handler(CommandHandler("start", handle_start))
         telegram_app.add_handler(CommandHandler("help", handle_help))
+        telegram_app.add_handler(CommandHandler("mission", handle_mission))
+        telegram_app.add_handler(CommandHandler("queue", handle_queue))
         telegram_app.add_handler(CommandHandler("status", handle_status))
         telegram_app.add_handler(CommandHandler("tasks", handle_tasks))
         telegram_app.add_handler(CommandHandler("reports", handle_reports))
         telegram_app.add_handler(CommandHandler("events", handle_events))
         telegram_app.add_handler(CommandHandler("validate", handle_validate))
         telegram_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
-        log.info(f"Telegram polling starting — allowed_users={settings.allowed_user_ids_list}")
+        log.info(f"Telegram polling starting — allowed_users={settings.allowed_user_ids_list} orch={ORCH_AVAILABLE}")
         await telegram_app.initialize()
         await telegram_app.start()
-        # verify getMe
         try:
             me = await telegram_app.bot.get_me()
             telegram_connected = True
@@ -184,7 +271,7 @@ async def start_telegram_polling():
             log.warning(f"Telegram getMe failed (will still poll): {e}")
             telegram_connected = True
         await telegram_app.updater.start_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
-        log.info("Telegram long polling ONLINE")
+        log.info("Telegram long polling ONLINE (Stage 3: dispatcher + mission queue)")
     except Exception as e:
         log.error(f"Telegram polling failed to start: {e}")
         telegram_connected = False
@@ -202,19 +289,13 @@ async def stop_telegram_polling():
             log.warning(f"Telegram stop error: {e}")
         telegram_connected = False
 
-# ── FastAPI with lifespan (graceful restart) ───────────────────────────────
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # startup
-    log.info(f"Bot startup — port {settings.port} gateway={settings.gateway_internal_url}")
-    # start polling in background if configured
-    task = None
+    log.info(f"Bot startup — port {settings.port} gateway={settings.gateway_internal_url} orch={ORCH_AVAILABLE}")
     if TELEGRAM_AVAILABLE and settings.telegram_bot_token and not settings.telegram_bot_token.startswith("123456:"):
         task = asyncio.create_task(start_telegram_polling())
-        # store for shutdown
         app.state.telegram_task = task
     yield
-    # shutdown
     log.info("Bot shutdown — graceful")
     if hasattr(app.state, "telegram_task"):
         try:
@@ -229,20 +310,19 @@ async def lifespan(app: FastAPI):
     log.info("Bot shutdown complete")
 
 app = FastAPI(
-    title="QROS Bot (Stage 2)",
-    version="1.0.0-stage2",
-    description="Telegram long polling → Gateway → GitHub → AgentOS",
+    title="QROS Bot (Stage 3)",
+    version="1.0.0-stage3",
+    description="Telegram dispatcher → Mission Queue → Gateway → GitHub → AgentOS",
     lifespan=lifespan,
 )
 
 @app.get("/health")
 def health():
-    return {"service": "qros-bot", "status": "ok", "stage": "2-wired", "version": "1.0.0-stage2", "telegram_connected": telegram_connected, "telegram_available": TELEGRAM_AVAILABLE}
+    return {"service": "qros-bot", "status": "ok", "stage": "2-wired", "version": "1.0.0-stage3", "telegram_connected": telegram_connected, "telegram_available": TELEGRAM_AVAILABLE, "orchestrator": ORCH_AVAILABLE}
 
 @app.get("/ready")
 async def ready():
     missing = settings.validate_stage1()
-    # gateway reachable probe
     gateway_ok = False
     try:
         async with httpx.AsyncClient(timeout=3) as c:
@@ -250,9 +330,12 @@ async def ready():
             gateway_ok = r.status_code == 200
     except Exception:
         gateway_ok = False
-    # telegram probe (if token placeholder, report degraded)
     tg_ok = telegram_connected if not settings.telegram_bot_token.startswith("123456:") and settings.telegram_bot_token else False
-    # For health/evidence: if token is placeholder, we still report ready=false but health ok — allows CI without real token
+    workers_ok = False
+    queue_len = 0
+    if ORCH_AVAILABLE and _workers and _queue:
+        workers_ok = len(_workers.list_active()) >= 2
+        queue_len = len(_queue.missions)
     return {
         "service": "qros-bot",
         "ready": len(missing) == 0 and gateway_ok,
@@ -262,6 +345,9 @@ async def ready():
         "gateway_reachable": gateway_ok,
         "telegram_connected": tg_ok,
         "telegram_available": TELEGRAM_AVAILABLE,
+        "orchestrator": ORCH_AVAILABLE,
+        "workers_registered": len(_workers.list_active()) if _workers else 0,
+        "missions": queue_len,
         "environment": settings.environment,
     }
 
@@ -270,12 +356,15 @@ def root():
     return {
         "service": "qros-bot",
         "stage": "2-wired",
+        "version": "1.0.0-stage3",
         "pipeline": "Telegram → QROS Bot → OpenAI Gateway → GitHub → AgentOS → Arena+Kilo",
         "health": "/health",
         "ready": "/ready",
         "internal": "POST /internal/notify",
-        "commands": ["/start", "/help", "/status", "/tasks", "/reports", "/events", "/validate"],
-        "telegram_polling": "long polling" if TELEGRAM_AVAILABLE else "stub (library missing)",
+        "mission": "POST /mission/create, GET /mission/list, /mission/lifecycle",
+        "commands": ["/start", "/help", "/status", "/tasks", "/reports", "/events", "/validate", "/mission", "/queue"],
+        "telegram_polling": "long polling + dispatcher" if TELEGRAM_AVAILABLE else "stub",
+        "orchestrator": ORCH_AVAILABLE,
     }
 
 class NotifyIn(BaseModel):
@@ -284,11 +373,8 @@ class NotifyIn(BaseModel):
 
 @app.post("/internal/notify")
 async def internal_notify(body: NotifyIn, request: Request):
-    # internal — only trusted network; allowlist not enforced but log caller
-    # Forward to all allowed users via Telegram
     if not telegram_app or not telegram_connected:
         log.warning("Notify dropped — Telegram not connected", extra={"extra": {"event": "notify_dropped"}})
-        # still return ok for Watcher/Gateway — do not fail webhook
         return {"delivered": False, "reason": "telegram not connected", "text_preview": body.text[:80]}
     delivered = 0
     for uid in settings.allowed_user_ids_list:
@@ -300,10 +386,58 @@ async def internal_notify(body: NotifyIn, request: Request):
             log.error(f"Notify failed to {uid}: {e}", extra={"extra": {"telegram_user_id": uid}})
     return {"delivered": True, "recipients": delivered, "text_preview": body.text[:80]}
 
-# signal handling for graceful restart (uvicorn handles SIGTERM, but also ensure polling stops)
+# ── Mission REST (Stage 3, for Gateway/Orchestrator health + evidence) ──────
+@app.get("/mission/list")
+def mission_list(status: str | None = None):
+    if not ORCH_AVAILABLE or not _queue:
+        raise HTTPException(status_code=503, detail="orchestrator not available")
+    missions = _queue.list(status=status)
+    return {"missions": [m.to_dict() for m in missions], "count": len(missions)}
+
+@app.get("/mission/{mission_id}")
+def mission_get(mission_id: str):
+    if not ORCH_AVAILABLE or not _queue:
+        raise HTTPException(status_code=503, detail="orchestrator not available")
+    m = _queue.get(mission_id.upper())
+    if not m:
+        raise HTTPException(status_code=404, detail="mission not found")
+    return m.to_dict()
+
+class MissionCreateIn(BaseModel):
+    title: str
+    module: str = "MOD-ORCHESTRATOR"
+    priority: str = "P1"
+    telegram_user_id: int = 0
+    payload: dict | None = None
+
+@app.post("/mission/create")
+def mission_create(body: MissionCreateIn):
+    if not ORCH_AVAILABLE or not _queue:
+        raise HTTPException(status_code=503, detail="orchestrator not available")
+    m = _queue.create(title=body.title, module=body.module, priority=body.priority, created_by=str(body.telegram_user_id), payload=body.payload)
+    _queue.queue(m.mission_id, by=str(body.telegram_user_id))
+    # sync to GitHub
+    try:
+        tid = _github_sync.sync_create(m)
+        m.github_task_id = tid
+        _queue.save()
+    except Exception:
+        pass
+    return m.to_dict()
+
+@app.post("/mission/{mission_id}/transition")
+def mission_transition(mission_id: str, to: str, by: str = "api"):
+    if not ORCH_AVAILABLE or not _queue:
+        raise HTTPException(status_code=503, detail="orchestrator not available")
+    try:
+        st = MissionStatus(to)
+    except:
+        raise HTTPException(status_code=400, detail=f"invalid status {to}")
+    m = _queue.transition(mission_id.upper(), st, by=by)
+    return m.to_dict()
+
 def _handle_signal(signum, frame):
     log.info(f"Received signal {signum} — graceful shutdown")
-    # uvicorn will trigger lifespan shutdown
 
 signal.signal(signal.SIGTERM, _handle_signal)
 signal.signal(signal.SIGINT, _handle_signal)
@@ -314,7 +448,7 @@ def main() -> None:
         log.warning(f"Bot config incomplete — missing: {', '.join(missing)} (health will show degraded)")
     else:
         log.info(f"Bot config OK — allowed_users={settings.allowed_user_ids_list} gateway={settings.gateway_internal_url}")
-    log.info(f"Starting QROS Bot wired on port {settings.port} (Stage 2: long polling if configured)")
+    log.info(f"Starting QROS Bot wired+orchestrated on port {settings.port} (Stage 3)")
     uvicorn.run(app, host="0.0.0.0", port=settings.port, log_level="info")
 
 if __name__ == "__main__":
