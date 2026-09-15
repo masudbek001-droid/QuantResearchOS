@@ -191,3 +191,8 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 
 - Updated `AGENT_GUIDE.md` step 5: replaced stale 'Do not start Sprint 6B' with 'Do not start a new sprint' and noted Sprints 6B–8 / Stages 8–15 are complete; next work needs a new ADR.
 - Updated 'Which files must be read first' #5: changed latest ADR from ADR-0013 to ADR-0015 (AI promotion and safety gates) with prior chain 0001–0014 still binding.
+
+# 2026-09-15 — Consistency audit: DECISIONS register synchronization
+
+- Added missing ADR-0015 row to `DECISIONS.md` (AI Promotion and Safety Gates, staged promotion, mandatory gates, shadow-only, date 2026-09-15 Stages 12–14).
+- Preserved ADR-0014 and DEC-0014/0015 ordering; register now covers ADR-0001..0015 fully.
