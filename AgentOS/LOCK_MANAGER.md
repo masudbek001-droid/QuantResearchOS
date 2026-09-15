@@ -24,7 +24,7 @@
 
 | LockID | Path | Worker | TaskID | Acquired | Expires | Status |
 |---|---|---|---|---|---|---|
-| LOCK-0001 | `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAMarketDigitalTwin/**` | worker-twin | TASK-0005 | 2026-09-15 11:00 UTC | 2026-09-18 11:00 UTC | ACTIVE |
+| LOCK-0001 | `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAMarketDigitalTwin/**` | worker-twin | TASK-0005 | 2026-09-15 11:00 UTC | 2026-09-18 11:00 UTC | RELEASED |
 
 *No active locks at init. Example active row:*
 *`LOCK-0001 | 01_Source/EA/MQL5/Include/CandleBreakoutEA/EAData/** | worker-dal | TASK-0010 | 2026-09-15 08:00 UTC | 2026-09-18 08:00 UTC | ACTIVE`*
@@ -70,4 +70,4 @@ python AgentOS/tools/agentos_cli.py lock sweep
 
 ---
 
-*Last sweep: 2026-09-15 11:00 UTC — 1 ACTIVE (LOCK-0001), 0 EXPIRED.*
+*Last sweep: 2026-09-15 12:00 UTC — 0 ACTIVE, 1 RELEASED (LOCK-0001).*

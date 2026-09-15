@@ -35,6 +35,9 @@
 | EVT-0010 | 2026-09-15 11:30:00 UTC | worker-twin | task.in_progress | TASK-0005 | `{"status":"IN_PROGRESS"}` |
 | EVT-0011 | 2026-09-15 11:45:00 UTC | worker-twin | report.created | REPORT-0002 | `{"task":"TASK-0005","verdict":"PASS","hash":"FNV-1a 100 bars 0 mismatches"}` |
 | EVT-0012 | 2026-09-15 11:45:00 UTC | worker-twin | task.review | TASK-0005 | `{"report":"REPORT-0002","status":"REVIEW"}` |
+| EVT-0013 | 2026-09-15 12:00:00 UTC | worker-agentos | report.approved | REPORT-0002 | `{"task":"TASK-0005","verdict":"PASS"}` |
+| EVT-0014 | 2026-09-15 12:00:00 UTC | worker-agentos | task.completed | TASK-0005 | `{"status":"DONE","branch":"worker/worker-twin/TASK-0005"}` |
+| EVT-0015 | 2026-09-15 12:00:00 UTC | worker-agentos | lock.released | LOCK-0001 | `{"path":"01_Source/EA/MQL5/Include/CandleBreakoutEA/EAMarketDigitalTwin/**"}` |
 
 > Emitted by `AgentOS/tools/agentos_cli.py` on each state transition. Workers append by editing this file, committing `[AgentOS][TASK-xxxx][worker] event: <type>`, pushing.
 
@@ -62,4 +65,4 @@ tail -n 20 AgentOS/EVENT_BUS.md  # new events since last seen EventID
 
 ---
 
-*Last event: EVT-0012 — next is EVT-0013. Poll after every `git pull`.*
+*Last event: EVT-0015 — next is EVT-0016. Poll after every `git pull`.*
