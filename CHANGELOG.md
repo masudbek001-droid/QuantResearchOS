@@ -341,3 +341,9 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — ADR-0020: Continuous Learning drift & retrain advisory (Sprint 13)
 
 - Added `03_Documents/ADR/ADR-0020-continuous-learning-advisory.md` — Continuous Learning drift score 0..1 → retrain hint NONE/SCHEDULED/URGENT (Risk CAUTION + Council CAUTION + WF low), Python + MQL CAIContinuousLearning dormant OFF.
+
+# 2026-09-15 — Continuous Learning MQL + Python + validation
+
+- Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextContinuousLearning.mqh` — CAIContinuousLearning/SLearningAdvisory, CheckDrift risk+council+ai → drift 0..1 urgent≥0.70, dormant OFF.
+- Added `06_Tools/continuous_learning_advisory.py` — loads risk+council+wf+stat, drift 1.0 URGENT (high vol + council CAUTION + logistic 0.3901), writes `04_Output/Learning/learning_advisory_report.json` + `03_Documents/Reports/LEARNING_ADVISORY_REPORT.md`.
+- Added `01_Source/Tests/test_continuous_learning_advisory.py` — 0 tokens, 0 TradeManager, drift bounds, hint enums, JSON schema PASS [QROS_CONTINUOUS_LEARNING] STATUS=PASS.
