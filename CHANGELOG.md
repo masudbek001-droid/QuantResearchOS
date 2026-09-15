@@ -259,3 +259,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — ADR-0016: Chief Risk AI Advisory (Sprint 9)
 
 - Added `03_Documents/ADR/ADR-0016-chief-risk-ai-advisory.md` — Chief Risk AI advisory-only layer (shadow-only, dormant, explicit Update, default OFF). Defines volatility/hourly/confidence/daily/carry advisory tables, risk_multiplier 0.50..1.50, flags NORMAL/REDUCED/CAUTION/ELEVATED, safety invariants (no OrderSend/PositionClose/CRiskManager bypass/exit reorder), mandatory gates (Models.db v2 + ONNX + walk-forward PASS + advisory validation + safety audit), rollback = Reset().
+
+# 2026-09-15 — Chief Risk AI MQL: EAContextRiskAdvisory (ADR-0016)
+
+- Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextRiskAdvisory.mqh` — class `CAIRiskAdvisory` with `SRiskAdvisory`/`ENUM_RISK_ADVISORY_FLAG`, dormant disabled default, explicit `Update()`/`UpdateDetailed()` (ATR ratio, hour, CAIContext, daily P/L, trend), volatility (low 1.00/normal 0.85/high 0.50), hourly (top 1.00/worst 0.70), confidence (low<0.35 0.80/fake>0.50 0.50), daily 80% ELEVATED, carry advisory, clamp 0.50..1.50, Validate/Reset/ToString, zero trading tokens, never consumes Order/Position/Risk/Exit.
