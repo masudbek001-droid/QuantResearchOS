@@ -255,3 +255,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `NEXT_TASK.md`: audit PASS, BLOCKED externally, next authorized work requires MT5 host + ADR-0016.
 - Audit complete: all systematic documentation/path/count/schema/stage inconsistencies resolved; 11 prior commits + this summit commit total 12 audit commits on `arena/01a0a3b5-quantresearchos`. AI remains shadow-only; trading core frozen MIPS v1.0.
 - External blockers documented: MetaEditor missing in Linux sandbox, runtime DBs not in git clone, next sprint needs user ADR.
+
+# 2026-09-15 — ADR-0016: Chief Risk AI Advisory (Sprint 9)
+
+- Added `03_Documents/ADR/ADR-0016-chief-risk-ai-advisory.md` — Chief Risk AI advisory-only layer (shadow-only, dormant, explicit Update, default OFF). Defines volatility/hourly/confidence/daily/carry advisory tables, risk_multiplier 0.50..1.50, flags NORMAL/REDUCED/CAUTION/ELEVATED, safety invariants (no OrderSend/PositionClose/CRiskManager bypass/exit reorder), mandatory gates (Models.db v2 + ONNX + walk-forward PASS + advisory validation + safety audit), rollback = Reset().
