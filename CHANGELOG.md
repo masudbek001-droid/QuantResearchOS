@@ -263,3 +263,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Chief Risk AI MQL: EAContextRiskAdvisory (ADR-0016)
 
 - Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextRiskAdvisory.mqh` — class `CAIRiskAdvisory` with `SRiskAdvisory`/`ENUM_RISK_ADVISORY_FLAG`, dormant disabled default, explicit `Update()`/`UpdateDetailed()` (ATR ratio, hour, CAIContext, daily P/L, trend), volatility (low 1.00/normal 0.85/high 0.50), hourly (top 1.00/worst 0.70), confidence (low<0.35 0.80/fake>0.50 0.50), daily 80% ELEVATED, carry advisory, clamp 0.50..1.50, Validate/Reset/ToString, zero trading tokens, never consumes Order/Position/Risk/Exit.
+
+# 2026-09-15 — Chief Risk AI research: advisory tool & reports
+
+- Added `06_Tools/chief_risk_advisory.py` — loads statistical_baseline_report.json (56,514 H1, WR 54.96% PF 1.95) + walk-forward (logistic 0.3901 RF 0.4183) + supervised, builds volatility/hourly/confidence/daily/carry advisory tables (deterministic 0.50..1.50), writes `04_Output/Risk/risk_advisory_report.json` (6.0K) and `03_Documents/Reports/RISK_ADVISORY_REPORT.md` (3.4K), no lookahead, advisory-only, 0.50..1.50 verified.
