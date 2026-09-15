@@ -206,3 +206,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 
 - Updated `USER_ACTION_REQUIRED.md`: Reason now Stages 2–15 complete, Expected Result Stage 15 COMPLETE/PASS (was 'in progress').
 - Updated `BUILD_AUDIT.md`: expanded validation script list from 4 to 8 entries with sizes/magic numbers and EA binary 53 .mqh detail; added 2026-09-15 date.
+
+# 2026-09-15 — Consistency audit: Manual README synchronization
+
+- Updated `03_Documents/Manuals/CandleBreakoutEA_README.md`: binary size 205,146 → 207,814 bytes (two locations), staged path /home/user/.build → QuantResearchOS/.build, tools/build.py → 06_Tools/build.py, schema v1 → v1–v11 chain, EAContextAI placeholder → prediction fields (shadow-only ADR-0015), added CAIShadowInference.mqh entry, expanded verification output with project output path.
