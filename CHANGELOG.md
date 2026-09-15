@@ -287,3 +287,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Chief Research AI MQL: CAIResearchAdvisory (ADR-0017)
 
 - Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextResearchAdvisory.mqh` — class `CAIResearchAdvisory` with `SResearchAdvisory`/`ENUM_RESEARCH_HINT`, dormant OFF, explicit `Update(SRiskAdvisory,CAIContext,atr_ratio,hour)` heuristic (high vol→ABLATE_ATR, worst hour→ABLATE_HOUR, low conf→EXPAND_WINDOW, CAUTION→TRY_GRADIENT_BOOST), confidence 0..1, Validate/Reset/ToString, 0 trading tokens.
+
+# 2026-09-15 — Chief Research AI research: synthesis tool & reports
+
+- Added `06_Tools/chief_research_advisory.py` — loads baseline (54.96% WR PF1.95) + walk-forward (logistic 0.3901 std0.04 RF 0.4183) + risk advisory, synthesizes feature/window/next/quality hints, writes `04_Output/Research/research_synthesis_report.json` (1.3K) and `03_Documents/Reports/RESEARCH_SYNTHESIS_REPORT.md` (1.9K), no lookahead, advisory only.
