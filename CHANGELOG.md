@@ -303,3 +303,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `NEXT_TASK.md`: Stage 15+Risk+Research COMPLETE PASS, Current Active Task → Chief Research AI DONE next Decision Bus, BLOCKED MT5 compile, next authorized work Decision Bus ADR-0018.
 - Updated `DECISIONS.md`: added ADR-0017 register row.
 - Updated `AGENT_HANDOFF.md`: added Sprint 10 row, Current Milestone Sprint 10 PASS, Active Task Chief Research AI DONE, Next blocked MT5, Version Pins +Chief Research AI PASS.
+
+# 2026-09-15 — ADR-0018: Decision Bus advisory consensus (Sprint 11)
+
+- Added `03_Documents/ADR/ADR-0018-decision-bus-advisory.md` — Decision Bus advisory consensus routing (Sprint 11). Fuses Risk (0.50..1.50) + Research (confidence) + Shadow (low conf) into bus_multiplier 0.50..1.50, flags NORMAL/REDUCED/CAUTION/ELEVATED, hints RISK/RESEARCH/SHADOW, Python synthesis + MQL CAIDecisionBus dormant OFF, 0 tokens, rollback Reset().
