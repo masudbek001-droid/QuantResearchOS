@@ -291,3 +291,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Chief Research AI research: synthesis tool & reports
 
 - Added `06_Tools/chief_research_advisory.py` — loads baseline (54.96% WR PF1.95) + walk-forward (logistic 0.3901 std0.04 RF 0.4183) + risk advisory, synthesizes feature/window/next/quality hints, writes `04_Output/Research/research_synthesis_report.json` (1.3K) and `03_Documents/Reports/RESEARCH_SYNTHESIS_REPORT.md` (1.9K), no lookahead, advisory only.
+
+# 2026-09-15 — Chief Research AI validation: synthesis & safety tests
+
+- Added `01_Source/Tests/test_chief_research_ai.py` — validates mqh exists, 0 forbidden tokens, TradeManager 0 calls, synthesis JSON schema (feature/window/next hints, confidence 0..1), advisory_only true, hints PASS. Evidence: [QROS_CHIEF_RESEARCH] STATUS=PASS.
