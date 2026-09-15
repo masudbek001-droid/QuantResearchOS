@@ -40,7 +40,7 @@ Machine-readable JSON mirror (append after table edits, keep synced):
 | TASK-0002 | Validate ownership map single-owner invariant | MOD-AGENTOS | - | OPEN | P0 | `AgentOS/OWNERSHIP_MAP.md` | - | 2026-09-15 07:35 UTC | 2026-09-15 07:35 UTC |
 | TASK-0003 | Seed TASK_QUEUE with example workflow | MOD-AGENTOS | - | OPEN | P1 | `AgentOS/TASK_QUEUE.md` | - | 2026-09-15 07:35 UTC | 2026-09-15 07:35 UTC |
 | TASK-0004 | Research platform benchmark deterministic replay | MOD-RESEARCH | - | OPEN | P1 | `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAResearch/**` | - | 2026-09-15 07:35 UTC | 2026-09-15 07:35 UTC |
-| TASK-0005 | Build Market Digital Twin — single source of truth simulator | MOD-TWIN | worker-twin | IN_PROGRESS | P0 | `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAMarketDigitalTwin/**` | worker/worker-twin/TASK-0005 | 2026-09-15 11:00 UTC | 2026-09-15 11:30 UTC |
+| TASK-0005 | Build Market Digital Twin — single source of truth simulator | MOD-TWIN | worker-twin | REVIEW | P0 | `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAMarketDigitalTwin/**` | worker/worker-twin/TASK-0005 | 2026-09-15 11:00 UTC | 2026-09-15 11:45 UTC |
 
 > Example workflow uses TASK-0003: worker-agentos claims → branch `worker/worker-agentos/TASK-0003` → updates `TASK_QUEUE.md` + `EVENT_BUS.md` → report in `REPORT_QUEUE.md`.
 > TASK-0005 is active: worker-twin owns MOD-TWIN, Twin is single source for Replay/Training/Risk/Research/AI.
@@ -70,4 +70,4 @@ python AgentOS/tools/agentos_cli.py task claim --id TASK-0002 --worker worker-ag
 
 ---
 
-*Last synced: 2026-09-15 11:00 UTC — 4 OPEN, 1 CLAIMED (TASK-0005), 0 DONE.*
+*Last synced: 2026-09-15 11:45 UTC — 4 OPEN, 0 CLAIMED, 1 REVIEW (TASK-0005) *
