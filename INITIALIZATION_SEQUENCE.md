@@ -11,4 +11,4 @@
 8. `OnDeinit` invokes `CTradeManager.Deinit`, which shuts services down in reverse ownership order.
 
 This sequence is compile-verified and validated by the staged terminal/runtime
-evidence through Stage 14.
+evidence through Stage 15.

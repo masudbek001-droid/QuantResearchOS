@@ -237,3 +237,13 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `03_Documents/Architecture/QRS_v1.0.md` and `QOS_v1.0.md`: tools/build.py → 06_Tools/build.py with historical note per DEC-0014 reorganization.
 - Updated `03_Documents/Architecture/RUNTIME_INVENTORY.md`: same path corrections.
 - Synchronized shipped PDF `03_Documents/Manuals/CandleBreakoutEA_Qollanma.pdf` to rebuilt artifact.
+
+# 2026-09-15 — Consistency audit: Root audit deliverables Stage 15 sync
+
+- Updated `README.md`: verified baseline Stage 14 → Stage 15 (final reconciliation PASS).
+- Updated `ARCHITECTURE_AUDIT.md`: validated through Stage 14 → Stage 15.
+- Updated `FINAL_VALIDATION.md`: PASS through Stage 14 → Stage 15, added Stage 12 and Stage 15 to runtime evidence, extended coherent pipeline list.
+- Updated `INITIALIZATION_SEQUENCE.md`: evidence through Stage 14 → Stage 15.
+- Updated `DATABASE_AUDIT.md`: Stages 3–14 → Stages 3–15.
+- Updated `MEMORY_AUDIT.md`: validation runs through Stage 14 → Stage 15.
+- Updated `REFACTOR_SUMMARY.md`: Stage 14 reality → Stage 15 final reconciliation.

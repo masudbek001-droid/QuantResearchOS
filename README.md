@@ -2,7 +2,7 @@
 
 **Algorithmic trading research operating system for MetaTrader 5.**
 
-The current recovery baseline is verified through Stage 14 with the active
+The current recovery baseline is verified through Stage 15 (final reconciliation PASS) with the active
 Windows MetaEditor and active MetaTrader runtime. AI remains shadow-only and is
 not promoted to live trading authority.
 

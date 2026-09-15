@@ -6,7 +6,7 @@ diagnostics are clean.
 
 Runtime leak evidence from the early Stage 2 database-open failure was addressed
 by repairing database open/schema handling; later validation runs through Stage
-14 completed without reported leaked dynamic objects in the supplied terminal
+15 completed without reported leaked dynamic objects in the supplied terminal
 evidence.
 
 ONNX handle ownership:
