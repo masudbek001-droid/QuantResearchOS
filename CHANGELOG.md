@@ -409,3 +409,21 @@ Evidence: `gh api .../protection → 403` captured 2026-09-15 07:35 UTC, same as
 - Updated `NEXT_TASK.md`: Stage15+5 advisory+AgentOS+Twin COMPLETE PASS, Current Active Task → Twin DONE next Twin consumer migration, next authorized work Twin migration + production promotion.
 - Updated `DECISIONS.md`: added ADR-0022 register row (Twin single source).
 - Updated `AGENT_HANDOFF.md`: added Twin row, Current Milestone Twin PASS, Active Task Twin DONE.
+
+# 2026-09-15 — QROS Control Center v1 Stage 1: structure, compose, env, docs PASS (ADR-0023, MISSION-001)
+
+- Added `docker-compose.yml` (gateway 8080→8080, bot 8081→8081, github-watcher 8082→8082, qros-control-net bridge, healthchecks) + `ControlCenter/docker-compose.yml` copy.
+- Added `.env.example` (also `ENV.example`, `ControlCenter/.env.example`, `ControlCenter/config/env.example`) with TELEGRAM_BOT_TOKEN/ALLOWED_IDS, OPENAI_API_KEY/MODEL, GITHUB_TOKEN/REPO/WEBHOOK_SECRET, ports, AgentOS/ARENA/KILO vars.
+- Added `ControlCenter/` root with `README.md`, `config/env.example`, `docs/{ARCHITECTURE,SECURITY,INSTALL,ENV_VARS,GITHUB_WEBHOOK_DESIGN,TELEGRAM_BOT_DESIGN,OPENAI_GATEWAY_DESIGN}.md`, and 3 services:
+  - `ControlCenter/Bot/` Dockerfile+requirements+src/{config.py (BotSettings allowlist), main.py (FastAPI /health/ready stub), handlers/__init__.py}, README — HMAC-free, no polling, no GitHub call.
+  - `ControlCenter/Gateway/` Dockerfile+requirements+src/{config.py, openai_client.py (SYSTEM_PROMPT_STAGE1 + TOOLS_DESIGN + stub_handle), main.py (/v1/chat stub)}, README.
+  - `ControlCenter/GithubWatcher/` Dockerfile+requirements+src/{config.py, webhook.py (verify_signature + SUBSCRIBED_EVENTS_DESIGN), main.py (/github/webhook HMAC)}, README.
+- Added thin root wrappers `Bot/README.md`, `Gateway/README.md`, `GithubWatcher/README.md` for deliverable compliance.
+- Added root docs `ARCHITECTURE.md` (pipeline + mermaid diagrams + deployment topology + layout), `SECURITY.md` (secrets via env, allowlist, HMAC, minimal PAT, OpenAI key isolation, non-root), `INSTALL.md` (prereqs + cp .env + compose up + health + webhook HMAC test + troubleshooting) + `ControlCenter/docs/` copies.
+- Added `.gitignore` entries `.env`, `*.pem`, `*.key`.
+- Added `ControlCenter/tests/test_stage1_structure.py` (17 checks: deliverables, compose/env content, docs pipeline, .gitignore, no .mqh/AgentOS mutation, webhook HMAC, gateway stub, bot config offline) — PASS (16 ok 1 skipped pydantic).
+- Added `03_Documents/ADR/ADR-0023-qros-control-center-v1-stage1.md` — Stage 1 structure decision (services, compose, env, security, non-goals).
+- No `01_Source/EA/**` trading logic or `AgentOS/**` mutation; `python AgentOS/tools/validate.py` + `test_agentos.py` + `test_market_digital_twin.py` still PASS.
+
+Structure-only milestone: test → commit → push; stop only on external blocker (MT5 64 .mqh 0/0 + GitHub 403 + webhook public URL / secret).
+

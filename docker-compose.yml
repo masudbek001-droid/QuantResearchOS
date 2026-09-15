@@ -1,0 +1,140 @@
+# QROS Control Center v1 — Docker Compose (Stage 1: structure only)
+# Purpose: remote project management — Telegram → Bot → OpenAI Gateway → GitHub → AgentOS → Arena+Kilo
+# No trading logic, no AI promotion, no AgentOS mutation. See ARCHITECTURE.md, SECURITY.md, INSTALL.md.
+# Usage:
+#   cp .env.example .env   # fill secrets
+#   docker compose config --quiet && docker compose up --build -d
+#   docker compose logs -f
+
+name: qros-control-center
+
+services:
+  gateway:
+    build:
+      context: ./ControlCenter/Gateway
+      dockerfile: Dockerfile
+    image: qros/gateway:1.0.0-stage1
+    container_name: qros-gateway
+    restart: unless-stopped
+    expose:
+      - "8080"
+    ports:
+      - "${GATEWAY_PORT:-8080}:8080"
+    env_file:
+      - .env
+    environment:
+      SERVICE: gateway
+      PORT: "${GATEWAY_PORT:-8080}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
+      OPENAI_MODEL: "${OPENAI_MODEL:-gpt-4o-mini}"
+      OPENAI_BASE_URL: "${OPENAI_BASE_URL:-https://api.openai.com/v1}"
+      GITHUB_TOKEN: "${GITHUB_TOKEN}"
+      GITHUB_REPO: "${GITHUB_REPO:-masudbek001-droid/QuantResearchOS}"
+      LOG_LEVEL: "${LOG_LEVEL:-info}"
+      ENVIRONMENT: "${ENVIRONMENT:-development}"
+    volumes:
+      - ./ControlCenter/Gateway:/app:ro
+      - qros-logs:/app/logs
+    networks:
+      - qros-control-net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,os; urllib.request.urlopen(f'http://localhost:{GATEWAY_PORT:-8080}/health', timeout=2).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    depends_on: []
+
+  bot:
+    build:
+      context: ./ControlCenter/Bot
+      dockerfile: Dockerfile
+    image: qros/bot:1.0.0-stage1
+    container_name: qros-bot
+    restart: unless-stopped
+    expose:
+      - "8081"
+    ports:
+      - "${BOT_PORT:-8081}:8081"
+    env_file:
+      - .env
+    environment:
+      SERVICE: bot
+      PORT: "${BOT_PORT:-8081}"
+      TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN}"
+      TELEGRAM_ALLOWED_USER_IDS: "${TELEGRAM_ALLOWED_USER_IDS}"
+      GATEWAY_INTERNAL_URL: "${GATEWAY_INTERNAL_URL:-http://gateway:8080}"
+      GITHUB_REPO: "${GITHUB_REPO:-masudbek001-droid/QuantResearchOS}"
+      LOG_LEVEL: "${LOG_LEVEL:-info}"
+      ENVIRONMENT: "${ENVIRONMENT:-development}"
+    volumes:
+      - ./ControlCenter/Bot:/app:ro
+      - qros-logs:/app/logs
+    networks:
+      - qros-control-net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,os; urllib.request.urlopen(f'http://localhost:{BOT_PORT:-8081}/health', timeout=2).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    depends_on:
+      gateway:
+        condition: service_healthy
+
+  github-watcher:
+    build:
+      context: ./ControlCenter/GithubWatcher
+      dockerfile: Dockerfile
+    image: qros/github-watcher:1.0.0-stage1
+    container_name: qros-github-watcher
+    restart: unless-stopped
+    expose:
+      - "8082"
+    ports:
+      - "${GITHUB_WEBHOOK_PORT:-8082}:8082"
+    env_file:
+      - .env
+    environment:
+      SERVICE: github-watcher
+      PORT: "${GITHUB_WEBHOOK_PORT:-8082}"
+      GITHUB_WEBHOOK_SECRET: "${GITHUB_WEBHOOK_SECRET}"
+      GITHUB_REPO: "${GITHUB_REPO:-masudbek001-droid/QuantResearchOS}"
+      GITHUB_TOKEN: "${GITHUB_TOKEN}"
+      GATEWAY_INTERNAL_URL: "${GATEWAY_INTERNAL_URL:-http://gateway:8080}"
+      BOT_INTERNAL_URL: "${BOT_INTERNAL_URL:-http://bot:8081}"
+      LOG_LEVEL: "${LOG_LEVEL:-info}"
+      ENVIRONMENT: "${ENVIRONMENT:-development}"
+    volumes:
+      - ./ControlCenter/GithubWatcher:/app:ro
+      - qros-logs:/app/logs
+    networks:
+      - qros-control-net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,os; urllib.request.urlopen(f'http://localhost:{GITHUB_WEBHOOK_PORT:-8082}/health', timeout=2).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    depends_on:
+      gateway:
+        condition: service_healthy
+
+  # Stage 1 note: ControlCenter orchestrator/dashboard is docs-only.
+  # Uncomment when UI is implemented (Stage 2).
+  # control-center:
+  #   build: ./ControlCenter
+  #   ports: ["${CONTROL_CENTER_PORT:-8083}:8083"]
+  #   env_file: [.env]
+  #   networks: [qros-control-net]
+  #   depends_on: [bot, gateway, github-watcher]
+
+networks:
+  qros-control-net:
+    name: ${NETWORK_NAME:-qros-control-net}
+    driver: bridge
+
+volumes:
+  qros-logs:
+    name: qros-control-logs
+    driver: local

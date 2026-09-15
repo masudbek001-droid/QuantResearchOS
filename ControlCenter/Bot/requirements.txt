@@ -1,0 +1,13 @@
+# QROS Bot — Python dependencies (Stage 1: pinned, no business logic execution)
+# Purpose: remote project management — Telegram → Gateway → GitHub → AgentOS
+python-telegram-bot==21.0.1
+fastapi==0.110.2
+uvicorn[standard]==0.29.0
+pydantic==2.7.1
+pydantic-settings==2.3.0
+httpx==0.27.0
+python-dotenv==1.0.1
+
+# Test / lint (dev, not required at runtime)
+pytest==8.2.2
+ruff==0.4.8
