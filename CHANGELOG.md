@@ -271,3 +271,11 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Chief Risk AI validation: safety & advisory tests
 
 - Added `01_Source/Tests/test_chief_risk_ai.py` — validates advisory mqh exists, 0 forbidden tokens (OrderSend/PositionClose/CTrade/CRiskManager/CExitEngine etc), TradeManager 0 calls, multiplier bounds 0.50..1.50 for all regimes, vol 1.00/0.85/0.50, hourly 1.00/0.70, confidence 0.80/0.50, daily 80% ELEVATED, carry CAUTION blocks, risk json schema, no lookahead, tool loads baseline/wf. Evidence: [QROS_CHIEF_RISK] STATUS=PASS.
+
+# 2026-09-15 — Chief Risk AI docs: status/roadmap/handoff
+
+- Updated `PROJECT_STATUS.md`: Milestone Sprint 9 Chief Risk AI PASS (ADR-0016), Sprint 9 PASS, Completed Sprints +Chief Risk AI, Validation Stages +Chief Risk AI PASS, Current Task → Chief Risk AI PASS (54 .mqh), Next Task → Chief Research AI next + BLOCKED MT5 compile, Overall 96% AI 50% advisory, Module Status 54 .mqh + EAContext 6 advisory PASS, DAL 14 + Advisory Risk AI row.
+- Updated `ROADMAP.md`: Completed +Sprint 9 Chief Risk AI (ADR-0016), Current → Stage 15 + Chief Risk AI stable (54 .mqh), Planned 9 DONE, added 10 Chief Research AI next.
+- Updated `NEXT_TASK.md`: Stage 15+Chief Risk AI COMPLETE PASS, Current Active Task → Chief Risk AI DONE next Chief Research AI, BLOCKED MT5 compile, next authorized work Chief Research AI ADR-0017.
+- Updated `DECISIONS.md`: added ADR-0016 register row (Chief Risk AI advisory).
+- Updated `AGENT_HANDOFF.md`: added Sprint 9 row, Current Milestone Sprint 9 PASS, Active Task Chief Risk AI DONE, Next blocked MT5, Version Pins +Chief Risk AI PASS.

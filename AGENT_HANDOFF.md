@@ -68,13 +68,14 @@ Market Data (Ticks/Bars)
 | **Stage 12** | AI promotion safety gates | ADR-0015 | **VERIFIED DONE** | `STAGE12_AI_PROMOTION_SAFETY_GATES.md` PASS |
 | **Stage 13** | Shadow AI context runtime validation | ADR-0015 | **VERIFIED DONE** | `STAGE13_AI_SHADOW_CONTEXT_VALIDATION.md` PASS |
 | **Stage 14** | Shadow AI source safety audit | ADR-0015 | **VERIFIED DONE** | `STAGE14_AI_SHADOW_SAFETY_AUDIT.md` PASS |
+| **Sprint 9** | Chief Risk AI advisory (CAIRiskAdvisory, risk_advisory_report.json) | ADR-0016 | **VERIFIED DONE** | `test_chief_risk_ai.py` PASS OBSERVE_ONLY |
 
 ---
 
 ## 4. Current State
 
-- **Current Milestone**: Stage 15 — Final Architecture/Documentation Reconciliation **PASS** (2026-09-15). Stable.
-- **Active Task**: None — project is stable through Stage 14 validated runtime + Stage 15 reconciliation. Next work is optional README/PDF/manual refresh or a new ADR-controlled validation stage.
+- **Current Milestone**: Sprint 9 — Chief Risk AI Advisory **PASS** (2026-09-15, ADR-0016) — Stage 15 stable.
+- **Active Task**: Chief Risk AI DONE (CAIRiskAdvisory + Python tool + report + test PASS). Next is Chief Research AI (requires new ADR).
 - **Immediate Next Tasks**:
   1. Keep AI shadow-only; no trading decision may consume predictions yet (ADR-0015 gated).
   2. If future advisory AI behavior is desired, create a new ADR and Strategy Tester / replay gate first.
@@ -143,7 +144,9 @@ Market Data (Ticks/Bars)
 - **Label Version**: `1` (lookahead: 3 bars, threshold: 0.5 range)
 - **Dataset Version**: Pipeline validation `906001`/`907001`; training feature vectors `v907100` (56,499 rows, 22-feature contract)
 - **Current Models**: 2 baseline models registered in `CBEA_Models.db` (Models v2) — `QROS_LogisticRegression_Baseline_v1` and `QROS_RandomForest_Baseline_v1` — research/shadow-only, ONNX PASS, not loaded into live trading (ADR-0015)
+- **Chief Risk AI**: **PASS** — 1 MQL advisory (54 .mqh), 1 Python tool, 2 reports, 1 test (OBSERVE_ONLY)
 - **Stage 15 Status**: **PASS** — architecture, DB, build, and docs reconciled to Stage 14 reality
+- **Next blocked**: MT5 compile verification (Linux sandbox)
 
 ---
 
