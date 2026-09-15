@@ -216,3 +216,10 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `SPRINT6B_MODEL_BASELINE_VALIDATION.md`: Registry/contract/evaluation rows now show post-Stage 8/9 values (2/44/16) in notes and added supersession note that Stages 8–11 have executed; document retained as historical 6B baseline.
 - Updated `PROJECT_INVENTORY.md`: clarified 834 includes `.build/` stdlib copy; repo-only ≈300 files; EA build unit 53 .mqh + 1 .mq5 + 7 scripts.
 - Updated `PROJECT_HEALTH_REPORT.md`: Inventory row now notes both counts and EA 53+1 scope.
+
+# 2026-09-15 — Consistency audit: Category indexes synchronization
+
+- Updated `01_Source/EA/README.md`: 52 → 53 class modules (added CAIShadowInference note).
+- Updated `01_Source/Database/README.md`: 13 → 14 modules (EAData count correction).
+- Updated `01_Source/ML/README.md`: PLANNED → ACTIVE (Stages 8–14), documented 05_Training/ONNX/Metrics and 2 baselines shadow-only.
+- Updated `02_Databases/Models/README.md`: walk-forward/ONNX now PASS, blocked until future advisory ADR (ADR-0015).

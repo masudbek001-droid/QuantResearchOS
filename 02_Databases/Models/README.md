@@ -10,5 +10,4 @@ Current status:
 - `FeatureVectorContracts`: deterministic model input ordering
 - `ModelEvaluations`: train/validation/test evaluation audit trail
 
-The database is active for research artifacts only. Live EA integration remains
-blocked until walk-forward validation and MT5-side ONNX loading pass.
+The database is active for research/shadow-only artifacts (Stages 8–14 PASS). Walk-forward validation and MT5-side ONNX loading have PASSED (Stages 9–11). Live EA integration remains blocked until a future ADR authorizes advisory behavior and a Strategy Tester/replay regression gate passes (ADR-0015).
