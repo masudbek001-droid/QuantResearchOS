@@ -31,12 +31,12 @@ Sprint 6B validates two recovery objectives:
   - `RandomForestClassifier`
   - `GradientBoostingClassifier`
   - `ONNXDirectionPredictor`
-- Registry rows: 0
-- Feature-vector contract rows: 0
-- Evaluation rows: 0
+- Registry rows: 0  *(at Sprint 6B snapshot — after Stage 8: 2 registered models)*
+- Feature-vector contract rows: 0  *(after Stage 8: 44 rows, 22 per model)*
+- Evaluation rows: 0  *(after Stage 9: 16 rows — 6 initial + 10 walk-forward)*
 
-Empty registry/contract/evaluation tables are expected. They must remain empty
-until Sprint 7 creates trained model artifacts.
+Empty registry/contract/evaluation tables were expected at Sprint 6B time. They remain empty
+until Sprint 7 creates trained model artifacts. **Update 2026-09-15:** Post Stage 8/9 the same `CBEA_Models.db` now holds 2 models, 44 contracts, 16 evaluations (see `STAGE8_SUPERVISED_MODEL_TRAINING.md` / `STAGE9_WALK_FORWARD_VALIDATION.md`). This document is retained as the historical 6B baseline snapshot.
 
 ### `CBEA_Market.db`
 
@@ -97,3 +97,5 @@ Sprint 6B is internally coherent:
 
 Next gate: Sprint 7 / Phase D — supervised ML training and walk-forward
 cross-validation, using the schema contracts established here.
+
+> **Supersession note 2026-09-15:** Sprint 7/8 executed — see Stages 8–11. Models, ONNX, and walk-forward now PASS; `Models.db` is populated. This 6B report remains the pre-training baseline.

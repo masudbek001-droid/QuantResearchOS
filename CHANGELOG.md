@@ -210,3 +210,9 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — Consistency audit: Manual README synchronization
 
 - Updated `03_Documents/Manuals/CandleBreakoutEA_README.md`: binary size 205,146 → 207,814 bytes (two locations), staged path /home/user/.build → QuantResearchOS/.build, tools/build.py → 06_Tools/build.py, schema v1 → v1–v11 chain, EAContextAI placeholder → prediction fields (shadow-only ADR-0015), added CAIShadowInference.mqh entry, expanded verification output with project output path.
+
+# 2026-09-15 — Consistency audit: Inventory & historical snapshots
+
+- Updated `SPRINT6B_MODEL_BASELINE_VALIDATION.md`: Registry/contract/evaluation rows now show post-Stage 8/9 values (2/44/16) in notes and added supersession note that Stages 8–11 have executed; document retained as historical 6B baseline.
+- Updated `PROJECT_INVENTORY.md`: clarified 834 includes `.build/` stdlib copy; repo-only ≈300 files; EA build unit 53 .mqh + 1 .mq5 + 7 scripts.
+- Updated `PROJECT_HEALTH_REPORT.md`: Inventory row now notes both counts and EA 53+1 scope.
