@@ -307,3 +307,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — ADR-0018: Decision Bus advisory consensus (Sprint 11)
 
 - Added `03_Documents/ADR/ADR-0018-decision-bus-advisory.md` — Decision Bus advisory consensus routing (Sprint 11). Fuses Risk (0.50..1.50) + Research (confidence) + Shadow (low conf) into bus_multiplier 0.50..1.50, flags NORMAL/REDUCED/CAUTION/ELEVATED, hints RISK/RESEARCH/SHADOW, Python synthesis + MQL CAIDecisionBus dormant OFF, 0 tokens, rollback Reset().
+
+# 2026-09-15 — Decision Bus MQL: CAIDecisionBus (ADR-0018)
+
+- Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextDecisionBus.mqh` — class `CAIDecisionBus` with `SBusAdvisory`/`ENUM_BUS_FLAG`/`ENUM_BUS_HINT`, dormant OFF, explicit `Route(SRiskAdvisory,SResearchAdvisory,CAIContext)` → bus_multiplier = risk*research_shave*shadow_shave clamped 0.50..1.50, flag priority ELEVATED>CAUTION>REDUCED>NORMAL, validates, ToString, 0 tokens.
