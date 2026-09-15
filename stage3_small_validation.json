@@ -1,0 +1,29 @@
+[
+  {
+    "db": "Research",
+    "file": "C:\\Program Files\\MetaTrader\\MQL5\\Files\\candlebreakout_20260909.db",
+    "integrity": "ok",
+    "foreign_keys": 0,
+    "tables": 19,
+    "indexes": 41,
+    "transaction": "PASS"
+  },
+  {
+    "db": "Market",
+    "file": "C:\\Program Files\\MetaTrader\\MQL5\\Files\\CBEA_Market.db",
+    "integrity": "ok",
+    "foreign_keys": 0,
+    "tables": 22,
+    "indexes": 46,
+    "transaction": "PASS"
+  },
+  {
+    "db": "Models",
+    "file": "C:\\Program Files\\MetaTrader\\MQL5\\Files\\CBEA_Models.db",
+    "integrity": "ok",
+    "foreign_keys": 0,
+    "tables": 20,
+    "indexes": 41,
+    "transaction": "PASS"
+  }
+]

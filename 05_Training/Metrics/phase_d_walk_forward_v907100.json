@@ -1,0 +1,165 @@
+{
+  "windows": [
+    {
+      "window": 1,
+      "train_start": 0,
+      "train_end": 28249,
+      "test_start": 28249,
+      "test_end": 32768
+    },
+    {
+      "window": 2,
+      "train_start": 0,
+      "train_end": 34181,
+      "test_start": 34181,
+      "test_end": 38700
+    },
+    {
+      "window": 3,
+      "train_start": 0,
+      "train_end": 40113,
+      "test_start": 40113,
+      "test_end": 44632
+    },
+    {
+      "window": 4,
+      "train_start": 0,
+      "train_end": 46045,
+      "test_start": 46045,
+      "test_end": 50564
+    },
+    {
+      "window": 5,
+      "train_start": 0,
+      "train_end": 51977,
+      "test_start": 51977,
+      "test_end": 56496
+    }
+  ],
+  "models": {
+    "QROS_LogisticRegression_Baseline_v1": {
+      "windows": [
+        {
+          "sample_count": 4519,
+          "accuracy": 0.38349192299181234,
+          "precision_macro": 0.38179419064671455,
+          "recall_macro": 0.41030934489469184,
+          "f1_macro": 0.36483001606402954,
+          "log_loss": 1.2510303796798456,
+          "window": 1,
+          "test_start": "2021-12-01 23:00:00",
+          "test_end": "2022-09-07 04:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.3237441911927418,
+          "precision_macro": 0.3713804352128728,
+          "recall_macro": 0.3802944727170657,
+          "f1_macro": 0.3106629842540698,
+          "log_loss": 1.3374005869659815,
+          "window": 2,
+          "test_start": "2022-12-01 21:00:00",
+          "test_end": "2023-09-07 23:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.38349192299181234,
+          "precision_macro": 0.38692937431581564,
+          "recall_macro": 0.41971461943126215,
+          "f1_macro": 0.3690356562596607,
+          "log_loss": 1.255885608609197,
+          "window": 3,
+          "test_start": "2023-12-04 17:00:00",
+          "test_end": "2024-09-09 19:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.420004425757911,
+          "precision_macro": 0.38982834268257116,
+          "recall_macro": 0.4135892327089613,
+          "f1_macro": 0.38223937119901286,
+          "log_loss": 1.215774084316334,
+          "window": 4,
+          "test_start": "2024-12-04 14:00:00",
+          "test_end": "2025-09-11 10:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.43992033635760125,
+          "precision_macro": 0.41542757132223046,
+          "recall_macro": 0.4207719029075958,
+          "f1_macro": 0.39302539400066744,
+          "log_loss": 1.1928821024931084,
+          "window": 5,
+          "test_start": "2025-12-08 03:00:00",
+          "test_end": "2026-09-14 08:00:00"
+        }
+      ],
+      "avg_accuracy": 0.390131,
+      "avg_f1_macro": 0.363959,
+      "avg_log_loss": 1.250595
+    },
+    "QROS_RandomForest_Baseline_v1": {
+      "windows": [
+        {
+          "sample_count": 4519,
+          "accuracy": 0.4177915468023899,
+          "precision_macro": 0.4020306011141945,
+          "recall_macro": 0.4319714588276542,
+          "f1_macro": 0.38627954323335484,
+          "log_loss": 1.190073700420078,
+          "window": 1,
+          "test_start": "2021-12-01 23:00:00",
+          "test_end": "2022-09-07 04:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.37840230139411374,
+          "precision_macro": 0.38480801385193697,
+          "recall_macro": 0.41637312309973595,
+          "f1_macro": 0.35973495665862926,
+          "log_loss": 1.2069995232855049,
+          "window": 2,
+          "test_start": "2022-12-01 21:00:00",
+          "test_end": "2023-09-07 23:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.4253153352511618,
+          "precision_macro": 0.41124692766081195,
+          "recall_macro": 0.4375378409650289,
+          "f1_macro": 0.39884862425223716,
+          "log_loss": 1.1734375078792878,
+          "window": 3,
+          "test_start": "2023-12-04 17:00:00",
+          "test_end": "2024-09-09 19:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.43483071475990265,
+          "precision_macro": 0.40476369415251623,
+          "recall_macro": 0.4085398931958757,
+          "f1_macro": 0.37119087688485447,
+          "log_loss": 1.1546416900312797,
+          "window": 4,
+          "test_start": "2024-12-04 14:00:00",
+          "test_end": "2025-09-11 10:00:00"
+        },
+        {
+          "sample_count": 4519,
+          "accuracy": 0.43505200265545474,
+          "precision_macro": 0.41899571028444166,
+          "recall_macro": 0.42125001903459997,
+          "f1_macro": 0.3810934926782944,
+          "log_loss": 1.1594362072169284,
+          "window": 5,
+          "test_start": "2025-12-08 03:00:00",
+          "test_end": "2026-09-14 08:00:00"
+        }
+      ],
+      "avg_accuracy": 0.418278,
+      "avg_f1_macro": 0.379429,
+      "avg_log_loss": 1.176918
+    }
+  }
+}

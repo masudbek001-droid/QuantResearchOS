@@ -1,0 +1,243 @@
+{
+  "TotalBars": 56514,
+  "DateRange": "2016-10-05 00:00:00 to 2026-09-14 11:00:00",
+  "BreakoutDistribution": {
+    "TotalBars": 56514,
+    "InsideBar_Pct": 16.65074140920834,
+    "BuyOnly_Pct": 37.12708355451746,
+    "SellOnly_Pct": 34.65336022932371,
+    "OutsideWhipsaw_Pct": 11.56881480695049
+  },
+  "SingleSideBreakoutOverall": {
+    "Count": 40566,
+    "ShareOfAllBars": 71.78,
+    "WinRate": 54.96,
+    "ExpectancyPoints": 0.793,
+    "ProfitFactor": 1.945,
+    "AverageMFE": 3.288,
+    "AverageMAE": 3.222,
+    "MFE_to_MAE_Ratio": 1.02
+  },
+  "BuyBreakouts": {
+    "Count": 20982,
+    "WinRate": 56.21,
+    "ExpectancyPoints": 0.85,
+    "ProfitFactor": 2.097,
+    "AvgMFE": 3.12,
+    "AvgMAE": 3.116
+  },
+  "SellBreakouts": {
+    "Count": 19584,
+    "WinRate": 53.63,
+    "ExpectancyPoints": 0.733,
+    "ProfitFactor": 1.807,
+    "AvgMFE": 3.469,
+    "AvgMAE": 3.336
+  },
+  "SessionStats": [
+    {
+      "Session": "Asia",
+      "Count": 14510,
+      "WinRate": 57.19,
+      "Expectancy": 0.786
+    },
+    {
+      "Session": "London",
+      "Count": 8918,
+      "WinRate": 55.07,
+      "Expectancy": 0.805
+    },
+    {
+      "Session": "NewYork",
+      "Count": 13844,
+      "WinRate": 52.99,
+      "Expectancy": 0.75
+    },
+    {
+      "Session": "Close/Late",
+      "Count": 3294,
+      "WinRate": 53.19,
+      "Expectancy": 0.977
+    }
+  ],
+  "VolRegimeStats": [
+    {
+      "Regime": "Low",
+      "Count": 15914,
+      "WinRate": 58.87,
+      "Expectancy": 0.972
+    },
+    {
+      "Regime": "Normal",
+      "Count": 18322,
+      "WinRate": 53.36,
+      "Expectancy": 0.774
+    },
+    {
+      "Regime": "High",
+      "Count": 6330,
+      "WinRate": 49.79,
+      "Expectancy": 0.4
+    }
+  ],
+  "TrendAlignmentStats": [
+    {
+      "Alignment": "WITH_TREND",
+      "Count": 22527,
+      "WinRate": 54.38,
+      "Expectancy": 0.874
+    },
+    {
+      "Alignment": "AGAINST_TREND",
+      "Count": 18036,
+      "WinRate": 55.69,
+      "Expectancy": 0.692
+    }
+  ],
+  "HourlyTopHours": [
+    {
+      "Hour": 12,
+      "Count": 1679,
+      "WinRate": 63.31,
+      "Expectancy": 1.809
+    },
+    {
+      "Hour": 1,
+      "Count": 1745,
+      "WinRate": 63.72,
+      "Expectancy": 1.664
+    },
+    {
+      "Hour": 13,
+      "Count": 1714,
+      "WinRate": 57.93,
+      "Expectancy": 1.515
+    },
+    {
+      "Hour": 5,
+      "Count": 1790,
+      "WinRate": 62.74,
+      "Expectancy": 1.323
+    },
+    {
+      "Hour": 14,
+      "Count": 1846,
+      "WinRate": 55.09,
+      "Expectancy": 1.226
+    },
+    {
+      "Hour": 23,
+      "Count": 1704,
+      "WinRate": 55.69,
+      "Expectancy": 1.143
+    },
+    {
+      "Hour": 22,
+      "Count": 1112,
+      "WinRate": 50.99,
+      "Expectancy": 1.09
+    },
+    {
+      "Hour": 0,
+      "Count": 1962,
+      "WinRate": 61.67,
+      "Expectancy": 1.072
+    },
+    {
+      "Hour": 15,
+      "Count": 1726,
+      "WinRate": 51.8,
+      "Expectancy": 0.865
+    },
+    {
+      "Hour": 6,
+      "Count": 1888,
+      "WinRate": 56.62,
+      "Expectancy": 0.803
+    },
+    {
+      "Hour": 8,
+      "Count": 1849,
+      "WinRate": 54.89,
+      "Expectancy": 0.74
+    },
+    {
+      "Hour": 11,
+      "Count": 1791,
+      "WinRate": 55.05,
+      "Expectancy": 0.725
+    },
+    {
+      "Hour": 7,
+      "Count": 1812,
+      "WinRate": 57.95,
+      "Expectancy": 0.698
+    },
+    {
+      "Hour": 19,
+      "Count": 1723,
+      "WinRate": 53.4,
+      "Expectancy": 0.617
+    },
+    {
+      "Hour": 18,
+      "Count": 1746,
+      "WinRate": 51.83,
+      "Expectancy": 0.515
+    },
+    {
+      "Hour": 16,
+      "Count": 1692,
+      "WinRate": 52.25,
+      "Expectancy": 0.508
+    },
+    {
+      "Hour": 9,
+      "Count": 1776,
+      "WinRate": 53.43,
+      "Expectancy": 0.454
+    },
+    {
+      "Hour": 20,
+      "Count": 1583,
+      "WinRate": 50.98,
+      "Expectancy": 0.395
+    },
+    {
+      "Hour": 10,
+      "Count": 1823,
+      "WinRate": 49.26,
+      "Expectancy": 0.366
+    },
+    {
+      "Hour": 2,
+      "Count": 1732,
+      "WinRate": 52.19,
+      "Expectancy": 0.324
+    },
+    {
+      "Hour": 17,
+      "Count": 1814,
+      "WinRate": 50.5,
+      "Expectancy": 0.322
+    },
+    {
+      "Hour": 3,
+      "Count": 1765,
+      "WinRate": 51.27,
+      "Expectancy": 0.198
+    },
+    {
+      "Hour": 4,
+      "Count": 1816,
+      "WinRate": 50.94,
+      "Expectancy": 0.183
+    },
+    {
+      "Hour": 21,
+      "Count": 478,
+      "WinRate": 49.37,
+      "Expectancy": 0.118
+    }
+  ]
+}

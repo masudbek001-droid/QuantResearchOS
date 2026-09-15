@@ -1,0 +1,181 @@
+# CHANGELOG — QuantResearchOS / CandleBreakoutEA
+
+Chronological history of every sprint. Trading core (MIPS v1.0) frozen throughout:
+entry = M1 candle breakout; **no SL / no TP**; exit = H1 candle close; BreakEven
+optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
+
+## Foundation (pre-sprint)
+
+* CandleBreakoutEA v1.00: entry engine, risk sizing (fixed / risk-% / soft
+  martingale), pending-order lifecycle, H1-close exit, optional M5-swing
+  BreakEven, momentum / carry / profit-lock exit intelligence, dashboard,
+  logger (`[CBEA <magic> <symbol>]`), 16-column CSV journal, `CBEA_<magic>_`
+  object prefix. Manual in Uzbek (futuristic PDF).
+
+## Tasks 0003–0012 — Intelligence & Data Layers (schema v2–v8)
+
+* **Task 0003 — Context Layer** (ADR-0001): `EAContext/` — trade/market/strategy/AI
+  contexts assembled per candle into one `STradeContext` snapshot.
+* **Task 0004 — Feature Builder** (ADR-0002): `EAFeatureBuilder/` — single source of
+  market features, validation included; exposed but not yet replacing live
+  calculations (backward compatibility).
+* **Tasks 0005–0006 — Data Access Layer** (ADR-0003): `EAData/` — SQLite behind
+  `IDataProvider`/`CSQLiteProvider`; versioned schema + migration chain;
+  `CDatabaseManager` bound to Research.db (`candlebreakout_<magic>.db`).
+* **Schema v2** (ADR-0004): MarketSnapshotWriter — market observations.
+* **Schema v3** (ADR-0005): TradeWriter — trade metadata.
+* **Schema v4** (ADR-0006): ObservationWriter — market recorder.
+* **Schema v5** (ADR-0007): LabelGenerator — ground-truth labels (3-bar future window).
+* **Schema v6** (ADR-0008): DatasetBuilder — reproducible ML-ready datasets.
+* **Schema v7** (ADR-0009): DataQualityAnalyzer — mandatory quality gate
+  (CSV export blocked unless QUALITY_PASS, no override).
+* **Schema v8** (ADR-0010): FeatureRegistry — versioned feature catalogue +
+  per-dataset manifests.
+* Intermediate reports: context, feature, database, label, dataset, quality,
+  registry, trade intelligence, stabilization.
+
+## Sprint 4 — Replay Foundation (schema v9, ADR-0011)
+
+* `EAReplay/`: deterministic, database-only replay of recorded history; integrity
+  gating; session lifecycle; dormant until explicitly started.
+* Docs: REPLAY_ENGINE / REPLAY_TIMELINE / REPLAY_VALIDATION, SPRINT4_REPORT.
+
+## Sprint 5 — Research Platform (schema v10, ADR-0012)
+
+* `EAResearch/`: immutable experiments with pinned input versions; deterministic
+  one-shot benchmarks (9 metrics); walk-forward runs (rolling / expanding / fixed)
+  with overlap + leakage rejection.
+* Docs: EXPERIMENT_ENGINE / BENCHMARK_ENGINE / WALK_FORWARD_ENGINE, SPRINT5_REPORT.
+
+## Sprint 6A — Historical Data Platform (schema v11, ADR-0013)
+
+* Four-database architecture: **Ticks.db** (raw ticks), **Market.db** (M1–D1 bars),
+  **Models.db** (schema-only), **Research.db** extended (v11: `DataSources` +
+  `ImportHistory`; multi-broker ready).
+* `EAHistory/`: CTickExporter (resume + incremental), CBarExporter (7 TFs, resume +
+  incremental), CMetadataExporter (sessions, UTC offset, DST, contract metadata),
+  CDataIntegrityValidator (read-only scans), CHistoryPlatform facade.
+* Docs: DATA_ACQUISITION_REPORT / DATA_INTEGRITY_REPORT / IMPORT_REPORT.
+
+## Reorganization — QuantResearchOS (2026-09-11)
+
+* Entire sandbox consolidated into one clean `QuantResearchOS/` tree
+  (01_Source … 08_Archives + governance docs). No source, algorithm or trading
+  behaviour changed. Compile re-verified after the move: **0 errors / 0 warnings**,
+  `CandleBreakoutEA.ex5` 205 146 bytes. Build tools repointed
+  (`06_Tools/build.py` → `01_Source/EA/MQL5`).
+# 2026-09-12 — Architecture recovery baseline
+
+- Repaired the Windows MetaEditor build boundary and added project EX5 publication.
+- Verified the staged CandleBreakoutEA with 0 compiler errors and 0 warnings.
+- Added architecture, dependency, initialization, database, build, memory, health and validation audit records.
+
+# 2026-09-14 — Stage 4 continuity recovery
+
+- Verified that a repeated `QuantResearchOS_HistoricalExport` run resumed tick export instead of reloading the full archive.
+- Confirmed latest tick run imported 58,607 new rows with duplicates 0, invalid 0 and out_of_order 0.
+- Fixed a false H1/M15 consistency failure by comparing only the common H1/M15 coverage window.
+- Removed legacy minute-based bar rows (`TimeframeID` 60/240/1440) from `CBEA_Market.db` after creating a database backup.
+- Added source-level cleanup so legacy timeframe rows do not persist after future runs.
+- Rebuilt the EA with 0 errors / 0 warnings and rebuilt the historical export script with 0 errors / 0 warnings.
+- Synchronized the corrected history validator and script EX5 to `C:\Program Files\MetaTrader\MQL5`.
+- Re-ran the corrected historical export and closed Stage 4 with `STATUS=PASS`, `EXPORT=PASS`, `INTEGRITY=PASS`, and `STATISTICS=PASS`.
+
+# 2026-09-14 — Stage 5 replay validation start
+
+- Started Replay Validation.
+- Fixed `CReplayController::InitializeReplay()` so `ReplaySessions.TotalBars` is inserted correctly.
+- Added isolated `QuantResearchOS_ReplayValidation` script using validation magic `905001`.
+- Rebuilt the EA with 0 errors / 0 warnings and compiled the replay validation script with 0 errors / 0 warnings.
+- Ran `QuantResearchOS_ReplayValidation` in MT5 and closed Stage 5 with `[QROS_STAGE5] STATUS=PASS`.
+
+# 2026-09-14 — Stage 6 data pipeline validation start
+
+- Started Feature / Observation / Label / Dataset / Quality validation.
+- Added isolated `QuantResearchOS_Stage6Validation` script using validation magic `906001`.
+- Compiled the EA with 0 errors / 0 warnings and compiled the Stage 6 validation script with 0 errors / 0 warnings.
+- Synchronized the Stage 6 script and project include tree to the active MetaTrader installation.
+- Ran `QuantResearchOS_Stage6Validation` in MT5 and closed Stage 6 with `[QROS_STAGE6] STATUS=PASS`.
+
+# 2026-09-14 — Stage 7 research platform validation
+
+- Started Research Platform (ExperimentEngine, BenchmarkEngine, WalkForwardEngine) validation.
+- Fixed a boundary overlap defect in `WalkForwardEngine::ValidateRun()` (`testing_start < training_end`, DEC-0015) allowing contiguous half-open intervals from `PlanWindows()`.
+- Added isolated `QuantResearchOS_Stage7Validation.mq5` script and `QuantResearchOS_Stage7Validation_EA.mq5` harness with validation magic `907001`.
+- Built the EA with 0 errors / 0 warnings (`04_Output/EX5/CandleBreakoutEA.ex5`, 207,196 bytes).
+- Compiled Stage 7 harnesses with 0 errors / 0 warnings and synchronized binaries to `C:\Program Files\MetaTrader\MQL5`.
+- Added automated test suite `01_Source/Tests/test_stage7_research.py` against isolated `candlebreakout_907001.db`.
+- Validated experiment lifecycle, benchmark metrics calculation (7 core + 2 placeholders), walk-forward planning and run creation, and experiment sealing immutability.
+- Closed Stage 7 with `[QROS_STAGE7] STATUS=PASS`.
+- Reconciled Stage 7 source/document drift by restoring `QuantResearchOS_Stage7Validation.mq5`, recompiling it with 0 errors / 0 warnings, resynchronizing the active MT5 EX5, and re-running the Python DB validation suite with `STATUS=PASS`.
+
+# 2026-09-14 — Sprint 6B model platform and statistical baseline hardening
+
+- Verified `CBEA_Models.db` integrity and confirmed `ModelsSchemaVersion=2` with 4 seeded model architectures.
+- Verified `CBEA_Market.db` integrity and current H1 bar coverage: 56,529 stored H1 bars, 56,514 analyzed bars after warmup.
+- Hardened `06_Tools/statistical_baseline_research.py` against division-by-zero and empty-sample metric failures.
+- Re-ran Phase C statistical baseline on XAUUSD H1 and regenerated `04_Output/Statistics/statistical_baseline_report.json`.
+- Synchronized `03_Documents/Reports/STATISTICAL_BASELINE_REPORT.md` with the regenerated JSON results.
+
+# 2026-09-14 — Stage 8 supervised baseline training
+
+- Added `06_Tools/train_phase_d_models.py` for point-in-time XAUUSD H1 feature-vector generation and local scikit-learn supervised baseline training.
+- Generated `05_Training/FeatureVectors/feature_vectors_v907100.csv` with 56,499 rows and the official 22-feature contract.
+- Trained `QROS_LogisticRegression_Baseline_v1` and `QROS_RandomForest_Baseline_v1` as local `.joblib` research artifacts.
+- Installed the required local Python ONNX conversion packages (`onnx`, `skl2onnx`) for the project training runtime.
+- Exported both baseline models to ONNX and verified them with `onnx.checker.check_model`.
+- Registered both models in `CBEA_Models.db`, including ONNX paths/checksums, 44 feature-vector contract rows and 6 evaluation rows.
+- Verified `CBEA_Models.db` integrity and closed Stage 8 with `[QROS_STAGE8] STATUS=PASS | onnx=PASS`.
+
+# 2026-09-14 — Stage 9 walk-forward model validation
+
+- Added `06_Tools/walk_forward_phase_d.py` for chronological multi-window model validation.
+- Evaluated both Stage 8 baseline models over 5 walk-forward test windows each.
+- Wrote 10 `WF_TEST_*` rows to `CBEA_Models.db.ModelEvaluations`.
+- Verified `CBEA_Models.db` integrity and closed Stage 9 with `[QROS_STAGE9] STATUS=PASS`.
+
+# 2026-09-14 — Stage 10 MT5 ONNX contract preparation
+
+- Added isolated MT5 script `QuantResearchOS_OnnxValidation.mq5`.
+- Synchronized ONNX model files to `C:\Program Files\MetaTrader\MQL5\Files\CBEA\Models`.
+- Compiled `QuantResearchOS_OnnxValidation.ex5` with MetaEditor: 0 errors / 0 warnings.
+- Ran `QuantResearchOS_OnnxValidation` in active MetaTrader and closed Stage 10 with `[QROS_STAGE10] STATUS=PASS | onnx_models=2 | input_dim=22 | output_dim=4`.
+
+# 2026-09-14 — Stage 11 replay + ONNX validation preparation
+
+- Added isolated `QuantResearchOS_ReplayOnnxValidation.mq5`.
+- The script seeds a deterministic replay database, loads both Stage 8 ONNX baseline models, runs inference at every replay bar, and verifies probability outputs.
+- Compiled `QuantResearchOS_ReplayOnnxValidation.ex5` with MetaEditor: 0 errors / 0 warnings.
+- Synchronized the script EX5 to the active MetaTrader installation.
+- Ran `QuantResearchOS_ReplayOnnxValidation` in active MetaTrader and closed Stage 11 with `[QROS_STAGE11] STATUS=PASS | replay_id=1 | bars=5 | inferences=10 | state=REPLAY_FINISHED`.
+
+# 2026-09-15 — Stage 12 AI promotion safety gates
+
+- Added ADR-0015 defining AI promotion, rollback, and safety gates.
+- Verified that `EAContextAI` remains shadow/placeholder-only and does not affect trading.
+- Closed Stage 12 with trading invariants preserved: AI cannot place, block, modify, or close trades without a future ADR and validation gate.
+- Recompiled the EA after Stage 12 documentation changes with MetaEditor: 0 errors / 0 warnings; synchronized `CandleBreakoutEA.ex5` to the active MetaTrader installation.
+
+# 2026-09-15 — Stage 13 shadow-only AI context preparation
+
+- Extended `CAIContext` with explicit prediction label and probability fields.
+- Added `CAIShadowInference`, a shadow-only ONNX adapter that can write predictions to `CAIContext` but cannot affect trading.
+- Added isolated `QuantResearchOS_AIShadowValidation.mq5`.
+- Recompiled the EA and Stage 13 script with MetaEditor: 0 errors / 0 warnings.
+- Synchronized the EA EX5, include tree, and Stage 13 script EX5 to the active MetaTrader installation.
+- Ran `QuantResearchOS_AIShadowValidation` in active MetaTrader and closed Stage 13 with `[QROS_STAGE13] STATUS=PASS | shadow_models=2 | context=PASS | trading_effect=NONE`.
+
+# 2026-09-15 — Stage 14 AI shadow safety audit
+
+- Added `01_Source/Tests/test_stage14_ai_shadow_safety.py`.
+- Verified the shadow adapter contains no order, position, risk, trade manager, or exit-engine authority.
+- Verified `CTradeManager` still has zero AI prediction calls.
+- Recompiled the EA with MetaEditor: 0 errors / 0 warnings, and synchronized active MT5 EA EX5.
+- Closed Stage 14 with `[QROS_STAGE14] STATUS=PASS | shadow_adapter=OBSERVE_ONLY | trade_manager_ai_calls=0 | forbidden_tokens=0`.
+
+# 2026-09-15 — Stage 15 final architecture/documentation reconciliation
+
+- Updated root audit deliverables, project manifest, inventory, health report, final validation, handoff, architecture map, restore guide, README, and user-action status.
+- Removed stale Stage 2 pending, training-not-implemented, and old binary-size references from current-state documents.
+- Preserved historical ADR/changelog context while adding supersession notes where necessary.
+- Closed Stage 15 with project status synchronized to Stage 14 verified runtime reality.

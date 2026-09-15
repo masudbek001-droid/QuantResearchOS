@@ -1,0 +1,180 @@
+{
+  "dataset_version": 907100,
+  "feature_version": 1,
+  "label_version": 1,
+  "target_horizon_bars": 1,
+  "feature_count": 22,
+  "features": [
+    "Spread",
+    "ATR",
+    "ATRRatio",
+    "PreviousRange",
+    "CurrentRange",
+    "BodySize",
+    "BodyPercent",
+    "UpperShadow",
+    "LowerShadow",
+    "UpperShadowRatio",
+    "LowerShadowRatio",
+    "Bullish",
+    "Bearish",
+    "Volatility",
+    "TrendDirection",
+    "TrendStrength",
+    "CurrentHour",
+    "Weekday",
+    "Month",
+    "Quarter",
+    "Session",
+    "BrokerOffset"
+  ],
+  "label_names": {
+    "0": "RANGE",
+    "1": "UP",
+    "2": "DOWN",
+    "3": "FAKE_BREAKOUT"
+  },
+  "rows": {
+    "total": 56499,
+    "train": 39549,
+    "validation": 8475,
+    "test": 8475
+  },
+  "date_range": {
+    "start": "2016-10-23 00:00:00",
+    "end": "2026-09-14 11:00:00"
+  },
+  "models": [
+    {
+      "model_id": 5,
+      "model_name": "QROS_LogisticRegression_Baseline_v1",
+      "architecture": "LogisticRegression",
+      "artifact": "C:\\QuantResearchOS\\05_Training\\Models\\QROS_LogisticRegression_Baseline_v1.joblib",
+      "onnx_artifact": "C:\\QuantResearchOS\\05_Training\\ONNX\\QROS_LogisticRegression_Baseline_v1.onnx",
+      "sha256": "da920c72002b3cc45b70e58d71b566bba3334a72b1c3dd6d4ca9c69c983c17b9",
+      "onnx_sha256": "b554df4edb255f1e261a1f64264d641f271dc776dc15e2a0f30fc06a8c5e0dd6",
+      "hyperparameters": {
+        "max_iter": 1000,
+        "class_weight": "balanced",
+        "random_state": 907100
+      },
+      "evaluations": [
+        {
+          "split": "TRAIN",
+          "sample_count": 39549,
+          "accuracy": 0.364889,
+          "precision_macro": 0.380261,
+          "recall_macro": 0.407663,
+          "f1_macro": 0.354956,
+          "brier": 0.175698,
+          "log_loss": 1.272918,
+          "class_distribution": {
+            "RANGE": 19584,
+            "UP": 7970,
+            "DOWN": 7424,
+            "FAKE_BREAKOUT": 4571
+          }
+        },
+        {
+          "split": "VALIDATION",
+          "sample_count": 8475,
+          "accuracy": 0.386077,
+          "precision_macro": 0.383229,
+          "recall_macro": 0.415224,
+          "f1_macro": 0.36989,
+          "brier": 0.17293,
+          "log_loss": 1.251315,
+          "class_distribution": {
+            "RANGE": 4102,
+            "UP": 1935,
+            "DOWN": 1456,
+            "FAKE_BREAKOUT": 982
+          }
+        },
+        {
+          "split": "TEST",
+          "sample_count": 8475,
+          "accuracy": 0.454159,
+          "precision_macro": 0.382803,
+          "recall_macro": 0.375675,
+          "f1_macro": 0.359607,
+          "brier": 0.164475,
+          "log_loss": 1.20628,
+          "class_distribution": {
+            "RANGE": 3985,
+            "UP": 1887,
+            "DOWN": 1619,
+            "FAKE_BREAKOUT": 984
+          }
+        }
+      ]
+    },
+    {
+      "model_id": 6,
+      "model_name": "QROS_RandomForest_Baseline_v1",
+      "architecture": "RandomForestClassifier",
+      "artifact": "C:\\QuantResearchOS\\05_Training\\Models\\QROS_RandomForest_Baseline_v1.joblib",
+      "onnx_artifact": "C:\\QuantResearchOS\\05_Training\\ONNX\\QROS_RandomForest_Baseline_v1.onnx",
+      "sha256": "01e279195a55d4f48ad8675b051543b64f0ca23f4eeee27f5f0690f71e344788",
+      "onnx_sha256": "61a52417b4405368457fb9e26fac12e6cf1b480f5937d922b245cc67b85e858a",
+      "hyperparameters": {
+        "n_estimators": 160,
+        "max_depth": 10,
+        "min_samples_leaf": 25,
+        "class_weight": "balanced_subsample",
+        "random_state": 907100
+      },
+      "evaluations": [
+        {
+          "split": "TRAIN",
+          "sample_count": 39549,
+          "accuracy": 0.448659,
+          "precision_macro": 0.471833,
+          "recall_macro": 0.520181,
+          "f1_macro": 0.448792,
+          "brier": 0.160881,
+          "log_loss": 1.153563,
+          "class_distribution": {
+            "RANGE": 19584,
+            "UP": 7970,
+            "DOWN": 7424,
+            "FAKE_BREAKOUT": 4571
+          }
+        },
+        {
+          "split": "VALIDATION",
+          "sample_count": 8475,
+          "accuracy": 0.423717,
+          "precision_macro": 0.406337,
+          "recall_macro": 0.425185,
+          "f1_macro": 0.389681,
+          "brier": 0.163946,
+          "log_loss": 1.171901,
+          "class_distribution": {
+            "RANGE": 4102,
+            "UP": 1935,
+            "DOWN": 1456,
+            "FAKE_BREAKOUT": 982
+          }
+        },
+        {
+          "split": "TEST",
+          "sample_count": 8475,
+          "accuracy": 0.455693,
+          "precision_macro": 0.387531,
+          "recall_macro": 0.382067,
+          "f1_macro": 0.354055,
+          "brier": 0.15929,
+          "log_loss": 1.142387,
+          "class_distribution": {
+            "RANGE": 3985,
+            "UP": 1887,
+            "DOWN": 1619,
+            "FAKE_BREAKOUT": 984
+          }
+        }
+      ]
+    }
+  ],
+  "onnx_export": "PASS"
+}
