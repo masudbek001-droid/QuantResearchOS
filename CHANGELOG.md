@@ -383,3 +383,11 @@ No `01_Source/EA/MQL5` trading logic or `EAContext*Advisory` AI advisory modifie
 - Updated `NEXT_TASK.md`: Stage15+5 advisory+AgentOS COMPLETE PASS, Current Active Task → AgentOS v1.0 DONE next AgentOS improvements, next authorized work AgentOS improvements + production promotion.
 - Updated `DECISIONS.md`: added ADR-0021 register row.
 - Updated `AGENT_HANDOFF.md`: added AgentOS v1.0 row, Current Milestone AgentOS v1.0 PASS, Active Task AgentOS DONE.
+
+# 2026-09-15 — AgentOS v1.1: schema, CI, PR template
+
+- Added `AgentOS/schema/task.schema.json`, `report.schema.json`, `event.schema.json`, `lock.schema.json` — JSON Schema Draft-07 for machine validation of queues.
+- Added `.github/workflows/agentos.yml` — CI runs `validate.py` + `test_agentos.py` + no-Telegram check on push/PR to `main`/`arena/**` for `AgentOS/**`.
+- Added `.github/pull_request_template.md` — Requires TaskID/ReportID/Worker/Module, validate/test PASS, branch `worker/<id>/<task>`, lock, event, no trading/AI/Telegram.
+
+Improvement is additive; no trading/AI logic touched; validate still PASS.

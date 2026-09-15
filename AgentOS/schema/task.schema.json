@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentOS Task",
+  "type": "object",
+  "required": ["TaskID", "Title", "Module", "Owner", "Status", "Priority", "Files", "Branch", "Created", "Updated"],
+  "properties": {
+    "TaskID": { "type": "string", "pattern": "^TASK-\\d{4}$" },
+    "Title": { "type": "string", "minLength": 5, "maxLength": 120 },
+    "Module": { "type": "string", "pattern": "^MOD-[A-Z_]+$" },
+    "Owner": { "type": "string", "pattern": "^(worker-[a-z0-9-]+|-)$" },
+    "Status": { "type": "string", "enum": ["OPEN","CLAIMED","IN_PROGRESS","REVIEW","DONE","BLOCKED","CANCELLED"] },
+    "Priority": { "type": "string", "enum": ["P0","P1","P2","P3"] },
+    "Files": { "type": "string", "minLength": 1 },
+    "Branch": { "type": "string", "pattern": "^(worker/[a-z0-9-]+/TASK-\\d{4}|-)$" },
+    "Created": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} UTC$" },
+    "Updated": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} UTC$" }
+  }
+}
