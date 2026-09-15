@@ -33,8 +33,9 @@
 | MOD-RESEARCH | Research & Training | `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAResearch/**`, `05_Training/**`, `01_Source/Research/**`, `01_Source/ML/**`, `01_Source/Models/**` | worker-research | ACTIVE | ADR-0012, ADR-0014 |
 | MOD-TOOLS | Build & Output | `06_Tools/**`, `04_Output/**` (generated), `01_Source/Tests/**`, `01_Source/Utilities/**` | worker-tools | ACTIVE | — |
 | MOD-DOCS | Documentation | `03_Documents/**`, `*.md` (governance: README, PROJECT_STATUS, ROADMAP, DECISIONS, etc.), `08_Archives/**` | worker-docs | ACTIVE | — |
+| MOD-TWIN | Market Digital Twin | `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAMarketDigitalTwin/**`, `06_Tools/market_digital_twin*.py`, `04_Output/Twin/**` | worker-twin | ACTIVE | ADR-0022 |
 
-> Note: MVP counts 10 rows for completeness (includes TOOLS + DOCS). Core invariant still holds: each worker owns exactly one Module, each Module has exactly one Owner. `MOD-TOOLS` and `MOD-DOCS` are separate owners (worker-tools, worker-docs). If strict 8 is required, merge TOOLS+DOCS → worker-tools owns both; the table above documents the intended split for clarity. The registry below registers 10 workers to match 10 modules — validator checks 1:1.
+> Note: MVP counts 11 rows (added MOD-TWIN for single source of truth) (includes TOOLS + DOCS). Core invariant still holds: each worker owns exactly one Module, each Module has exactly one Owner. `MOD-TOOLS` and `MOD-DOCS` are separate owners (worker-tools, worker-docs). If strict 8 is required, merge TOOLS+DOCS → worker-tools owns both; the table above documents the intended split for clarity. The registry below registers 10 workers to match 10 modules — validator checks 1:1.
 
 ---
 

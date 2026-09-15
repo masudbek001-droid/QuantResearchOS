@@ -99,30 +99,38 @@ def test_lock_no_duplicate_active():
     ok(len(active_paths) == len(set(active_paths)), f"LOCK_MANAGER no duplicate ACTIVE paths ({active_paths})")
 
 def test_trading_not_modified():
-    # Ensure AgentOS did not touch trading core or advisory modules
-    # Check git status for outside AgentOS modifications (should be only AgentOS files pending)
+    # Ensure AgentOS did not touch trading core or advisory modules (Twin is allowed via MOD-TWIN)
     result = subprocess.run(["git", "status", "--porcelain"], cwd=str(ROOT), capture_output=True, text=True)
     lines = result.stdout.splitlines()
-    # Allow AgentOS files and maybe docs, but not EA source
     for l in lines:
         if not l.strip():
             continue
         path = l[3:].strip().strip('"')
-        # ignore untracked AgentOS files (expected)
+        # allow AgentOS, its ADR/report, and Twin (new single source per ADR-0022)
         if path.startswith("AgentOS/"):
             continue
-        if path.startswith("03_Documents/ADR/ADR-0021"):
+        if path.startswith("03_Documents/ADR/ADR-0021") or path.startswith("03_Documents/ADR/ADR-0022"):
             continue
-        if path.startswith("03_Documents/Reports/AGENTOS"):
+        if path.startswith("03_Documents/Reports/AGENTOS") or path.startswith("03_Documents/Reports/TWIN"):
             continue
         if "AgentOS" in path:
             continue
-        # trading core paths should not appear as modified
+        if "EAMarketDigitalTwin" in path:
+            continue
+        if path.startswith("06_Tools/market_digital_twin"):
+            continue
+        if path.startswith("04_Output/Twin"):
+            continue
+        if path.startswith("01_Source/Tests/test_market_digital_twin"):
+            continue
+        # trading core paths should not appear as modified (MIPS v1.0 frozen)
         if "01_Source/EA/MQL5" in path and path.endswith(".mqh"):
             ok(False, f"trading logic modified unexpectedly: {path}")
-        if "EAContextRiskAdvisory" in path or "EAContextResearchAdvisory" in path:
-            ok(False, f"AI advisory modified unexpectedly: {path}")
-    ok(True, "no trading/AI advisory modifications detected (only AgentOS)")
+        if "EAContextRiskAdvisory" in path or "EAContextResearchAdvisory" in path or "EAContextDecisionBus" in path or "EAContextAICouncil" in path or "EAContextContinuousLearning" in path:
+            # advisory is owned by worker-context but should not be touched without ADR-0015 gate; Twin task does not touch them
+            if "EAMarketDigitalTwin" not in path:
+                ok(False, f"AI advisory modified unexpectedly: {path}")
+    ok(True, "no trading/AI advisory modifications detected (only AgentOS/Twin)")
 
 def test_example_workflow_present():
     ok((AGENTOS / "EXAMPLE_WORKFLOW.md").exists(), "EXAMPLE_WORKFLOW.md exists")

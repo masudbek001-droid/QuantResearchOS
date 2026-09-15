@@ -28,6 +28,13 @@
 | EVT-0003 | 2026-09-15 07:35:00 UTC | worker-agentos | task.created | TASK-0002 | `{"title":"Validate ownership map single-owner invariant","module":"MOD-AGENTOS"}` |
 | EVT-0004 | 2026-09-15 07:35:00 UTC | worker-agentos | task.created | TASK-0003 | `{"title":"Seed TASK_QUEUE with example workflow","module":"MOD-AGENTOS"}` |
 | EVT-0005 | 2026-09-15 07:35:00 UTC | worker-agentos | task.created | TASK-0004 | `{"title":"Research platform benchmark deterministic replay","module":"MOD-RESEARCH"}` |
+| EVT-0006 | 2026-09-15 11:00:00 UTC | worker-agentos | worker.registered | - | `{"worker":"worker-twin","module":"MOD-TWIN"}` |
+| EVT-0007 | 2026-09-15 11:00:00 UTC | worker-agentos | task.created | TASK-0005 | `{"title":"Build Market Digital Twin — single source of truth simulator","module":"MOD-TWIN"}` |
+| EVT-0008 | 2026-09-15 11:00:00 UTC | worker-twin | task.claimed | TASK-0005 | `{"branch":"worker/worker-twin/TASK-0005","lock":"LOCK-0001"}` |
+| EVT-0009 | 2026-09-15 11:00:00 UTC | worker-twin | lock.acquired | TASK-0005 | `{"path":"01_Source/EA/MQL5/Include/CandleBreakoutEA/EAMarketDigitalTwin/**","lock":"LOCK-0001"}` |
+| EVT-0010 | 2026-09-15 11:30:00 UTC | worker-twin | task.in_progress | TASK-0005 | `{"status":"IN_PROGRESS"}` |
+| EVT-0011 | 2026-09-15 11:45:00 UTC | worker-twin | report.created | REPORT-0002 | `{"task":"TASK-0005","verdict":"PASS","hash":"FNV-1a 100 bars 0 mismatches"}` |
+| EVT-0012 | 2026-09-15 11:45:00 UTC | worker-twin | task.review | TASK-0005 | `{"report":"REPORT-0002","status":"REVIEW"}` |
 
 > Emitted by `AgentOS/tools/agentos_cli.py` on each state transition. Workers append by editing this file, committing `[AgentOS][TASK-xxxx][worker] event: <type>`, pushing.
 
@@ -55,4 +62,4 @@ tail -n 20 AgentOS/EVENT_BUS.md  # new events since last seen EventID
 
 ---
 
-*Last event: EVT-0005 — next is EVT-0006. Poll after every `git pull`.*
+*Last event: EVT-0012 — next is EVT-0013. Poll after every `git pull`.*
