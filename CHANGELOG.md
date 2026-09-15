@@ -355,3 +355,23 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `NEXT_TASK.md`: Stage15+5 advisory COMPLETE PASS, Current Active Task → ALL advisory 9-13 DONE BLOCKED MT5 compile, next production promotion ADR.
 - Updated `DECISIONS.md`: added ADR-0019/0020 register rows.
 - Updated `AGENT_HANDOFF.md`: added Sprint 12/13 rows, Current Milestone Sprint 13 PASS, Active Task ALL DONE, Version Pins +Council +Learning PASS.
+
+# 2026-09-15 — AgentOS v1.0 MVP: Git-native multi-agent collaboration layer
+
+- Added `AgentOS/AGENT_PROTOCOL.md` — 11-section protocol: Git is the bus, one module→one owner, no direct assumptions, pull-before-act, branch `worker/<id>/<task>`, commit `[AgentOS][TASK][worker]`, lock-per-path, heartbeat, invariants, advisory frozen.
+- Added `AgentOS/TASK_QUEUE.md` — 4 seed tasks (TASK-0001..0004), states OPEN→CLAIMED→IN_PROGRESS→REVIEW→DONE, Module/Priority/Files/Branch/UTC, CLI `task create/claim/update`.
+- Added `AgentOS/REPORT_QUEUE.md` — 1 seed report (REPORT-0001), PENDING→APPROVED, TaskID linkage, verdict, artifacts.
+- Added `AgentOS/LOCK_MANAGER.md` — Active/Denied tables, one ACTIVE per Path, TTL 72h, sweep expiry.
+- Added `AgentOS/OWNERSHIP_MAP.md` — 10 modules (MOD-AGENTOS/CORE/CONTEXT/FEATURE/DAL/HISTORY/REPLAY/RESEARCH/TOOLS/DOCS) → 10 workers 1:1, FROZEN for MOD-CORE.
+- Added `AgentOS/DECISION_LOG.md` — DEC-0001..0002 append-only, ADR-gated.
+- Added `AgentOS/EVENT_BUS.md` — EVT-0001..0005 append-only, Types task/report/lock/decision/worker, JSON payload, poll via `git pull`.
+- Added `AgentOS/WORKER_REGISTRY.md` — 10 workers (worker-agentos orchestrator + 9 module workers), heartbeat, BranchPrefix, Capabilities.
+- Added `AgentOS/tools/agentos_cli.py` — CLI for task/lock/report/event, keeps MD queues synced, enforces ownership/lock.
+- Added `AgentOS/tools/validate.py` — Invariant checker (1:1 ownership, no duplicate ACTIVE lock, monotonic IDs, valid transitions, JSON payload, advisory clause) — CI gate `[AGENTOS] STATUS=PASS`.
+- Added `AgentOS/tests/test_agentos.py` — 11 checks: protocol, 8 files, ownership, registry, no assumptions, Git-based, validate, lock, no trading/AI touch, example, CLI.
+- Added `AgentOS/README.md` — File map, roles, 3-command demo, invariants.
+- Added `AgentOS/EXAMPLE_WORKFLOW.md` — Traced TASK-0003 full lifecycle with Git diffs.
+- Added `03_Documents/ADR/ADR-0021-agentos-collaboration-layer.md` — AgentOS v1.0 decision.
+- Added `03_Documents/Reports/AGENTOS_IMPLEMENTATION_REPORT.md` — Implementation report.
+
+No `01_Source/EA/MQL5` trading logic or `EAContext*Advisory` AI advisory modified; Telegram not implemented (Git-only bus).
