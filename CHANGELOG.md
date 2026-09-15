@@ -391,3 +391,13 @@ No `01_Source/EA/MQL5` trading logic or `EAContext*Advisory` AI advisory modifie
 - Added `.github/pull_request_template.md` — Requires TaskID/ReportID/Worker/Module, validate/test PASS, branch `worker/<id>/<task>`, lock, event, no trading/AI/Telegram.
 
 Improvement is additive; no trading/AI logic touched; validate still PASS.
+
+# 2026-09-15 — AgentOS blocker: GitHub branch protection requires admin
+
+- Attempted `PUT /repos/masudbek001-droid/QuantResearchOS/branches/arena/01a0a3b5-quantresearchos/protection` with `required_status_checks` (validate) to enforce single-owner + validate gate via branch protection.
+- Result: `403 Resource not accessible by integration` (GitHub permission — admin required per REST API docs). This is a real external blocker per task "Stop only on Windows MT5 compile / GitHub permission / missing external dependency".
+- Next AgentOS improvement (enforce `validate.py` as required status check, CODEOWNERS per `OWNERSHIP_MAP.md`) is blocked until user grants admin / reconnects GitHub with `repo` + `admin:repo_hook` scope or manually sets protection in GitHub UI: Settings → Branches → Add rule → Require status checks → `validate`.
+- Other upcoming improvements (lock sweep cron, heartbeat daemon) are Python-only and can proceed without admin, but branch protection is the intended next enforcement step.
+- Telegram remains not implemented per task (Git-only bus).
+
+Evidence: `gh api .../protection → 403` captured 2026-09-15 07:35 UTC, same as MT5 compile blocker (Linux sandbox no MetaEditor for 58 .mqh 0/0).
