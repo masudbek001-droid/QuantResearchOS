@@ -375,3 +375,11 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Added `03_Documents/Reports/AGENTOS_IMPLEMENTATION_REPORT.md` — Implementation report.
 
 No `01_Source/EA/MQL5` trading logic or `EAContext*Advisory` AI advisory modified; Telegram not implemented (Git-only bus).
+
+# 2026-09-15 — AgentOS docs: status/roadmap/handoff to v1.0 PASS
+
+- Updated `PROJECT_STATUS.md`: Milestone AgentOS v1.0 PASS (ADR-0021), Current Sprint AgentOS v1.0 PASS, Completed Sprints +AgentOS v1.0, Validation Stages +AgentOS v1.0 PASS, Current Task → AgentOS 8-file bus PASS, Next Task → AgentOS improvements until blocker (MT5 + GitHub CI permission), Module groups +AgentOS row, overall 58 .mqh + AgentOS.
+- Updated `ROADMAP.md`: Added Sprint AgentOS v1.0 DONE (ADR-0021), Current → Stage15+5 advisory+AgentOS stable, Planned AgentOS DONE next AgentOS improvements.
+- Updated `NEXT_TASK.md`: Stage15+5 advisory+AgentOS COMPLETE PASS, Current Active Task → AgentOS v1.0 DONE next AgentOS improvements, next authorized work AgentOS improvements + production promotion.
+- Updated `DECISIONS.md`: added ADR-0021 register row.
+- Updated `AGENT_HANDOFF.md`: added AgentOS v1.0 row, Current Milestone AgentOS v1.0 PASS, Active Task AgentOS DONE.
