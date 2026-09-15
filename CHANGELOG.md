@@ -283,3 +283,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 # 2026-09-15 — ADR-0017: Chief Research AI Synthesis (Sprint 10)
 
 - Added `03_Documents/ADR/ADR-0017-chief-research-ai-synthesis.md` — Chief Research AI synthesis advisory (Sprint 10). Python synthesis of statistical baseline + walk-forward + risk advisory into next-experiment hints (ABLATE_ATR/HOUR, TRY_GRADIENT_BOOST, EXPAND_WINDOW), plus MQL advisory stub CAIResearchAdvisory (dormant OFF, explicit Update, 0 trading tokens), gates (risk PASS + synthesis PASS + 0 tokens), rollback Reset().
+
+# 2026-09-15 — Chief Research AI MQL: CAIResearchAdvisory (ADR-0017)
+
+- Added `01_Source/EA/MQL5/Include/CandleBreakoutEA/EAContext/EAContextResearchAdvisory.mqh` — class `CAIResearchAdvisory` with `SResearchAdvisory`/`ENUM_RESEARCH_HINT`, dormant OFF, explicit `Update(SRiskAdvisory,CAIContext,atr_ratio,hour)` heuristic (high vol→ABLATE_ATR, worst hour→ABLATE_HOUR, low conf→EXPAND_WINDOW, CAUTION→TRY_GRADIENT_BOOST), confidence 0..1, Validate/Reset/ToString, 0 trading tokens.
