@@ -201,3 +201,8 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 
 - Updated `AGENT_HANDOFF.md` §4 Current State: Stage 15 now PASS/stable, Active Task none, Immediate Next Tasks reflect ADR-0015 shadow-only and optional README/PDF refresh.
 - Updated §7 Version Pins: Dataset Version now lists 906001/907001 + v907100 training vectors; Current Model(s) now lists 2 baseline models (LogisticRegression/RandomForest) shadow-only, not 'None yet'; added Stage 15 PASS pin.
+
+# 2026-09-15 — Consistency audit: USER_ACTION & BUILD_AUDIT synchronization
+
+- Updated `USER_ACTION_REQUIRED.md`: Reason now Stages 2–15 complete, Expected Result Stage 15 COMPLETE/PASS (was 'in progress').
+- Updated `BUILD_AUDIT.md`: expanded validation script list from 4 to 8 entries with sizes/magic numbers and EA binary 53 .mqh detail; added 2026-09-15 date.
