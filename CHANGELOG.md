@@ -327,3 +327,7 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `NEXT_TASK.md`: Stage 15+Risk+Research+Bus COMPLETE PASS, Current Active Task → Decision Bus DONE next AI Council, BLOCKED MT5 compile, next AI Council ADR-0019.
 - Updated `DECISIONS.md`: added ADR-0018 register row.
 - Updated `AGENT_HANDOFF.md`: added Sprint 11 row, Current Milestone Sprint 11 PASS, Active Task Decision Bus DONE, Next blocked MT5, Version Pins +Decision Bus PASS.
+
+# 2026-09-15 — ADR-0019: AI Council multi-agent advisory (Sprint 12)
+
+- Added `03_Documents/ADR/ADR-0019-ai-council-advisory.md` — AI Council weighted consensus (Risk 0.35/Research 0.25/Shadow 0.25/Bus 0.15) → council_multiplier 0.50..1.50, confidence, vote ELEVATED>CAUTION>REDUCED>NORMAL, Python + MQL CAIAICouncil dormant OFF.
