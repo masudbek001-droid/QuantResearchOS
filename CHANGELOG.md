@@ -179,3 +179,10 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Removed stale Stage 2 pending, training-not-implemented, and old binary-size references from current-state documents.
 - Preserved historical ADR/changelog context while adding supersession notes where necessary.
 - Closed Stage 15 with project status synchronized to Stage 14 verified runtime reality.
+
+# 2026-09-15 — Consistency audit: ROADMAP synchronization
+
+- Updated `ROADMAP.md` Completed table to include Sprint 6B (Models.db v2 + statistical baseline), Sprint 7 (training pipeline + ONNX export, Stages 8–9), Sprint 8 (ONNX runtime + replay inference, Stages 10–11), and Stages 12–15 (AI safety + reconciliation) with correct schemas and ADRs 0014/0015.
+- Replaced stale Current section (\"Sprint 6B awaits command\") with stable Stage 15 PASS state and 0/0 compile reference (207,814 bytes).
+- Rewrote Planned table: Sprint 6B/7/8 moved from future to completed; next planned is Sprint 9 Advisory AI (ADR-controlled) and future farm/calendar/tester campaigns.
+- Synchronized `PROJECT_STATUS.md` Current Milestone / Current Sprint / Completed Sprints to reflect Stage 15 stability and 53 .mqh + 1 .mq5 EA build unit.

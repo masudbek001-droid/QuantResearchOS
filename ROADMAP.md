@@ -10,19 +10,21 @@
 | Sprint 5 | Research Platform — experiments, benchmarks, walk-forward | v10 | 0012 |
 | Sprint 6A | Historical Data Platform — Ticks/Market/Models stores, exporters, integrity, incremental sync, import history | v11 | 0013 |
 | Reorganization | QuantResearchOS clean workspace (this state) | — | — |
+| Sprint 6B | Model Architecture Platform — Models.db schema v2, 4 architectures seeded, statistical baseline (Phase C) regenerated | Models v2 | 0014 |
+| Sprint 7 | Training pipeline — 56,499 feature vectors, 2 supervised baselines (LogisticRegression, RandomForest), ONNX export with checker PASS, Models.db registry/contracts/evaluations | Models v2 | 0014 |
+| Sprint 8 | ONNX runtime — MT5 ONNX load PASS (22→4), replay+ONNX inference PASS (10 inferences), shadow AI context PASS | — | 0014 / 0015 |
+| Stages 12–15 | AI promotion safety gates, shadow-only inference, shadow safety audit, final architecture/documentation reconciliation — PASS | — | 0015 |
 
 ## ▶ Current
 
-* **Nothing running.** Sprint 6B awaits an explicit user command. The platform is
-  in a stable, fully compiled, fully documented state.
+* **Stable through Stage 15 (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, and shadow-AI safety are validated. EA compiles 0 errors / 0 warnings (207,814 bytes). AI remains shadow-only. No sprint is active; next work is documentation packaging or a new ADR-controlled validation stage.
 
 ## 📋 Planned
 
 | Sprint | Scope (subject to the user's specification) |
 |---|---|
-| **6B** | Model Architecture Platform — model metadata in Models.db, feature-vector contracts, readiness for training |
-| **7** | Training pipeline — dataset export to `05_Training/`, feature vectors, model training, metrics |
-| **8** | ONNX runtime — model inference inside the EA, AI-gated decisions (context AI slot already reserved) |
+| **9 (next)** | Advisory AI (opt-in) — explicit ADR, Strategy Tester regression gate, checksum/rollback, Models.db promotion workflow |
+| Future | Multi-broker backtesting farm (DataSources registry is multi-broker ready); live walk-forward re-validation calendar; Strategy Tester / demo campaign before any live deployment |
 
 ## 🔭 Future
 
