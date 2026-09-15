@@ -10,5 +10,4 @@ Current Stage 8 research artifacts:
 These are local scikit-learn baseline models. Matching ONNX exports are stored
 under `05_Training/ONNX/`.
 
-They are not live-trading models. Walk-forward validation and MT5-side ONNX
-contract validation are still required before EAContextAI integration.
+They remain research/shadow-only per ADR-0015 (Stage 13–14 PASS). Walk-forward validation (Stage 9), MT5-side ONNX loading (Stage 10), and replay+ONNX inference (Stage 11) have all PASSED (shadow-only inference validated, no trading authority).

@@ -223,3 +223,10 @@ optional (default OFF); exit priority BE > ProfitLock > Momentum > Carry > H1.
 - Updated `01_Source/Database/README.md`: 13 → 14 modules (EAData count correction).
 - Updated `01_Source/ML/README.md`: PLANNED → ACTIVE (Stages 8–14), documented 05_Training/ONNX/Metrics and 2 baselines shadow-only.
 - Updated `02_Databases/Models/README.md`: walk-forward/ONNX now PASS, blocked until future advisory ADR (ADR-0015).
+
+# 2026-09-15 — Consistency audit: 05_Training READMEs synchronization
+
+- Updated `05_Training/Metrics/README.md`: listed both phase_d supervised (6 evals) and walk_forward (10 evals) =16 rows, matching Models.db.
+- Updated `05_Training/Models/README.md`: walk-forward/ONNX/replay now PASS but still shadow-only per ADR-0015 (was 'still required').
+- Updated `05_Training/ONNX/README.md`: same PASS note + checksum + shadow-only via CAIShadowInference, blocked until advisory ADR.
+- Updated `05_Training/Datasets/README.md`: 56,499 vectors materialized (Stage 8 PASS) and DatasetBuilder canonical path note.
