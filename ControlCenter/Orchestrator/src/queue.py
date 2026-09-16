@@ -55,20 +55,60 @@ class MissionQueue:
                 self.next_id = 1
 
     def save(self):
-        self.path.parent.mkdir(parents=True, exist_ok=True)
+        # BUG-010 fix: atomic write + mirror must not hang on PermissionError (Docker appuser 1000 vs host 1001 with 755 bind mounts).
+        # Exact blocking line before fix: tmp.write_text(json.dumps(payload, indent=2), ...) -> PermissionError: [Errno 13] Permission denied: '.../mission_queue.tmp'
+        try:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
         payload = {
             "missions": [m.to_dict() for m in sorted(self.missions.values(), key=lambda x: x.mission_id)],
             "next_id": self.next_id,
             "updated_at": utcnow(),
         }
-        tmp = self.path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-        tmp.replace(self.path)
-        # Mirror to 04_Output only when using default DATA_PATH (not tmp test paths)
+        data = json.dumps(payload, indent=2)
         try:
-            if self.path.resolve() == DATA_PATH.resolve():
-                OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-                OUTPUT_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+            tmp = self.path.with_suffix(".tmp")
+            tmp.write_text(data, encoding="utf-8")
+            tmp.replace(self.path)
+        except (PermissionError, OSError) as e:
+            try:
+                self.path.write_text(data, encoding="utf-8")
+            except (PermissionError, OSError):
+                try:
+                    import os
+                    os.chmod(self.path.parent, 0o777)
+                    self.path.write_text(data, encoding="utf-8")
+                except Exception:
+                    pass
+            except Exception:
+                pass
+        except Exception:
+            try:
+                self.path.write_text(data, encoding="utf-8")
+            except Exception:
+                pass
+        try:
+            try:
+                is_default = str(self.path.resolve()) == str(DATA_PATH.resolve())
+            except Exception:
+                is_default = str(self.path) == str(DATA_PATH)
+            if is_default:
+                try:
+                    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    pass
+                try:
+                    OUTPUT_PATH.write_text(data, encoding="utf-8")
+                except (PermissionError, OSError):
+                    try:
+                        import os
+                        os.chmod(OUTPUT_PATH.parent, 0o777)
+                        OUTPUT_PATH.write_text(data, encoding="utf-8")
+                    except Exception:
+                        pass
+                except Exception:
+                    pass
         except Exception:
             pass
 

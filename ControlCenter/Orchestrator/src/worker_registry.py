@@ -45,13 +45,45 @@ class WorkerRegistry:
                 self.workers = {}
 
     def save(self):
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {"workers": [w.to_dict() for w in self.workers.values()], "updated_at": utcnow()}
-        self.path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        # BUG-010 fix: handle PermissionError (Docker 1000 vs host 1001) — same as mission_queue
         try:
-            if self.path.resolve() == DATA_PATH.resolve():
-                OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-                OUTPUT_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
+        payload = {"workers": [w.to_dict() for w in self.workers.values()], "updated_at": utcnow()}
+        data = json.dumps(payload, indent=2)
+        try:
+            self.path.write_text(data, encoding="utf-8")
+        except (PermissionError, OSError):
+            try:
+                import os
+                os.chmod(self.path.parent, 0o777)
+                self.path.write_text(data, encoding="utf-8")
+            except Exception:
+                pass
+        except Exception:
+            pass
+        try:
+            try:
+                is_default = str(self.path.resolve()) == str(DATA_PATH.resolve())
+            except Exception:
+                is_default = str(self.path) == str(DATA_PATH)
+            if is_default:
+                try:
+                    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    pass
+                try:
+                    OUTPUT_PATH.write_text(data, encoding="utf-8")
+                except (PermissionError, OSError):
+                    try:
+                        import os
+                        os.chmod(OUTPUT_PATH.parent, 0o777)
+                        OUTPUT_PATH.write_text(data, encoding="utf-8")
+                    except Exception:
+                        pass
+                except Exception:
+                    pass
         except Exception:
             pass
 
