@@ -19,7 +19,7 @@ COPY src/ ./src/
 COPY README.md ./
 
 # Non-root
-RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+RUN useradd -m -u 1000 appuser && mkdir -p /app/logs && chown -R appuser:appuser /app && chmod 755 /app/logs
 USER appuser
 
 EXPOSE 8081

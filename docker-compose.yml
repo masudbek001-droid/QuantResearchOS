@@ -33,8 +33,8 @@ services:
       LOG_LEVEL: "${LOG_LEVEL:-info}"
       ENVIRONMENT: "${ENVIRONMENT:-development}"
     volumes:
-      - ./ControlCenter/Gateway:/app:ro
-      - qros-logs:/app/logs
+      - ./ControlCenter/Gateway:/app
+      - qros-logs:/app/logs:rw
     networks:
       - qros-control-net
     healthcheck:
@@ -68,8 +68,8 @@ services:
       LOG_LEVEL: "${LOG_LEVEL:-info}"
       ENVIRONMENT: "${ENVIRONMENT:-development}"
     volumes:
-      - ./ControlCenter/Bot:/app:ro
-      - qros-logs:/app/logs
+      - ./ControlCenter/Bot:/app
+      - qros-logs:/app/logs:rw
     networks:
       - qros-control-net
     healthcheck:
@@ -106,8 +106,8 @@ services:
       LOG_LEVEL: "${LOG_LEVEL:-info}"
       ENVIRONMENT: "${ENVIRONMENT:-development}"
     volumes:
-      - ./ControlCenter/GithubWatcher:/app:ro
-      - qros-logs:/app/logs
+      - ./ControlCenter/GithubWatcher:/app
+      - qros-logs:/app/logs:rw
     networks:
       - qros-control-net
     healthcheck:
