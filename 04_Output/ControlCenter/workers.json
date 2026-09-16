@@ -4,7 +4,7 @@
       "worker_id": "worker-arena",
       "role": "arena",
       "status": "ACTIVE",
-      "last_heartbeat": "2026-09-16T17:39:23Z",
+      "last_heartbeat": "2026-09-16T18:09:25Z",
       "capabilities": [
         "arena",
         "git",
@@ -17,7 +17,7 @@
       "worker_id": "worker-kilo",
       "role": "kilo",
       "status": "ACTIVE",
-      "last_heartbeat": "2026-09-16T17:39:23Z",
+      "last_heartbeat": "2026-09-16T18:09:25Z",
       "capabilities": [
         "kilo",
         "local",
@@ -27,5 +27,5 @@
       "endpoint": "http://kilo:8000"
     }
   ],
-  "updated_at": "2026-09-16T17:39:23Z"
+  "updated_at": "2026-09-16T18:09:25Z"
 }

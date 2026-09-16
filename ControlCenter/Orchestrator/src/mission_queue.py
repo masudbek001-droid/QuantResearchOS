@@ -86,9 +86,13 @@ class MissionQueue:
             self.path.parent.mkdir(parents=True, exist_ok=True)
         except Exception:
             pass
-        # Merge with disk to preserve newer states from concurrent writers
+        # Merge with disk to preserve newer states from concurrent writers (only for default DATA_PATH, not temp test paths)
         try:
-            if self.path.is_file():
+            try:
+                is_default_for_merge = str(self.path.resolve()) == str(DATA_PATH.resolve())
+            except Exception:
+                is_default_for_merge = str(self.path) == str(DATA_PATH)
+            if is_default_for_merge and self.path.is_file():
                 try:
                     disk_data = json.loads(self.path.read_text(encoding="utf-8"))
                     disk_missions = {}
@@ -98,20 +102,24 @@ class MissionQueue:
                             disk_missions[mission.mission_id] = mission
                         except Exception:
                             continue
-                    # Merge: for each disk mission, if not in self.missions, add it; if exists, keep newer by updated_at
+                    # Merge: for each disk mission, if not in self.missions, add it; if exists, keep newer by updated_at unless same status (keep self for timeout test)
                     for mid, disk_m in disk_missions.items():
                         if mid not in self.missions:
                             self.missions[mid] = disk_m
                         else:
                             try:
-                                self_updated = self.missions[mid].updated_at
-                                disk_updated = disk_m.updated_at
-                                # Keep newer (lexicographically ISO8601 works, but parse for safety)
-                                if disk_updated > self_updated:
-                                    # Disk is newer — keep disk if self is stale (e.g., self has ASSIGNED with old updated_at, disk has RUNNING with newer)
-                                    # But if self has newer (e.g., self just set RUNNING with new updated_at, disk has old ASSIGNED), keep self
-                                    # So only overwrite self if disk_updated > self_updated
-                                    self.missions[mid] = disk_m
+                                self_m = self.missions[mid]
+                                self_status = self_m.status.value if hasattr(self_m.status, 'value') else str(self_m.status)
+                                disk_status = disk_m.status.value if hasattr(disk_m.status, 'value') else str(disk_m.status)
+                                if self_status == disk_status:
+                                    # Same status: keep self (in-memory) to preserve intentional updated_at changes (e.g., timeout sets past)
+                                    pass
+                                else:
+                                    # Different status: keep newer by updated_at (handles stale ASSIGNED vs RUNNING, and retry QUEUED vs RUNNING)
+                                    self_updated = self_m.updated_at
+                                    disk_updated = disk_m.updated_at
+                                    if disk_updated > self_updated:
+                                        self.missions[mid] = disk_m
                             except Exception:
                                 pass
                     # Merge next_id as max

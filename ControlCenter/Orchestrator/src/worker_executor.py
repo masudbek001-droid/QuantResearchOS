@@ -46,18 +46,25 @@ except Exception:
 
 # Import mission components with robust handling for queue shadowing and importlib loading
 _ORCH_SRC = pathlib.Path(__file__).resolve().parent
+# Do not insert at front to avoid shadowing stdlib queue (BUG-STABILITY)
+# Use importlib for orchestrator modules instead of sys.path manipulation
 if str(_ORCH_SRC) not in sys.path:
-    sys.path.insert(0, str(_ORCH_SRC))
+    sys.path.append(str(_ORCH_SRC))
 
 def _load_orch(name: str):
     """Load Orchestrator module via importlib to avoid stdlib shadowing."""
     import importlib.util as _ilu
     p = _ORCH_SRC / f"{name}.py"
     if p.is_file():
-        spec = _ilu.spec_from_file_location(name, p)
+        # Avoid shadowing stdlib 'queue' - load under different name
+        mod_name = f"_orch_{name}" if name == "queue" else name
+        spec = _ilu.spec_from_file_location(mod_name, p)
         if spec and spec.loader:
             mod = _ilu.module_from_spec(spec)
-            sys.modules[name] = mod
+            sys.modules[mod_name] = mod
+            # Also keep original name for backward compat but ensure stdlib queue not overwritten
+            if name != "queue":
+                sys.modules[name] = mod
             spec.loader.exec_module(mod)
             return mod
     return None
@@ -75,6 +82,11 @@ try:
             MissionQueue = _qmod.MissionQueue  # type: ignore
             DATA_PATH = _qmod.DATA_PATH  # type: ignore
             OUTPUT_PATH = _qmod.OUTPUT_PATH  # type: ignore
+        elif "_orch_queue" in sys.modules and hasattr(sys.modules["_orch_queue"], "MissionQueue"):
+            _qmod2 = sys.modules["_orch_queue"]
+            MissionQueue = _qmod2.MissionQueue  # type: ignore
+            DATA_PATH = _qmod2.DATA_PATH  # type: ignore
+            OUTPUT_PATH = _qmod2.OUTPUT_PATH  # type: ignore
         else:
             raise
     from worker_registry import WorkerRegistry  # type: ignore
@@ -100,6 +112,11 @@ except Exception:
             MissionQueue = _qmod.MissionQueue  # type: ignore
             DATA_PATH = _qmod.DATA_PATH  # type: ignore
             OUTPUT_PATH = _qmod.OUTPUT_PATH  # type: ignore
+        elif "_orch_queue" in sys.modules and hasattr(sys.modules["_orch_queue"], "MissionQueue"):
+            _qmod2 = sys.modules["_orch_queue"]
+            MissionQueue = _qmod2.MissionQueue  # type: ignore
+            DATA_PATH = _qmod2.DATA_PATH  # type: ignore
+            OUTPUT_PATH = _qmod2.OUTPUT_PATH  # type: ignore
         else:
             raise ImportError("mission_queue/queue.py not found")
     _wmod = _load_orch("worker_registry")
@@ -286,26 +303,26 @@ def _git_commit_and_push(mission: Mission, worker_id: str) -> Dict[str, Any]:
     commit_hash = "unknown"
     full_commit_hash = "unknown"
     try:
-        log.info(f"[{mission.mission_id}] git add — before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+        log.debug(f"[{mission.mission_id}] git add — before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         # Check if there are changes to commit
         # Use git status
         status_out = subprocess.run(["git", "status", "--porcelain", str(exec_file), str(data_exec_file)], capture_output=True, text=True, timeout=3, cwd=str(REPO_ROOT))
-        log.info(f"[{mission.mission_id}] git add — status done: {status_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+        log.debug(f"[{mission.mission_id}] git add — status done: {status_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         # Always add
-        log.info(f"[{mission.mission_id}] git add — running git add {exec_file.name}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+        log.debug(f"[{mission.mission_id}] git add — running git add {exec_file.name}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         add_out = subprocess.run(["git", "add", str(exec_file), str(data_exec_file)], capture_output=True, text=True, timeout=3, cwd=str(REPO_ROOT))
-        log.info(f"[{mission.mission_id}] git add — after add_out={add_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+        log.debug(f"[{mission.mission_id}] git add — after add_out={add_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         if add_out.returncode != 0:
             log.warning(f"git add failed for {mission.mission_id}: {add_out.stderr}")
 
         # Check if there's anything to commit (staged)
-        log.info(f"[{mission.mission_id}] git commit — before diff --cached", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+        log.debug(f"[{mission.mission_id}] git commit — before diff --cached", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         diff_out = subprocess.run(["git", "diff", "--cached", "--name-only"], capture_output=True, text=True, timeout=3, cwd=str(REPO_ROOT))
-        log.info(f"[{mission.mission_id}] git commit — diff done staged={bool(diff_out.stdout.strip())}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+        log.debug(f"[{mission.mission_id}] git commit — diff done staged={bool(diff_out.stdout.strip())}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         if diff_out.stdout.strip():
-            log.info(f"[{mission.mission_id}] git commit — before commit", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+            log.debug(f"[{mission.mission_id}] git commit — before commit", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
             commit_out = subprocess.run(["git", "commit", "-m", commit_message], capture_output=True, text=True, timeout=5, cwd=str(REPO_ROOT))
-            log.info(f"[{mission.mission_id}] git commit — after commit_out={commit_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+            log.debug(f"[{mission.mission_id}] git commit — after commit_out={commit_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
             if commit_out.returncode == 0:
                 # Get commit hash
                 hash_out = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=2, cwd=str(REPO_ROOT))
@@ -318,25 +335,25 @@ def _git_commit_and_push(mission: Mission, worker_id: str) -> Dict[str, Any]:
                     branch = branch_out.stdout.strip()
                 # Push with resilient handling for fetch-first (Stage 4)
                 push_branch = branch
-                log.info(f"[{mission.mission_id}] git push — before push to {push_branch}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+                log.debug(f"[{mission.mission_id}] git push — before push to {push_branch}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                 try:
                     push_out = subprocess.run(["git", "push", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
-                    log.info(f"[{mission.mission_id}] git push — after push_out={push_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+                    log.debug(f"[{mission.mission_id}] git push — after push_out={push_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                     if push_out.returncode != 0:
                         stderr_low = (push_out.stderr or "").lower()
                         if "fetch first" in stderr_low or "rejected" in stderr_low:
                             log.warning(f"Push fetch-first for {mission.mission_id}, trying fetch+rebase")
                             try:
-                                log.info(f"[{mission.mission_id}] git push — fetch before rebase", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+                                log.debug(f"[{mission.mission_id}] git push — fetch before rebase", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 subprocess.run(["git", "fetch", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
-                                log.info(f"[{mission.mission_id}] git push — pull --rebase before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+                                log.debug(f"[{mission.mission_id}] git push — pull --rebase before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 rb = subprocess.run(["git", "pull", "--rebase", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
-                                log.info(f"[{mission.mission_id}] git push — after rebase rb={rb.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+                                log.debug(f"[{mission.mission_id}] git push — after rebase rb={rb.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 if rb.returncode != 0:
                                     log.warning(f"Rebase result for {mission.mission_id}: {rb.stderr[:300] if rb.stderr else rb.stdout[:300]}")
-                                log.info(f"[{mission.mission_id}] git push — retry push before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+                                log.debug(f"[{mission.mission_id}] git push — retry push before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 push2 = subprocess.run(["git", "push", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
-                                log.info(f"[{mission.mission_id}] git push — after retry push2={push2.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
+                                log.debug(f"[{mission.mission_id}] git push — after retry push2={push2.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 if push2.returncode == 0:
                                     log.info(f"git push succeeded after rebase for {mission.mission_id} to origin/{push_branch}: {commit_hash}")
                                 else:
@@ -450,9 +467,9 @@ class WorkerExecutor:
         log.info(f"[{mission_id}] execute_mission — entered", extra={"extra": {"mission_id": mission_id}})  # type: ignore
         # Reload to get latest
         try:
-            log.info(f"[{mission_id}] RUNNING — before queue.load", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+            log.debug(f"[{mission_id}] RUNNING — before queue.load", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             self.queue.load()
-            log.info(f"[{mission_id}] RUNNING — after queue.load", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+            log.debug(f"[{mission_id}] RUNNING — after queue.load", extra={"extra": {"mission_id": mission_id}})  # type: ignore
         except Exception as e:
             log.warning(f"[{mission_id}] RUNNING — queue.load failed: {e}")
             pass
@@ -465,10 +482,13 @@ class WorkerExecutor:
             return
 
         log.info(f"Worker {self.worker_id} starting execution for {mission_id}: {mission.title}")
-        log.info(f"[{mission_id}] RUNNING entered — before notify", extra={"extra": {"mission_id": mission_id}})  # type: ignore
-        # Notify started
-        _notify_telegram(f"🚀 Mission started\n{mission.mission_id} [{mission.title[:40]}]\nWorker: {self.worker_id}\nStatus: RUNNING")
-        log.info(f"[{mission_id}] RUNNING entered — after notify", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+        log.debug(f"[{mission_id}] RUNNING entered — before notify", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+        # Notify started (offload blocking IO)
+        try:
+            await asyncio.to_thread(_notify_telegram, f"🚀 Mission started\n{mission.mission_id} [{mission.title[:40]}]\nWorker: {self.worker_id}\nStatus: RUNNING")
+        except Exception:
+            pass
+        log.debug(f"[{mission_id}] RUNNING entered — after notify", extra={"extra": {"mission_id": mission_id}})  # type: ignore
 
         # Transition ASSIGNED -> RUNNING
         log.info(f"[{mission_id}] RUNNING — before queue.start", extra={"extra": {"mission_id": mission_id}})  # type: ignore
@@ -485,14 +505,15 @@ class WorkerExecutor:
         # Record start time for duration
         start_time = time.time()
         start_iso = utcnow()
-        log.info(f"[{mission_id}] execution context — before create", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+        log.debug(f"[{mission_id}] execution context — before create", extra={"extra": {"mission_id": mission_id}})  # type: ignore
 
         # Perform execution
         try:
-            log.info(f"[{mission_id}] execution context — after create, before dummy task", extra={"extra": {"mission_id": mission_id}})  # type: ignore
-            log.info(f"[{mission_id}] dummy task — started", extra={"extra": {"mission_id": mission_id}})  # type: ignore
-            git_info = _git_commit_and_push(mission, self.worker_id)
-            log.info(f"[{mission_id}] dummy task — finished", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+            log.debug(f"[{mission_id}] execution context — after create, before dummy task", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+            log.debug(f"[{mission_id}] dummy task — started", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+            # Offload blocking git IO to threadpool to avoid blocking event loop (stability fix)
+            git_info = await asyncio.to_thread(_git_commit_and_push, mission, self.worker_id)
+            log.debug(f"[{mission_id}] dummy task — finished", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             # Git info contains commit_hash, branch, etc.
             finish_iso = git_info["finish_time"]
             duration = git_info["duration"]
@@ -547,10 +568,10 @@ class WorkerExecutor:
 
             # Reload again
             try:
-                log.info(f"[{mission_id}] DONE — before reload", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+                log.debug(f"[{mission_id}] DONE — before reload", extra={"extra": {"mission_id": mission_id}})  # type: ignore
                 self.queue.load()
                 mission = self.queue.get(mission_id)
-                log.info(f"[{mission_id}] DONE — after reload", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+                log.debug(f"[{mission_id}] DONE — after reload", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             except Exception as e:
                 log.warning(f"[{mission_id}] DONE — reload failed: {e}")
                 pass
@@ -567,8 +588,11 @@ class WorkerExecutor:
                 mission.status = MissionStatus.DONE
                 self.queue.save()
 
-            # Notify completed
-            _notify_telegram(f"✅ Mission completed\n{mission.mission_id} [{mission.title[:40]}]\nWorker: {self.worker_id}\nCommit: {commit_hash}\nBranch: {branch}\nDuration: {duration:.1f}s\nStatus: DONE")
+            # Notify completed (offload)
+            try:
+                await asyncio.to_thread(_notify_telegram, f"✅ Mission completed\n{mission.mission_id} [{mission.title[:40]}]\nWorker: {self.worker_id}\nCommit: {commit_hash}\nBranch: {branch}\nDuration: {duration:.1f}s\nStatus: DONE")
+            except Exception:
+                pass
 
             # Record final DONE history already has git info via previous entries
             log.info(f"Worker {self.worker_id} completed {mission_id} in {duration:.1f}s commit {commit_hash}")
@@ -589,7 +613,10 @@ class WorkerExecutor:
                     try:
                         self.queue.retry(mission_id, by=self.worker_id, reason=f"execution failed: {e} retry {mission.retry_count+1}/{mission.max_retries}")
                         log.info(f"Mission {mission_id} retry {mission.retry_count}/{mission.max_retries} by {self.worker_id}")
-                        _notify_telegram(f"🔄 Mission retry\n{mission.mission_id} [{mission.title[:40]}]\nWorker: {self.worker_id}\nError: {e}\nRetry: {mission.retry_count}/{mission.max_retries}\nStatus: QUEUED")
+                        try:
+                            await asyncio.to_thread(_notify_telegram, f"🔄 Mission retry\n{mission.mission_id} [{mission.title[:40]}]\nWorker: {self.worker_id}\nError: {e}\nRetry: {mission.retry_count}/{mission.max_retries}\nStatus: QUEUED")
+                        except Exception:
+                            pass
                         # After retry, the mission goes to QUEUED, but if max retries not exceeded, the dispatcher or next loop will re-assign?
                         # For now, we re-assign automatically to same worker for next retry
                         # But the spec says worker watches ASSIGNED, so we need to re-queue and re-assign?

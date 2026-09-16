@@ -216,10 +216,11 @@ def _log_pipeline(stage: str, update=None, handler: str = "", text: str = "", re
         if exc is not None:
             log.error(base + f" exception={exc}", exc_info=exc, extra={"extra": {"telegram_user_id": user_id, "event": stage, "handler": handler}})  # type: ignore
         else:
-            log.info(base, extra={"extra": {"telegram_user_id": user_id, "event": stage, "handler": handler}})  # type: ignore
+            # BUG-011 temporary pipeline logging now at DEBUG to reduce noise after stability proven
+            log.debug(base, extra={"extra": {"telegram_user_id": user_id, "event": stage, "handler": handler}})  # type: ignore
     except Exception as e:
         try:
-            log.info(f"{stage} — logging failed: {e}", extra={"extra": {"event": stage}})  # type: ignore
+            log.debug(f"{stage} — logging failed: {e}", extra={"extra": {"event": stage}})  # type: ignore
         except Exception:
             pass
 
