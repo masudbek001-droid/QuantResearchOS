@@ -310,33 +310,181 @@ async def start_telegram_polling():
     if not settings.allowed_user_ids_list:
         log.warning("Telegram polling disabled — TELEGRAM_ALLOWED_USER_IDS empty")
         return
+
+    # BUG-009 fix: Telegram polling never becomes active — root cause was
+    #   Bot.initialize() → Bot.get_me() raising TimedOut/NetworkError (transient)
+    #   which is NOT retried (unlike Updater._bootstrap which retries indefinitely).
+    #   Default HTTPXRequest read_timeout=5 < Updater timeout=10 causes premature
+    #   httpx.ReadTimeout → TimedOut before Telegram long-poll expires. Also
+    #   Application.initialize() only catches InvalidToken, so any TimedOut aborts
+    #   the entire start_telegram_polling() and sets telegram_connected=False with
+    #   no retry — the background task ends and never recovers.
+    # Fixes:
+    #   1) Make Bot.initialize resilient to transient get_me failures (retry + allow continue)
+    #   2) Build Application with correct get_updates timeouts (read_timeout 30 = timeout 10 + margin)
+    #   3) Wrap initialize/start/start_polling in retry loop with backoff, never give up on TimedOut/NetworkError
+    #   4) Increase start_polling read/write/connect/pool timeouts to 30s and keep bootstrap_retries=-1
+
+    # Patch Bot.initialize to be resilient to transient network errors (BUG-009)
     try:
-        telegram_app = Application.builder().token(settings.telegram_bot_token).build()
-        telegram_app.add_handler(CommandHandler("start", handle_start))
-        telegram_app.add_handler(CommandHandler("help", handle_help))
-        telegram_app.add_handler(CommandHandler("mission", handle_mission))
-        telegram_app.add_handler(CommandHandler("queue", handle_queue))
-        telegram_app.add_handler(CommandHandler("status", handle_status))
-        telegram_app.add_handler(CommandHandler("tasks", handle_tasks))
-        telegram_app.add_handler(CommandHandler("reports", handle_reports))
-        telegram_app.add_handler(CommandHandler("events", handle_events))
-        telegram_app.add_handler(CommandHandler("validate", handle_validate))
-        telegram_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
-        log.info(f"Telegram polling starting — allowed_users={settings.allowed_user_ids_list} orch={ORCH_AVAILABLE}")
-        await telegram_app.initialize()
-        await telegram_app.start()
+        from telegram._bot import Bot as _PatchedBot
+        from telegram.error import InvalidToken as _InvToken, TimedOut as _Tmo, NetworkError as _Nerr
+
+        if not getattr(_PatchedBot.initialize, "_qros_patched", False):
+            _orig_init = _PatchedBot.initialize
+
+            async def _resilient_bot_initialize(self):  # type: ignore
+                if getattr(self, "_initialized", False):
+                    self._LOGGER.debug("This Bot is already initialized.")
+                    return
+                await asyncio.gather(self._request[0].initialize(), self._request[1].initialize())
+                # Retry get_me a few times; on persistent transient failure continue anyway
+                # so that polling can still start (bot cache not required for get_updates).
+                last_exc = None
+                for attempt in range(5):
+                    try:
+                        await self.get_me()
+                        last_exc = None
+                        break
+                    except _InvToken as exc:
+                        raise InvalidToken(f"The token `{self._token}` was rejected by the server.") from exc
+                    except (_Tmo, _Nerr) as exc:
+                        last_exc = exc
+                        # TimedOut/NetworkError are transient — log and retry quickly
+                        self._LOGGER.warning(f"Bot.initialize get_me transient failure attempt {attempt+1}/5: {exc}")
+                        if attempt < 4:
+                            await asyncio.sleep(0.5 * (2**attempt))
+                            continue
+                    except Exception as exc:
+                        # ConnectError etc. -> mapped to NetworkError already, but be safe
+                        last_exc = exc
+                        self._LOGGER.warning(f"Bot.initialize get_me failed attempt {attempt+1}/5: {exc}")
+                        if attempt < 4:
+                            await asyncio.sleep(0.5 * (2**attempt))
+                            continue
+                if last_exc is not None:
+                    # Don't fail initialization — polling can run without cached bot username.
+                    # Updater.start_polling will still call get_updates.
+                    self._LOGGER.warning(f"Bot.initialize continuing without cached bot after get_me failures: {last_exc}")
+                self._initialized = True  # type: ignore
+
+            _resilient_bot_initialize._qros_patched = True  # type: ignore
+            _PatchedBot.initialize = _resilient_bot_initialize  # type: ignore
+            log.info("Patched Bot.initialize for BUG-009 resilience (transient get_me)")
+    except Exception as pe:
+        log.warning(f"Bot.initialize patch not applied: {pe}")
+
+    delay = 2.0
+    max_delay = 60.0
+    attempt = 0
+    while True:
         try:
-            me = await telegram_app.bot.get_me()
+            # Build with extended timeouts to avoid read_timeout 5 < timeout 10 mismatch
+            builder = Application.builder().token(settings.telegram_bot_token)
+            # PTB 20.7+ separates get_updates timeouts — set both pools
+            try:
+                builder = builder.get_updates_read_timeout(30).get_updates_write_timeout(30).get_updates_connect_timeout(30).get_updates_pool_timeout(30)
+                builder = builder.connect_timeout(30).read_timeout(30).write_timeout(30).pool_timeout(30)
+            except Exception as be:
+                log.warning(f"Builder timeout config not applied: {be}")
+            telegram_app = builder.build()
+            telegram_app.add_handler(CommandHandler("start", handle_start))
+            telegram_app.add_handler(CommandHandler("help", handle_help))
+            telegram_app.add_handler(CommandHandler("mission", handle_mission))
+            telegram_app.add_handler(CommandHandler("queue", handle_queue))
+            telegram_app.add_handler(CommandHandler("status", handle_status))
+            telegram_app.add_handler(CommandHandler("tasks", handle_tasks))
+            telegram_app.add_handler(CommandHandler("reports", handle_reports))
+            telegram_app.add_handler(CommandHandler("events", handle_events))
+            telegram_app.add_handler(CommandHandler("validate", handle_validate))
+            telegram_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
+            log.info(f"Telegram polling starting — allowed_users={settings.allowed_user_ids_list} orch={ORCH_AVAILABLE} attempt={attempt+1}")
+            await telegram_app.initialize()
+            await telegram_app.start()
+            try:
+                # get_me with explicit timeout longer than HTTPXRequest default
+                me = await asyncio.wait_for(telegram_app.bot.get_me(), timeout=15)
+                telegram_connected = True
+                log.info(f"Telegram connected as @{me.username} id={me.id}", extra={"extra": {"telegram_user_id": me.id}})
+            except asyncio.TimeoutError as e:
+                log.warning(f"Telegram getMe timeout (will still poll): {e}")
+                telegram_connected = True
+            except Exception as e:
+                # Second get_me is non-critical — keep polling even if it fails
+                try:
+                    from telegram.error import InvalidToken as _IT2
+                    if isinstance(e, _IT2):
+                        raise
+                except Exception:
+                    pass
+                log.warning(f"Telegram getMe failed (will still poll): {e}")
+                telegram_connected = True
+            # start_polling is non-blocking; it creates Updater.__polling_task and returns when ready
+            # bootstrap_retries=-1 retries delete_webhook indefinitely; timeout=10 matches PG, read_timeout=30 avoids premature client timeout
+            await telegram_app.updater.start_polling(
+                drop_pending_updates=True,
+                allowed_updates=Update.ALL_TYPES,
+                bootstrap_retries=-1,
+                timeout=10,
+                read_timeout=30,
+                write_timeout=30,
+                connect_timeout=30,
+                pool_timeout=30,
+            )
+            log.info("Telegram long polling ONLINE (Stage 3: dispatcher + mission queue)")
             telegram_connected = True
-            log.info(f"Telegram connected as @{me.username} id={me.id}", extra={"extra": {"telegram_user_id": me.id}})
+            break  # success — exit retry loop; polling continues in Updater.__polling_task
+        except asyncio.CancelledError:
+            log.info("Telegram polling startup cancelled")
+            telegram_connected = False
+            raise
         except Exception as e:
-            log.warning(f"Telegram getMe failed (will still poll): {e}")
-            telegram_connected = True
-        await telegram_app.updater.start_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
-        log.info("Telegram long polling ONLINE (Stage 3: dispatcher + mission queue)")
-    except Exception as e:
-        log.error(f"Telegram polling failed to start: {e}")
-        telegram_connected = False
+            # InvalidToken must not be retried — fail fast
+            try:
+                from telegram.error import InvalidToken as _IT
+                if isinstance(e, _IT):
+                    log.error(f"Telegram polling failed — invalid token: {e}")
+                    telegram_connected = False
+                    break
+            except Exception:
+                if "InvalidToken" in type(e).__name__ or "unauthorized" in str(e).lower() or "invalid token" in str(e).lower():
+                    log.error(f"Telegram polling failed — invalid token: {e}")
+                    telegram_connected = False
+                    break
+            attempt += 1
+            log.warning(f"Telegram polling start attempt {attempt} failed: {e} — retry in {delay:.1f}s")
+            telegram_connected = False
+            # Cleanup partially initialized app to avoid leaking httpx clients
+            if telegram_app is not None:
+                try:
+                    # Only shutdown if it was at least partially initialized
+                    bot_inited = getattr(getattr(telegram_app, "bot", None), "_initialized", False)
+                    app_inited = getattr(telegram_app, "_initialized", False)
+                    if bot_inited or app_inited:
+                        try:
+                            # Stop what we started (safe even if not fully started)
+                            with open(os.devnull, "w"):
+                                pass
+                            # Try graceful shutdown; ignore errors
+                            try:
+                                await asyncio.wait_for(telegram_app.shutdown(), timeout=5)
+                            except asyncio.TimeoutError:
+                                pass
+                            except Exception:
+                                pass
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
+                telegram_app = None
+            try:
+                await asyncio.sleep(delay)
+            except asyncio.CancelledError:
+                log.info("Telegram retry sleep cancelled")
+                raise
+            delay = min(max_delay, delay * 1.5 + 0.5)
+            # continue loop — never give up on transient errors (TimedOut/NetworkError)
+            continue
 
 async def stop_telegram_polling():
     global telegram_app, telegram_connected
