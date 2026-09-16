@@ -283,8 +283,1607 @@
       ],
       "github_task_id": null,
       "error": null
+    },
+    {
+      "mission_id": "MSQ-0006",
+      "title": "TEST Final Check 2026-09-16T16:53:10Z",
+      "module": "MOD-FINAL",
+      "priority": "P1",
+      "created_by": "final",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "1dab642",
+          "full_commit_hash": "1dab642d37bb8e3d21c99da2e071e279d9d04e87",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T16:53:10Z",
+          "finish_time": "2026-09-16T16:53:11Z",
+          "duration": 1.216107,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0006_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0006_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0006 TEST Final Check 2026-09-16T16:53:10Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T16:53:10Z",
+      "updated_at": "2026-09-16T16:53:11Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T16:53:10Z",
+          "by": "final",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T16:53:10Z",
+          "by": "final",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T16:53:10Z",
+          "by": "final",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T16:53:10Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T16:53:11Z",
+          "by": "worker-arena",
+          "reason": "Commit: 1dab642 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0006 TEST Final Check 2026-09-16T16:53:10Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0006_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0006_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T16:53:11Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 1dab642 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T16:53:11Z",
+          "by": "worker-arena",
+          "reason": "execution done commit 1dab642 branch arena/01a0a3b5-quantresearchos duration 1.2s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T16:53:11Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T16:53:11Z",
+          "by": "final",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0007",
+      "title": "BUG012 TEST 2026-09-16T17:36:48Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "e2ffcb4",
+          "full_commit_hash": "e2ffcb4e658f56f35518654c6eacf2c314bf3857",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:36:48Z",
+          "finish_time": "2026-09-16T17:36:50Z",
+          "duration": 1.219395,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0007_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0007_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0007 BUG012 TEST 2026-09-16T17:36:48Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:36:48Z",
+      "updated_at": "2026-09-16T17:36:50Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:36:48Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:36:48Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:36:48Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:36:48Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:36:50Z",
+          "by": "worker-arena",
+          "reason": "Commit: e2ffcb4 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0007 BUG012 TEST 2026-09-16T17:36:48Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0007_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0007_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:36:50Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e2ffcb4 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:36:50Z",
+          "by": "worker-arena",
+          "reason": "execution done commit e2ffcb4 branch arena/01a0a3b5-quantresearchos duration 1.2s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:36:50Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:36:50Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0008",
+      "title": "CONCURRENT ARENA 2026-09-16T17:37:34Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "7a7bf9c",
+          "full_commit_hash": "7a7bf9c8476d11c211a7f13d2a3580d23ee54815",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:37:34Z",
+          "finish_time": "2026-09-16T17:37:36Z",
+          "duration": 1.265733,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0008_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0008_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0008 CONCURRENT ARENA 2026-09-16T17:37:34Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:37:34Z",
+      "updated_at": "2026-09-16T17:37:37Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:37:34Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:37:34Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:37:34Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:34Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:36Z",
+          "by": "worker-arena",
+          "reason": "Commit: 7a7bf9c Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0008 CONCURRENT ARENA 2026-09-16T17:37:34Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0008_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0008_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:36Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 7a7bf9c Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:37:36Z",
+          "by": "worker-arena",
+          "reason": "execution done commit 7a7bf9c branch arena/01a0a3b5-quantresearchos duration 1.3s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:37:36Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:37:37Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0009",
+      "title": "CONCURRENT KILO 2026-09-16T17:37:34Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-kilo",
+          "commit_hash": "30e1962",
+          "full_commit_hash": "30e1962b226a4940cdbb4548135c07515fc7362a",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:37:36Z",
+          "finish_time": "2026-09-16T17:37:37Z",
+          "duration": 1.239804,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0009_worker-kilo.md",
+            "ControlCenter/data/worker_executions/MSQ-0009_worker-kilo.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0009 CONCURRENT KILO 2026-09-16T17:37:34Z [worker-kilo]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:37:34Z",
+      "updated_at": "2026-09-16T17:37:37Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:37:34Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:37:34Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:37:34Z",
+          "by": "tester",
+          "reason": "assigned to worker-kilo"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:36Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:37Z",
+          "by": "worker-kilo",
+          "reason": "Commit: 30e1962 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0009 CONCURRENT KILO 2026-09-16T17:37:34Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0009_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0009_worker-kilo.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:37Z",
+          "by": "worker-kilo",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 30e1962 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:37:37Z",
+          "by": "worker-kilo",
+          "reason": "execution done commit 30e1962 branch arena/01a0a3b5-quantresearchos duration 1.2s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:37:37Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:37:37Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0010",
+      "title": "SEPARATE ARENA 2026-09-16T17:37:43Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "3fa8b98",
+          "full_commit_hash": "3fa8b98cf590f66db1aedb187619b6fa6d34a4fb",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:37:43Z",
+          "finish_time": "2026-09-16T17:37:44Z",
+          "duration": 1.242135,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0010_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0010_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0010 SEPARATE ARENA 2026-09-16T17:37:43Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:37:43Z",
+      "updated_at": "2026-09-16T17:37:46Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:37:43Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:37:43Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:37:43Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:43Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:44Z",
+          "by": "worker-arena",
+          "reason": "Commit: 3fa8b98 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0010 SEPARATE ARENA 2026-09-16T17:37:43Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0010_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0010_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:44Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 3fa8b98 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:37:44Z",
+          "by": "worker-arena",
+          "reason": "execution done commit 3fa8b98 branch arena/01a0a3b5-quantresearchos duration 1.2s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:37:44Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:37:46Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0011",
+      "title": "SEPARATE KILO 2026-09-16T17:37:43Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-kilo",
+          "commit_hash": "f8bec18",
+          "full_commit_hash": "f8bec1832ae542cbb7e6afbe06fc14b778f3c120",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:37:44Z",
+          "finish_time": "2026-09-16T17:37:46Z",
+          "duration": 1.321657,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0011_worker-kilo.md",
+            "ControlCenter/data/worker_executions/MSQ-0011_worker-kilo.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0011 SEPARATE KILO 2026-09-16T17:37:43Z [worker-kilo]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:37:43Z",
+      "updated_at": "2026-09-16T17:37:46Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:37:43Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:37:43Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:37:43Z",
+          "by": "tester",
+          "reason": "assigned to worker-kilo"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:44Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:46Z",
+          "by": "worker-kilo",
+          "reason": "Commit: f8bec18 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0011 SEPARATE KILO 2026-09-16T17:37:43Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0011_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0011_worker-kilo.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:46Z",
+          "by": "worker-kilo",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: f8bec18 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:37:46Z",
+          "by": "worker-kilo",
+          "reason": "execution done commit f8bec18 branch arena/01a0a3b5-quantresearchos duration 1.3s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:37:46Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:37:46Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0012",
+      "title": "RACE TEST 2026-09-16T17:37:52Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "3ab256f",
+          "full_commit_hash": "3ab256f7cdf3276bec72986eb540f4d26b68d4a6",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:37:52Z",
+          "finish_time": "2026-09-16T17:37:53Z",
+          "duration": 1.305418,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0012_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0012_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0012 RACE TEST 2026-09-16T17:37:52Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:37:52Z",
+      "updated_at": "2026-09-16T17:37:54Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:37:52Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:37:52Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:37:52Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:52Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:53Z",
+          "by": "worker-arena",
+          "reason": "Commit: 3ab256f Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0012 RACE TEST 2026-09-16T17:37:52Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0012_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0012_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:37:53Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 3ab256f Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:37:53Z",
+          "by": "worker-arena",
+          "reason": "execution done commit 3ab256f branch arena/01a0a3b5-quantresearchos duration 1.3s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:37:53Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:37:54Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0013",
+      "title": "RACE DISPATCHER 2026-09-16T17:37:54Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester2",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-kilo",
+          "commit_hash": "86717ca",
+          "full_commit_hash": "86717caafb01108a8cc06e05f7542310b627b7d1",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:13Z",
+          "finish_time": "2026-09-16T17:39:15Z",
+          "duration": 2.053131,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0013_worker-kilo.md",
+            "ControlCenter/data/worker_executions/MSQ-0013_worker-kilo.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0013 RACE DISPATCHER 2026-09-16T17:37:54Z [worker-kilo]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:37:54Z",
+      "updated_at": "2026-09-16T17:39:36Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:37:54Z",
+          "by": "tester2",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:37:54Z",
+          "by": "tester2",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:37:54Z",
+          "by": "tester2",
+          "reason": "assigned to worker-kilo"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:13Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:15Z",
+          "by": "worker-kilo",
+          "reason": "Commit: 86717ca Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0013 RACE DISPATCHER 2026-09-16T17:37:54Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0013_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0013_worker-kilo.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:15Z",
+          "by": "worker-kilo",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 86717ca Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:15Z",
+          "by": "worker-kilo",
+          "reason": "execution done commit 86717ca branch arena/01a0a3b5-quantresearchos duration 2.1s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:15Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:36Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0014",
+      "title": "SEPARATE RACE 2026-09-16T17:38:03Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {},
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:38:03Z",
+      "updated_at": "2026-09-16T17:38:07Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:38:03Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:38:03Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:38:03Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:38:07Z",
+          "by": "tester",
+          "reason": "cancelled"
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0015",
+      "title": "DISPATCHER RACE 2026-09-16T17:38:06Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester2",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-kilo",
+          "commit_hash": "82f730d",
+          "full_commit_hash": "82f730d9c2aeb6876f530827fd6baf595548e22b",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:15Z",
+          "finish_time": "2026-09-16T17:39:17Z",
+          "duration": 1.485441,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0015_worker-kilo.md",
+            "ControlCenter/data/worker_executions/MSQ-0015_worker-kilo.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0015 DISPATCHER RACE 2026-09-16T17:38:06Z [worker-kilo]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:38:06Z",
+      "updated_at": "2026-09-16T17:39:36Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:38:06Z",
+          "by": "tester2",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:38:06Z",
+          "by": "tester2",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:38:06Z",
+          "by": "tester2",
+          "reason": "assigned to worker-kilo"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:15Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:17Z",
+          "by": "worker-kilo",
+          "reason": "Commit: 82f730d Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0015 DISPATCHER RACE 2026-09-16T17:38:06Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0015_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0015_worker-kilo.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:17Z",
+          "by": "worker-kilo",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 82f730d Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:17Z",
+          "by": "worker-kilo",
+          "reason": "execution done commit 82f730d branch arena/01a0a3b5-quantresearchos duration 1.5s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:17Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:36Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0016",
+      "title": "SEPARATE RACE 2026-09-16T17:39:01Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "2b8db7c",
+          "full_commit_hash": "2b8db7c767a777c30beb19fe645938c1b5534d02",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:01Z",
+          "finish_time": "2026-09-16T17:39:03Z",
+          "duration": 2.296854,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0016_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0016_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0016 SEPARATE RACE 2026-09-16T17:39:01Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:39:01Z",
+      "updated_at": "2026-09-16T17:39:05Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:39:01Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:39:01Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:39:01Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:01Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:03Z",
+          "by": "worker-arena",
+          "reason": "Commit: 2b8db7c Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0016 SEPARATE RACE 2026-09-16T17:39:01Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0016_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0016_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:03Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 2b8db7c Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:03Z",
+          "by": "worker-arena",
+          "reason": "execution done commit 2b8db7c branch arena/01a0a3b5-quantresearchos duration 2.3s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:03Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:05Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0017",
+      "title": "DISPATCHER RACE 2026-09-16T17:39:04Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester2",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-kilo",
+          "commit_hash": "91dfaca",
+          "full_commit_hash": "91dfacae2f34123660574d53693680e6a8ddca78",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:17Z",
+          "finish_time": "2026-09-16T17:39:19Z",
+          "duration": 1.926194,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0017_worker-kilo.md",
+            "ControlCenter/data/worker_executions/MSQ-0017_worker-kilo.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0017 DISPATCHER RACE 2026-09-16T17:39:04Z [worker-kilo]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:39:04Z",
+      "updated_at": "2026-09-16T17:39:36Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:39:04Z",
+          "by": "tester2",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:39:04Z",
+          "by": "tester2",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:39:04Z",
+          "by": "tester2",
+          "reason": "assigned to worker-kilo"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:17Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:19Z",
+          "by": "worker-kilo",
+          "reason": "Commit: 91dfaca Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0017 DISPATCHER RACE 2026-09-16T17:39:04Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0017_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0017_worker-kilo.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:19Z",
+          "by": "worker-kilo",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 91dfaca Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:19Z",
+          "by": "worker-kilo",
+          "reason": "execution done commit 91dfaca branch arena/01a0a3b5-quantresearchos duration 1.9s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:19Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:36Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0018",
+      "title": "SEPARATE ARENA 2026-09-16T17:39:12Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "67243c3",
+          "full_commit_hash": "67243c3393b61e79f8c3b051a244c66809f80da8",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:12Z",
+          "finish_time": "2026-09-16T17:39:13Z",
+          "duration": 1.139765,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0018_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0018_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0018 SEPARATE ARENA 2026-09-16T17:39:12Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:39:12Z",
+      "updated_at": "2026-09-16T17:39:20Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:39:12Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:39:12Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:39:12Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:12Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:13Z",
+          "by": "worker-arena",
+          "reason": "Commit: 67243c3 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0018 SEPARATE ARENA 2026-09-16T17:39:12Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0018_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0018_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:13Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 67243c3 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:13Z",
+          "by": "worker-arena",
+          "reason": "execution done commit 67243c3 branch arena/01a0a3b5-quantresearchos duration 1.1s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:13Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0019",
+      "title": "SEPARATE KILO 2026-09-16T17:39:12Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-kilo",
+          "commit_hash": "89e8885",
+          "full_commit_hash": "89e8885d52e0e1a6ae39d0fcb532e9dec88c9c1f",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:19Z",
+          "finish_time": "2026-09-16T17:39:20Z",
+          "duration": 1.23983,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0019_worker-kilo.md",
+            "ControlCenter/data/worker_executions/MSQ-0019_worker-kilo.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0019 SEPARATE KILO 2026-09-16T17:39:12Z [worker-kilo]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:39:12Z",
+      "updated_at": "2026-09-16T17:39:20Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:39:12Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:39:12Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:39:12Z",
+          "by": "tester",
+          "reason": "assigned to worker-kilo"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:19Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "worker-kilo",
+          "reason": "Commit: 89e8885 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0019 SEPARATE KILO 2026-09-16T17:39:12Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0019_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0019_worker-kilo.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "worker-kilo",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 89e8885 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "worker-kilo",
+          "reason": "execution done commit 89e8885 branch arena/01a0a3b5-quantresearchos duration 1.2s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0020",
+      "title": "CONCURRENT ARENA 2026-09-16T17:39:20Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "686624b",
+          "full_commit_hash": "686624be71780650c2b71f95a08c0928abaa1f3b",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:20Z",
+          "finish_time": "2026-09-16T17:39:22Z",
+          "duration": 1.301386,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0020_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0020_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0020 CONCURRENT ARENA 2026-09-16T17:39:20Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:39:20Z",
+      "updated_at": "2026-09-16T17:39:23Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:22Z",
+          "by": "worker-arena",
+          "reason": "Commit: 686624b Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0020 CONCURRENT ARENA 2026-09-16T17:39:20Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0020_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0020_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:22Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 686624b Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:22Z",
+          "by": "worker-arena",
+          "reason": "execution done commit 686624b branch arena/01a0a3b5-quantresearchos duration 1.3s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:22Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0021",
+      "title": "CONCURRENT KILO 2026-09-16T17:39:20Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-kilo",
+          "commit_hash": "709b581",
+          "full_commit_hash": "709b581081083b0cb0774a744973ca9cfe5d47ad",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:22Z",
+          "finish_time": "2026-09-16T17:39:23Z",
+          "duration": 1.141926,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0021_worker-kilo.md",
+            "ControlCenter/data/worker_executions/MSQ-0021_worker-kilo.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0021 CONCURRENT KILO 2026-09-16T17:39:20Z [worker-kilo]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:39:20Z",
+      "updated_at": "2026-09-16T17:39:23Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:39:20Z",
+          "by": "tester",
+          "reason": "assigned to worker-kilo"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:22Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "worker-kilo",
+          "reason": "Commit: 709b581 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0021 CONCURRENT KILO 2026-09-16T17:39:20Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0021_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0021_worker-kilo.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "worker-kilo",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 709b581 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "worker-kilo",
+          "reason": "execution done commit 709b581 branch arena/01a0a3b5-quantresearchos duration 1.1s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "worker-kilo",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
+    },
+    {
+      "mission_id": "MSQ-0022",
+      "title": "BUG012 TEST 2026-09-16T17:39:23Z",
+      "module": "MOD-TEST",
+      "priority": "P1",
+      "created_by": "tester",
+      "payload": {
+        "execution": {
+          "worker_id": "worker-arena",
+          "commit_hash": "e08fb87",
+          "full_commit_hash": "e08fb87aa8bcdd6f24a064a8eacbd4f8050008e8",
+          "branch": "arena/01a0a3b5-quantresearchos",
+          "start_time": "2026-09-16T17:39:23Z",
+          "finish_time": "2026-09-16T17:39:24Z",
+          "duration": 1.25296,
+          "files_changed": [
+            "04_Output/ControlCenter/worker_executions/MSQ-0022_worker-arena.md",
+            "ControlCenter/data/worker_executions/MSQ-0022_worker-arena.md"
+          ],
+          "commit_message": "feat(mission): MSQ-0022 BUG012 TEST 2026-09-16T17:39:23Z [worker-arena]"
+        }
+      },
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "max_retries": 3,
+      "timeout_seconds": 3600,
+      "created_at": "2026-09-16T17:39:23Z",
+      "updated_at": "2026-09-16T17:39:24Z",
+      "history": [
+        {
+          "from_status": "NONE",
+          "to_status": "CREATED",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "tester",
+          "reason": "created"
+        },
+        {
+          "from_status": "CREATED",
+          "to_status": "QUEUED",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "tester",
+          "reason": ""
+        },
+        {
+          "from_status": "QUEUED",
+          "to_status": "ASSIGNED",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "tester",
+          "reason": "assigned to worker-arena"
+        },
+        {
+          "from_status": "ASSIGNED",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:23Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:24Z",
+          "by": "worker-arena",
+          "reason": "Commit: e08fb87 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0022 BUG012 TEST 2026-09-16T17:39:23Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0022_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0022_worker-arena.md"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "RUNNING",
+          "at": "2026-09-16T17:39:24Z",
+          "by": "worker-arena",
+          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e08fb87 Files: 2"
+        },
+        {
+          "from_status": "RUNNING",
+          "to_status": "REVIEW",
+          "at": "2026-09-16T17:39:24Z",
+          "by": "worker-arena",
+          "reason": "execution done commit e08fb87 branch arena/01a0a3b5-quantresearchos duration 1.3s"
+        },
+        {
+          "from_status": "REVIEW",
+          "to_status": "DONE",
+          "at": "2026-09-16T17:39:24Z",
+          "by": "worker-arena",
+          "reason": ""
+        },
+        {
+          "from_status": "DONE",
+          "to_status": "ARCHIVED",
+          "at": "2026-09-16T17:39:24Z",
+          "by": "tester",
+          "reason": ""
+        }
+      ],
+      "github_task_id": null,
+      "error": null
     }
   ],
-  "next_id": 6,
-  "updated_at": "2026-09-15T13:35:37Z"
+  "next_id": 23,
+  "updated_at": "2026-09-16T17:39:36Z"
 }

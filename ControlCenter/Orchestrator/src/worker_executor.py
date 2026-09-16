@@ -282,22 +282,30 @@ def _git_commit_and_push(mission: Mission, worker_id: str) -> Dict[str, Any]:
             log.error(f"Execution file write failed even after chmod: {e2}")
             raise
 
-    # Git add and commit
+    # Git add and commit — BUG-012 instrumentation: log before/after each git stage
     commit_hash = "unknown"
     full_commit_hash = "unknown"
     try:
+        log.info(f"[{mission.mission_id}] git add — before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         # Check if there are changes to commit
         # Use git status
         status_out = subprocess.run(["git", "status", "--porcelain", str(exec_file), str(data_exec_file)], capture_output=True, text=True, timeout=3, cwd=str(REPO_ROOT))
+        log.info(f"[{mission.mission_id}] git add — status done: {status_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         # Always add
+        log.info(f"[{mission.mission_id}] git add — running git add {exec_file.name}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         add_out = subprocess.run(["git", "add", str(exec_file), str(data_exec_file)], capture_output=True, text=True, timeout=3, cwd=str(REPO_ROOT))
+        log.info(f"[{mission.mission_id}] git add — after add_out={add_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         if add_out.returncode != 0:
             log.warning(f"git add failed for {mission.mission_id}: {add_out.stderr}")
 
         # Check if there's anything to commit (staged)
+        log.info(f"[{mission.mission_id}] git commit — before diff --cached", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         diff_out = subprocess.run(["git", "diff", "--cached", "--name-only"], capture_output=True, text=True, timeout=3, cwd=str(REPO_ROOT))
+        log.info(f"[{mission.mission_id}] git commit — diff done staged={bool(diff_out.stdout.strip())}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
         if diff_out.stdout.strip():
+            log.info(f"[{mission.mission_id}] git commit — before commit", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
             commit_out = subprocess.run(["git", "commit", "-m", commit_message], capture_output=True, text=True, timeout=5, cwd=str(REPO_ROOT))
+            log.info(f"[{mission.mission_id}] git commit — after commit_out={commit_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
             if commit_out.returncode == 0:
                 # Get commit hash
                 hash_out = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=2, cwd=str(REPO_ROOT))
@@ -310,18 +318,25 @@ def _git_commit_and_push(mission: Mission, worker_id: str) -> Dict[str, Any]:
                     branch = branch_out.stdout.strip()
                 # Push with resilient handling for fetch-first (Stage 4)
                 push_branch = branch
+                log.info(f"[{mission.mission_id}] git push — before push to {push_branch}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                 try:
                     push_out = subprocess.run(["git", "push", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
+                    log.info(f"[{mission.mission_id}] git push — after push_out={push_out.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                     if push_out.returncode != 0:
                         stderr_low = (push_out.stderr or "").lower()
                         if "fetch first" in stderr_low or "rejected" in stderr_low:
                             log.warning(f"Push fetch-first for {mission.mission_id}, trying fetch+rebase")
                             try:
+                                log.info(f"[{mission.mission_id}] git push — fetch before rebase", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 subprocess.run(["git", "fetch", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
+                                log.info(f"[{mission.mission_id}] git push — pull --rebase before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 rb = subprocess.run(["git", "pull", "--rebase", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
+                                log.info(f"[{mission.mission_id}] git push — after rebase rb={rb.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 if rb.returncode != 0:
                                     log.warning(f"Rebase result for {mission.mission_id}: {rb.stderr[:300] if rb.stderr else rb.stdout[:300]}")
+                                log.info(f"[{mission.mission_id}] git push — retry push before", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 push2 = subprocess.run(["git", "push", "origin", push_branch], capture_output=True, text=True, timeout=10, cwd=str(REPO_ROOT))
+                                log.info(f"[{mission.mission_id}] git push — after retry push2={push2.returncode}", extra={"extra": {"mission_id": mission.mission_id}})  # type: ignore
                                 if push2.returncode == 0:
                                     log.info(f"git push succeeded after rebase for {mission.mission_id} to origin/{push_branch}: {commit_hash}")
                                 else:
@@ -432,10 +447,14 @@ class WorkerExecutor:
 
     async def execute_mission(self, mission_id: str):
         """Execute a single mission through RUNNING->REVIEW->DONE with git and notify."""
+        log.info(f"[{mission_id}] execute_mission — entered", extra={"extra": {"mission_id": mission_id}})  # type: ignore
         # Reload to get latest
         try:
+            log.info(f"[{mission_id}] RUNNING — before queue.load", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             self.queue.load()
-        except Exception:
+            log.info(f"[{mission_id}] RUNNING — after queue.load", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+        except Exception as e:
+            log.warning(f"[{mission_id}] RUNNING — queue.load failed: {e}")
             pass
         mission = self.queue.get(mission_id)
         if not mission:
@@ -446,25 +465,34 @@ class WorkerExecutor:
             return
 
         log.info(f"Worker {self.worker_id} starting execution for {mission_id}: {mission.title}")
+        log.info(f"[{mission_id}] RUNNING entered — before notify", extra={"extra": {"mission_id": mission_id}})  # type: ignore
         # Notify started
         _notify_telegram(f"🚀 Mission started\n{mission.mission_id} [{mission.title[:40]}]\nWorker: {self.worker_id}\nStatus: RUNNING")
+        log.info(f"[{mission_id}] RUNNING entered — after notify", extra={"extra": {"mission_id": mission_id}})  # type: ignore
 
         # Transition ASSIGNED -> RUNNING
+        log.info(f"[{mission_id}] RUNNING — before queue.start", extra={"extra": {"mission_id": mission_id}})  # type: ignore
         try:
             self.queue.start(mission_id, by=self.worker_id)
             log.info(f"Mission {mission_id} -> RUNNING by {self.worker_id}")
+            log.info(f"[{mission_id}] RUNNING — after queue.start success", extra={"extra": {"mission_id": mission_id}})  # type: ignore
         except Exception as e:
             log.error(f"Failed to transition {mission_id} to RUNNING: {e}")
+            log.info(f"[{mission_id}] RUNNING — queue.start failed", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             _notify_telegram(f"❌ Mission failed to start\n{mission_id}: {e}")
             return
 
         # Record start time for duration
         start_time = time.time()
         start_iso = utcnow()
+        log.info(f"[{mission_id}] execution context — before create", extra={"extra": {"mission_id": mission_id}})  # type: ignore
 
         # Perform execution
         try:
+            log.info(f"[{mission_id}] execution context — after create, before dummy task", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+            log.info(f"[{mission_id}] dummy task — started", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             git_info = _git_commit_and_push(mission, self.worker_id)
+            log.info(f"[{mission_id}] dummy task — finished", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             # Git info contains commit_hash, branch, etc.
             finish_iso = git_info["finish_time"]
             duration = git_info["duration"]
@@ -504,11 +532,14 @@ class WorkerExecutor:
                 "files_changed": files_changed,
                 "commit_message": commit_message,
             }
+            log.info(f"[{mission_id}] REVIEW — before queue.review", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             # Transition RUNNING -> REVIEW
             try:
                 self.queue.review(mission_id, by=self.worker_id, reason=f"execution done commit {commit_hash} branch {branch} duration {duration:.1f}s")
+                log.info(f"[{mission_id}] REVIEW — after queue.review success", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             except Exception as e:
                 log.error(f"Failed to transition {mission_id} RUNNING->REVIEW: {e}")
+                log.info(f"[{mission_id}] REVIEW — queue.review failed", extra={"extra": {"mission_id": mission_id}})  # type: ignore
                 # Force history
                 self._record_history(mission, MissionStatus.RUNNING, MissionStatus.REVIEW, by=self.worker_id, reason=str(e))
                 mission.status = MissionStatus.REVIEW
@@ -516,17 +547,23 @@ class WorkerExecutor:
 
             # Reload again
             try:
+                log.info(f"[{mission_id}] DONE — before reload", extra={"extra": {"mission_id": mission_id}})  # type: ignore
                 self.queue.load()
                 mission = self.queue.get(mission_id)
-            except Exception:
+                log.info(f"[{mission_id}] DONE — after reload", extra={"extra": {"mission_id": mission_id}})  # type: ignore
+            except Exception as e:
+                log.warning(f"[{mission_id}] DONE — reload failed: {e}")
                 pass
 
             # Transition REVIEW -> DONE
+            log.info(f"[{mission_id}] DONE — before queue.complete", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             try:
                 self.queue.complete(mission_id, by=self.worker_id)
                 log.info(f"Mission {mission_id} -> DONE by {self.worker_id} commit {commit_hash}")
+                log.info(f"[{mission_id}] DONE — after queue.complete success", extra={"extra": {"mission_id": mission_id}})  # type: ignore
             except Exception as e:
                 log.error(f"Failed to transition {mission_id} REVIEW->DONE: {e}")
+                log.info(f"[{mission_id}] DONE — queue.complete failed", extra={"extra": {"mission_id": mission_id}})  # type: ignore
                 mission.status = MissionStatus.DONE
                 self.queue.save()
 

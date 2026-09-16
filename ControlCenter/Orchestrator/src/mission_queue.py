@@ -38,7 +38,23 @@ class MissionQueue:
     def load(self):
         if self.path.is_file():
             try:
-                data = json.loads(self.path.read_text(encoding="utf-8"))
+                # Use file lock for concurrent read (non-blocking, fallback if fcntl not available)
+                try:
+                    import fcntl
+                    with open(self.path, 'r', encoding="utf-8") as f:
+                        try:
+                            fcntl.flock(f.fileno(), fcntl.LOCK_SH)
+                        except Exception:
+                            pass
+                        data = json.loads(f.read())
+                        try:
+                            fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+                        except Exception:
+                            pass
+                except ImportError:
+                    data = json.loads(self.path.read_text(encoding="utf-8"))
+                except Exception:
+                    data = json.loads(self.path.read_text(encoding="utf-8"))
                 for m in data.get("missions", []):
                     mission = Mission.from_dict(m)
                     self.missions[mission.mission_id] = mission
@@ -62,8 +78,50 @@ class MissionQueue:
         #     tmp.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         #   PermissionError: [Errno 13] Permission denied: '/ControlCenter/data/mission_queue.tmp' (inside Docker: /ControlCenter/data is 755 owned by 1001, appuser 1000 lacks w)
         # Fix: wrap atomic write and mirror with PermissionError/OSError handling, fallback to direct write, chmod parent if needed, never hang.
+        # BUG-012 fix: merge with disk to avoid race where stale queue overwrites newer RUNNING/REVIEW/DONE.
+        # Root cause line: self.missions[mission_id].status = RUNNING via queue.start() then save() overwrites, but another queue with stale ASSIGNED does save() and overwrites RUNNING.
+        # First blocking line captured: [MSQ-0014] REVIEW — before queue.review / DONE — before queue.complete never appeared as failure, but final disk showed ASSIGNED not DONE.
+        # Fix: before writing, load disk state and merge, keeping newer updated_at for each mission_id, and max next_id.
         try:
             self.path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
+        # Merge with disk to preserve newer states from concurrent writers
+        try:
+            if self.path.is_file():
+                try:
+                    disk_data = json.loads(self.path.read_text(encoding="utf-8"))
+                    disk_missions = {}
+                    for m in disk_data.get("missions", []):
+                        try:
+                            mission = Mission.from_dict(m)
+                            disk_missions[mission.mission_id] = mission
+                        except Exception:
+                            continue
+                    # Merge: for each disk mission, if not in self.missions, add it; if exists, keep newer by updated_at
+                    for mid, disk_m in disk_missions.items():
+                        if mid not in self.missions:
+                            self.missions[mid] = disk_m
+                        else:
+                            try:
+                                self_updated = self.missions[mid].updated_at
+                                disk_updated = disk_m.updated_at
+                                # Keep newer (lexicographically ISO8601 works, but parse for safety)
+                                if disk_updated > self_updated:
+                                    # Disk is newer — keep disk if self is stale (e.g., self has ASSIGNED with old updated_at, disk has RUNNING with newer)
+                                    # But if self has newer (e.g., self just set RUNNING with new updated_at, disk has old ASSIGNED), keep self
+                                    # So only overwrite self if disk_updated > self_updated
+                                    self.missions[mid] = disk_m
+                            except Exception:
+                                pass
+                    # Merge next_id as max
+                    try:
+                        disk_next = int(disk_data.get("next_id", self.next_id))
+                        self.next_id = max(self.next_id, disk_next)
+                    except Exception:
+                        pass
+                except Exception:
+                    pass
         except Exception:
             pass
         payload = {
@@ -72,11 +130,35 @@ class MissionQueue:
             "updated_at": utcnow(),
         }
         data = json.dumps(payload, indent=2)
-        # Atomic write via tmp+replace with fallback for permission / cross-device
+        # Atomic write via tmp+replace with file locking and fallback for permission / cross-device
         try:
             tmp = self.path.with_suffix(".tmp")
-            tmp.write_text(data, encoding="utf-8")
-            tmp.replace(self.path)
+            # Try to lock before write if fcntl available
+            try:
+                import fcntl
+                # Lock the directory or the file? Use lock file
+                lock_path = self.path.with_suffix(".lock")
+                with open(lock_path, 'w') as lock_file:
+                    try:
+                        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+                    except Exception:
+                        pass
+                    tmp.write_text(data, encoding="utf-8")
+                    tmp.replace(self.path)
+                    try:
+                        fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+                    except Exception:
+                        pass
+                try:
+                    lock_path.unlink(missing_ok=True)
+                except Exception:
+                    pass
+            except ImportError:
+                tmp.write_text(data, encoding="utf-8")
+                tmp.replace(self.path)
+            except Exception:
+                tmp.write_text(data, encoding="utf-8")
+                tmp.replace(self.path)
         except (PermissionError, OSError) as e:
             # Fallback 1: direct write (no tmp)
             try:
