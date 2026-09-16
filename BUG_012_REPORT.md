@@ -334,8 +334,8 @@ cat ControlCenter/data/mission_queue.json | python3 -c "import json; d=json.load
 ## 7. Commit
 
 - **Files committed:** `ControlCenter/Orchestrator/src/mission_queue.py` (merge+lock fix), `ControlCenter/Orchestrator/src/worker_executor.py` (INFO logs before/after every stage), `ControlCenter/data/mission_queue.json` + `04_Output/...` (mirror + test missions archived), `BUG_012_REPORT.md` (this report)
-- **Commit hash:** *(to be filled after `git push`, see `git log -1 --oneline`)*  
-  Previous branch head before this fix: `ad7fa5f feat(bot): BUG-011 instrument Telegram...`
+- **Commit hash:** `b3a80af0c84b9ba936892c4a39057dcbcfc2faf6` — `b3a80af fix(queue): BUG-012 resolve Worker stall after RUNNING via merge+lock`  
+  Previous branch head before this fix: `ad7fa5f feat(bot): BUG-011 instrument Telegram...` → `e08fb87` (worker auto commits) → `b3a80af` (this fix)
 - **Branch:** `arena/01a0a3b5-quantresearchos` (pushed to `origin/arena/01a0a3b5-quantresearchos`)
 
 ---
