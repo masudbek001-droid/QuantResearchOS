@@ -68,6 +68,7 @@ log = logging.getLogger("qros.bot")
 # If any import fails (FileNotFoundError, ImportError for MissionStatus), set ORCH_AVAILABLE=False
 # and continue startup without crash — health endpoint remains available.
 _orch_path = None
+WorkerExecutor = None  # type: ignore
 try:
     import pathlib as _pl
     import importlib.util as _ilu
@@ -101,6 +102,14 @@ try:
     GitHubSync = _gs_mod.GitHubSync
     _disp_mod = _load_orch_module("dispatcher")
     TelegramCommandDispatcher = _disp_mod.TelegramCommandDispatcher
+    # Worker Execution Engine (Stage 4) — optional, graceful if missing
+    try:
+        _wexec_mod = _load_orch_module("worker_executor")
+        WorkerExecutor = _wexec_mod.WorkerExecutor  # type: ignore
+        log.info("WorkerExecutor loaded")
+    except Exception as we:
+        WorkerExecutor = None  # type: ignore
+        log.warning(f"WorkerExecutor not available: {we}")
     ORCH_AVAILABLE = True
 except Exception as e:
     # Fallback: try legacy sys.path + mission_queue (non-shadowing) then queue
@@ -120,10 +129,16 @@ except Exception as e:
         TelegramCommandDispatcher = _TD
         from github_sync import GitHubSync as _GS  # type: ignore
         GitHubSync = _GS
+        try:
+            from worker_executor import WorkerExecutor as _WE  # type: ignore
+            WorkerExecutor = _WE
+        except Exception:
+            WorkerExecutor = None  # type: ignore
         ORCH_AVAILABLE = True
     except Exception as e2:
         ORCH_AVAILABLE = False
         MissionStatus = None  # type: ignore
+        WorkerExecutor = None  # type: ignore
         # log is now defined (BUG-006), so warning is safe
         log.warning(f"Orchestrator not available (graceful disable): {e} / {e2}")
 
@@ -143,6 +158,10 @@ else:
     _queue = None
     _github_sync = None
     log.warning("Orchestrator not available — dispatcher disabled (health-only)")
+
+# ── Worker Execution Engine (Stage 4) globals ───────────────────────────
+_worker_executors: list = []
+_worker_tasks: list[asyncio.Task] = []
 
 # ── Gateway forwarding (Stage 2) ───────────────────────────────────────────
 async def forward_to_gateway(telegram_user_id: int, text: str, context: dict | None = None) -> dict:
@@ -501,12 +520,35 @@ async def stop_telegram_polling():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    log.info(f"Bot startup — port {settings.port} gateway={settings.gateway_internal_url} orch={ORCH_AVAILABLE}")
+    log.info(f"Bot startup — port {settings.port} gateway={settings.gateway_internal_url} orch={ORCH_AVAILABLE} worker_executor={WorkerExecutor is not None}")
     if TELEGRAM_AVAILABLE and settings.telegram_bot_token and not settings.telegram_bot_token.startswith("123456:"):
         task = asyncio.create_task(start_telegram_polling())
         app.state.telegram_task = task
+    # Stage 4: Worker Execution Engine — start arena/kilo executors if available
+    if ORCH_AVAILABLE and WorkerExecutor and _queue and _workers:
+        try:
+            # Pass shared queue/workers to avoid duplicate in-memory state
+            arena_ex = WorkerExecutor("worker-arena", queue=_queue, workers=_workers)
+            kilo_ex = WorkerExecutor("worker-kilo", queue=_queue, workers=_workers)
+            _worker_executors.extend([arena_ex, kilo_ex])
+            for ex in _worker_executors:
+                t = asyncio.create_task(ex.run_forever())
+                _worker_tasks.append(t)
+            app.state.worker_tasks = _worker_tasks  # type: ignore
+            log.info(f"Worker Execution Engine started — workers={[e.worker_id for e in _worker_executors]} poll={arena_ex.poll_interval}s")
+        except Exception as e:
+            log.warning(f"Worker Execution Engine failed to start: {e}")
     yield
     log.info("Bot shutdown — graceful")
+    # Stop workers first
+    if _worker_tasks:
+        for t in _worker_tasks:
+            t.cancel()
+        try:
+            await asyncio.gather(*_worker_tasks, return_exceptions=True)
+        except Exception:
+            pass
+        log.info("Worker Execution Engine stopped")
     if hasattr(app.state, "telegram_task"):
         try:
             await stop_telegram_polling()
