@@ -532,15 +532,8 @@ class WorkerExecutor:
             except Exception:
                 pass
 
-            # Add history entries for Commit and Push (between RUNNING and REVIEW)
-            # We use the queue's _history via direct mission.history manipulation
-            # Commit entry
-            commit_reason = f"Commit: {commit_hash} Branch: {branch} Message: {commit_message} Files: {', '.join(files_changed[:3])}"
-            self._record_history(mission, MissionStatus.RUNNING, MissionStatus.RUNNING, by=self.worker_id, reason=commit_reason)
-            # Push entry (use same RUNNING->RUNNING but with push info)
-            push_reason = f"Push: origin/{branch} Commit: {commit_hash} Files: {len(files_changed)}"
-            self._record_history(mission, MissionStatus.RUNNING, MissionStatus.RUNNING, by=self.worker_id, reason=push_reason)
-            # Also store execution details in payload for verification
+            # Store execution details in payload (history invariant: no RUNNING->RUNNING allowed, so commit/push info goes to payload, not history)
+            # Previously added duplicate RUNNING->RUNNING history for commit/push — removed per BOSQICH 4 invariant
             mission.payload = mission.payload or {}
             mission.payload["execution"] = {
                 "worker_id": self.worker_id,
