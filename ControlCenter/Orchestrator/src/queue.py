@@ -135,9 +135,21 @@ class MissionQueue:
         m = self.get(mission_id)
         if not m:
             raise KeyError(mission_id)
+        # BUG-WORKER-002 fix: accept short names arena/kilo and role-based lookup
+        orig_worker_id = worker_id
+        worker_id = worker_id.lower()
+        if worker_id in ("arena", "kilo"):
+            worker_id = f"worker-{worker_id}"
         if worker_id not in ("worker-arena", "worker-kilo"):
             if not self.workers.is_registered(worker_id):
-                raise ValueError(f"Worker {worker_id} not registered")
+                for w in self.workers.workers.values():
+                    if w.role.lower() == worker_id:
+                        worker_id = w.worker_id
+                        break
+                else:
+                    raise ValueError(f"Worker {orig_worker_id} not registered")
+        elif not self.workers.is_registered(worker_id):
+            raise ValueError(f"Worker {orig_worker_id} not registered")
         m.assigned_to = worker_id
         return self.transition(mission_id, MissionStatus.ASSIGNED, by, reason=f"assigned to {worker_id}")
 

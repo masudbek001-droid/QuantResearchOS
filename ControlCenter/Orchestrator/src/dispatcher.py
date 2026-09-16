@@ -91,6 +91,14 @@ class TelegramCommandDispatcher:
             if len(parts) < 4:
                 return "Usage: /mission assign <MSQ-0001> <worker-arena|worker-kilo>"
             mid, worker = parts[2].upper(), parts[3].lower()
+            # BUG-WORKER-002 fix: accept short names arena/kilo as aliases for worker-arena/worker-kilo
+            if worker in ("arena", "kilo"):
+                worker = f"worker-{worker}"
+            elif worker not in ("worker-arena", "worker-kilo"):
+                for w in self.workers.workers.values():
+                    if w.role.lower() == worker:
+                        worker = w.worker_id
+                        break
             try:
                 self.queue.assign(mid, worker, by=str(telegram_user_id))
                 return f"✅ {mid} ASSIGNED → {worker}"
