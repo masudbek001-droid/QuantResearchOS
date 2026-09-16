@@ -34,54 +34,11 @@ import uvicorn
 
 from src.config import BotSettings
 
-# ── Orchestrator imports (Stage 3) — avoid stdlib queue shadowing ──
-try:
-    import pathlib as _pl
-    import importlib.util as _ilu
-    _orch_path = _pl.Path(__file__).resolve().parents[2] / "Orchestrator" / "src"
-    # Use importlib to avoid sys.modules['queue'] shadowing stdlib queue (MANTIS-BUG-002)
-    def _load_orch_module(name: str):
-        spec = _ilu.spec_from_file_location(name, _orch_path / f"{name}.py")
-        mod = _ilu.module_from_spec(spec)
-        sys.modules[name] = mod  # register to allow intra-orch imports (mission <- worker_registry <- mission_queue <- dispatcher)
-        spec.loader.exec_module(mod)
-        return mod
-    _mission_mod = _load_orch_module("mission")
-    MissionStatus = _mission_mod.MissionStatus
-    _wr_mod = _load_orch_module("worker_registry")
-    WorkerRegistry = _wr_mod.WorkerRegistry
-    _mq_mod = _load_orch_module("mission_queue")
-    MissionQueue = _mq_mod.MissionQueue
-    _gs_mod = _load_orch_module("github_sync")
-    GitHubSync = _gs_mod.GitHubSync
-    _disp_mod = _load_orch_module("dispatcher")
-    TelegramCommandDispatcher = _disp_mod.TelegramCommandDispatcher
-    ORCH_AVAILABLE = True
-except Exception as e:
-    # Fallback: try legacy sys.path + mission_queue (non-shadowing) then queue
-    try:
-        if str(_orch_path) not in sys.path:
-            sys.path.insert(0, str(_orch_path))
-        from mission import MissionStatus as _MS  # type: ignore
-        MissionStatus = _MS
-        try:
-            from mission_queue import MissionQueue as _MQ  # type: ignore
-        except ImportError:
-            from queue import MissionQueue as _MQ  # type: ignore
-        MissionQueue = _MQ
-        from worker_registry import WorkerRegistry as _WR  # type: ignore
-        WorkerRegistry = _WR
-        from dispatcher import TelegramCommandDispatcher as _TD  # type: ignore
-        TelegramCommandDispatcher = _TD
-        from github_sync import GitHubSync as _GS  # type: ignore
-        GitHubSync = _GS
-        ORCH_AVAILABLE = True
-    except Exception as e2:
-        ORCH_AVAILABLE = False
-        MissionStatus = None  # type: ignore
-        log.warning(f"Orchestrator not available: {e} / {e2}")
-
 # ── Structured JSON logging ────────────────────────────────────────────────
+# BUG-006 fix: logger must exist BEFORE any orchestrator exception handling.
+# Bot must gracefully continue when Orchestrator is absent (FileNotFoundError for
+# /Orchestrator/src/mission.py when running as /app/src/main.py inside container).
+# Never call log.warning() before logger initialization.
 class JSONFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         payload = {
@@ -104,6 +61,71 @@ root = logging.getLogger()
 root.handlers = [handler]
 root.setLevel(logging.INFO)
 log = logging.getLogger("qros.bot")
+
+# ── Orchestrator imports (Stage 3) — avoid stdlib queue shadowing ──
+# BUG-006: wrapped to gracefully disable orchestrator if mission.py cannot be loaded.
+# Uses importlib to avoid sys.modules['queue'] shadowing stdlib queue (MANTIS-BUG-002).
+# If any import fails (FileNotFoundError, ImportError for MissionStatus), set ORCH_AVAILABLE=False
+# and continue startup without crash — health endpoint remains available.
+_orch_path = None
+try:
+    import pathlib as _pl
+    import importlib.util as _ilu
+    _orch_path = _pl.Path(__file__).resolve().parents[2] / "Orchestrator" / "src"
+    # Also try alternative container path /app/src/main.py -> parents[1]=/app, so check fallback
+    if not _orch_path.is_dir():
+        # Inside Docker, /app/src/main.py parents[2] is /, so try parents[1]/Orchestrator and repo root fallback
+        _alt = _pl.Path(__file__).resolve().parents[1] / "Orchestrator" / "src"
+        if _alt.is_dir():
+            _orch_path = _alt
+        else:
+            # Try repo root: parents[3] when running from host ControlCenter/Bot/src/main.py -> project root
+            _repo_try = _pl.Path(__file__).resolve().parents[3] / "ControlCenter" / "Orchestrator" / "src"
+            if _repo_try.is_dir():
+                _orch_path = _repo_try
+    def _load_orch_module(name: str):
+        spec = _ilu.spec_from_file_location(name, _orch_path / f"{name}.py")
+        if spec is None or spec.loader is None:
+            raise FileNotFoundError(f"{_orch_path / f'{name}.py'} not found (spec is None)")
+        mod = _ilu.module_from_spec(spec)
+        sys.modules[name] = mod  # register to allow intra-orch imports (mission <- worker_registry <- mission_queue <- dispatcher)
+        spec.loader.exec_module(mod)
+        return mod
+    _mission_mod = _load_orch_module("mission")
+    MissionStatus = _mission_mod.MissionStatus
+    _wr_mod = _load_orch_module("worker_registry")
+    WorkerRegistry = _wr_mod.WorkerRegistry
+    _mq_mod = _load_orch_module("mission_queue")
+    MissionQueue = _mq_mod.MissionQueue
+    _gs_mod = _load_orch_module("github_sync")
+    GitHubSync = _gs_mod.GitHubSync
+    _disp_mod = _load_orch_module("dispatcher")
+    TelegramCommandDispatcher = _disp_mod.TelegramCommandDispatcher
+    ORCH_AVAILABLE = True
+except Exception as e:
+    # Fallback: try legacy sys.path + mission_queue (non-shadowing) then queue
+    try:
+        if _orch_path is not None and str(_orch_path) not in sys.path:
+            sys.path.insert(0, str(_orch_path))
+        from mission import MissionStatus as _MS  # type: ignore
+        MissionStatus = _MS
+        try:
+            from mission_queue import MissionQueue as _MQ  # type: ignore
+        except ImportError:
+            from queue import MissionQueue as _MQ  # type: ignore
+        MissionQueue = _MQ
+        from worker_registry import WorkerRegistry as _WR  # type: ignore
+        WorkerRegistry = _WR
+        from dispatcher import TelegramCommandDispatcher as _TD  # type: ignore
+        TelegramCommandDispatcher = _TD
+        from github_sync import GitHubSync as _GS  # type: ignore
+        GitHubSync = _GS
+        ORCH_AVAILABLE = True
+    except Exception as e2:
+        ORCH_AVAILABLE = False
+        MissionStatus = None  # type: ignore
+        # log is now defined (BUG-006), so warning is safe
+        log.warning(f"Orchestrator not available (graceful disable): {e} / {e2}")
 
 settings = BotSettings()
 
