@@ -34,22 +34,52 @@ import uvicorn
 
 from src.config import BotSettings
 
-# ── Orchestrator imports (Stage 3) ─────────────────────────────────────────
+# ── Orchestrator imports (Stage 3) — avoid stdlib queue shadowing ──
 try:
     import pathlib as _pl
+    import importlib.util as _ilu
     _orch_path = _pl.Path(__file__).resolve().parents[2] / "Orchestrator" / "src"
-    if str(_orch_path) not in sys.path:
-        sys.path.insert(0, str(_orch_path))
-    from mission import MissionStatus  # type: ignore
-    from queue import MissionQueue  # type: ignore
-    from worker_registry import WorkerRegistry  # type: ignore
-    from dispatcher import TelegramCommandDispatcher  # type: ignore
-    from github_sync import GitHubSync  # type: ignore
+    # Use importlib to avoid sys.modules['queue'] shadowing stdlib queue (MANTIS-BUG-002)
+    def _load_orch_module(name: str):
+        spec = _ilu.spec_from_file_location(name, _orch_path / f"{name}.py")
+        mod = _ilu.module_from_spec(spec)
+        sys.modules[name] = mod  # register to allow intra-orch imports (mission <- worker_registry <- mission_queue <- dispatcher)
+        spec.loader.exec_module(mod)
+        return mod
+    _mission_mod = _load_orch_module("mission")
+    MissionStatus = _mission_mod.MissionStatus
+    _wr_mod = _load_orch_module("worker_registry")
+    WorkerRegistry = _wr_mod.WorkerRegistry
+    _mq_mod = _load_orch_module("mission_queue")
+    MissionQueue = _mq_mod.MissionQueue
+    _gs_mod = _load_orch_module("github_sync")
+    GitHubSync = _gs_mod.GitHubSync
+    _disp_mod = _load_orch_module("dispatcher")
+    TelegramCommandDispatcher = _disp_mod.TelegramCommandDispatcher
     ORCH_AVAILABLE = True
 except Exception as e:
-    # Fallback if orchestrator not yet importable (offline tests should still pass health)
-    ORCH_AVAILABLE = False
-    MissionStatus = None  # type: ignore
+    # Fallback: try legacy sys.path + mission_queue (non-shadowing) then queue
+    try:
+        if str(_orch_path) not in sys.path:
+            sys.path.insert(0, str(_orch_path))
+        from mission import MissionStatus as _MS  # type: ignore
+        MissionStatus = _MS
+        try:
+            from mission_queue import MissionQueue as _MQ  # type: ignore
+        except ImportError:
+            from queue import MissionQueue as _MQ  # type: ignore
+        MissionQueue = _MQ
+        from worker_registry import WorkerRegistry as _WR  # type: ignore
+        WorkerRegistry = _WR
+        from dispatcher import TelegramCommandDispatcher as _TD  # type: ignore
+        TelegramCommandDispatcher = _TD
+        from github_sync import GitHubSync as _GS  # type: ignore
+        GitHubSync = _GS
+        ORCH_AVAILABLE = True
+    except Exception as e2:
+        ORCH_AVAILABLE = False
+        MissionStatus = None  # type: ignore
+        log.warning(f"Orchestrator not available: {e} / {e2}")
 
 # ── Structured JSON logging ────────────────────────────────────────────────
 class JSONFormatter(logging.Formatter):
@@ -140,9 +170,9 @@ async def handle_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_allowlist(update.effective_user.id):
         await update.message.reply_text("⛔ Not authorized.")
         return
-    # Stage 3 help includes mission help
+    # Stage 3 help includes mission help — offload blocking dispatcher to threadpool (BUG-002 fix)
     if ORCH_AVAILABLE and dispatcher:
-        help_text = dispatcher.dispatch("/mission help", update.effective_user.id)
+        help_text = await asyncio.to_thread(dispatcher.dispatch, "/mission help", update.effective_user.id)
         await update.message.reply_text(
             "QROS Control Center — remote project management (not trading, not AI)\n"
             "/start — greeting\n"
@@ -176,11 +206,15 @@ async def handle_mission(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     text = update.message.text or ""
     # Full text includes command and args, e.g., "/mission create Foo"
-    reply = dispatcher.dispatch(text, update.effective_user.id)
+    # BUG-002 fix: offload blocking file I/O (queue.py:65 write_text) to threadpool
+    reply = await asyncio.to_thread(dispatcher.dispatch, text, update.effective_user.id)
     if not reply:
         reply = "Unknown mission command. Try /mission help"
     log.info(f"Mission dispatch {text[:60]} → {reply[:60]}", extra={"extra": {"telegram_user_id": update.effective_user.id, "command": text[:40]}})
-    await update.message.reply_text(reply[:4096])
+    try:
+        await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
+    except asyncio.TimeoutError:
+        log.error("Telegram reply_text timeout (mission)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
 
 async def handle_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_allowlist(update.effective_user.id):
@@ -189,19 +223,25 @@ async def handle_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not ORCH_AVAILABLE or not dispatcher:
         await update.message.reply_text("⚠️ Queue unavailable")
         return
-    reply = dispatcher.dispatch("/mission list QUEUED", update.effective_user.id)
-    await update.message.reply_text(reply[:4096])
+    reply = await asyncio.to_thread(dispatcher.dispatch, "/mission list QUEUED", update.effective_user.id)
+    try:
+        await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
+    except asyncio.TimeoutError:
+        log.error("Telegram reply_text timeout (queue)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
 
 async def _gateway_and_reply(update: Update, text: str):
     if not await check_allowlist(update.effective_user.id):
         await update.message.reply_text("⛔ Not authorized.")
         return
-    # Intercept mission commands before Gateway
+    # Intercept mission commands before Gateway — offload blocking dispatcher (BUG-002)
     if text.strip().lower().startswith("/mission") or text.strip().lower().startswith("/queue"):
         if ORCH_AVAILABLE and dispatcher:
-            reply = dispatcher.dispatch(text, update.effective_user.id)
+            reply = await asyncio.to_thread(dispatcher.dispatch, text, update.effective_user.id)
             if reply:
-                await update.message.reply_text(reply[:4096])
+                try:
+                    await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
+                except asyncio.TimeoutError:
+                    log.error("Telegram reply_text timeout (_gateway_and_reply)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
                 return
     ctx = {"chat_id": update.effective_chat.id, "username": update.effective_user.username}
     data = await forward_to_gateway(update.effective_user.id, text, ctx)

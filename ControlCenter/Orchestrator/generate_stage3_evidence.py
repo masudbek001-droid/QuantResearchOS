@@ -13,7 +13,10 @@ sys.path.insert(0, str(ROOT / "ControlCenter" / "Orchestrator" / "src"))
 
 from mission import MissionStatus
 from worker_registry import WorkerRegistry
-from queue import MissionQueue
+try:
+    from mission_queue import MissionQueue
+except ImportError:
+    from queue import MissionQueue
 from dispatcher import TelegramCommandDispatcher
 from github_sync import GitHubSync
 

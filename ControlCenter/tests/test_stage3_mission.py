@@ -29,7 +29,10 @@ sys.path.insert(0, str(ORCH_SRC))
 
 from mission import MissionStatus, Mission, can_transition, can_retry, can_cancel, ALLOWED
 from worker_registry import WorkerRegistry
-from queue import MissionQueue
+try:
+    from mission_queue import MissionQueue
+except ImportError:
+    from queue import MissionQueue
 from dispatcher import TelegramCommandDispatcher
 from github_sync import GitHubSync
 
@@ -364,6 +367,11 @@ class TestStage3Mission(unittest.TestCase):
         self.assertIn("/mission", bot_main, "Bot must mention mission commands")
         # Ensure intercept before gateway
         self.assertIn("dispatcher.dispatch", bot_main)
+        # BUG-002 fix: must offload blocking dispatcher to threadpool
+        self.assertIn("asyncio.to_thread", bot_main, "Bot must offload dispatcher via asyncio.to_thread (BUG-002)")
+        self.assertIn("wait_for", bot_main, "Bot must timeout reply_text (BUG-002)")
+        # Avoid stdlib queue shadowing
+        self.assertIn("mission_queue", bot_main.lower(), "Bot must use mission_queue to avoid stdlib queue shadowing")
         # Check mission REST endpoints exist for health
         self.assertIn("/mission/list", bot_main)
         self.assertIn("/mission/create", bot_main)
@@ -427,9 +435,11 @@ class TestStage3Mission(unittest.TestCase):
         self.assertIn("Arena Worker registration", md_txt)
         self.assertIn("Kilo Worker registration", md_txt)
         self.assertIn("PASS", md_txt)
-        # Orchestrator src files exist
-        for fname in ["mission.py","queue.py","worker_registry.py","dispatcher.py","github_sync.py"]:
+        # Orchestrator src files exist (queue.py is legacy shim, mission_queue.py is canonical BUG-002)
+        for fname in ["mission.py","mission_queue.py","worker_registry.py","dispatcher.py","github_sync.py"]:
             self.assertTrue((ORCH_SRC / fname).is_file(), f"Orchestrator src missing {fname}")
+        # legacy queue.py should also remain as shim for backward compat
+        self.assertTrue((ORCH_SRC / "queue.py").is_file(), "legacy queue.py shim missing")
 
 if __name__ == "__main__":
     unittest.main()

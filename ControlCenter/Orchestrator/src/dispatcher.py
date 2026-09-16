@@ -6,15 +6,21 @@ from __future__ import annotations
 from typing import Optional
 
 try:
-    from .queue import MissionQueue
+    from .mission_queue import MissionQueue
     from .worker_registry import WorkerRegistry
     from .mission import MissionStatus
     from .github_sync import GitHubSync
 except ImportError:
-    from queue import MissionQueue
-    from worker_registry import WorkerRegistry
-    from mission import MissionStatus
-    from github_sync import GitHubSync
+    try:
+        from mission_queue import MissionQueue
+        from worker_registry import WorkerRegistry
+        from mission import MissionStatus
+        from github_sync import GitHubSync
+    except ImportError:
+        from queue import MissionQueue
+        from worker_registry import WorkerRegistry
+        from mission import MissionStatus
+        from github_sync import GitHubSync
 
 class TelegramCommandDispatcher:
     def __init__(self, queue: MissionQueue | None = None, workers: WorkerRegistry | None = None, github_sync: GitHubSync | None = None):
