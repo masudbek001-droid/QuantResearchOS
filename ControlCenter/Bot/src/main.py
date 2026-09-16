@@ -194,129 +194,257 @@ except Exception as e:
 async def check_allowlist(user_id: int) -> bool:
     return user_id in settings.allowed_user_ids_list
 
+# ── Telegram Pipeline Instrumentation (BUG-011 / TEMP INFO logging only) ──
+# No architecture / feature / behaviour change — logging only.
+# Logs every stage: 1 Update received, 2 Update id, 3 User id, 4 Chat id,
+# 5 Message text, 6 Handler selected, 7 Dispatcher called, 8 Dispatcher returned,
+# 9 Reply sent, 10 Any exception. All at INFO (exception at ERROR with traceback).
+def _log_pipeline(stage: str, update=None, handler: str = "", text: str = "", reply: str = "", exc: Exception | None = None):
+    try:
+        uid = getattr(update, "update_id", "unknown") if update else "unknown"
+        user_id = getattr(update.effective_user, "id", "unknown") if update and getattr(update, "effective_user", None) else "unknown"
+        chat_id = getattr(update.effective_chat, "id", "unknown") if update and getattr(update, "effective_chat", None) else "unknown"
+        msg_text = text
+        if not msg_text and update and getattr(update, "message", None) and getattr(update.message, "text", None):
+            msg_text = update.message.text or ""
+        base = f"{stage}"
+        if handler:
+            base += f" — handler={handler}"
+        base += f" update_id={uid} user_id={user_id} chat_id={chat_id} text={msg_text[:120]!r}"
+        if reply:
+            base += f" reply={reply[:120]!r}"
+        if exc is not None:
+            log.error(base + f" exception={exc}", exc_info=exc, extra={"extra": {"telegram_user_id": user_id, "event": stage, "handler": handler}})  # type: ignore
+        else:
+            log.info(base, extra={"extra": {"telegram_user_id": user_id, "event": stage, "handler": handler}})  # type: ignore
+    except Exception as e:
+        try:
+            log.info(f"{stage} — logging failed: {e}", extra={"extra": {"event": stage}})  # type: ignore
+        except Exception:
+            pass
+
+
 # ── Handlers ───────────────────────────────────────────────────────────────
 async def handle_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not await check_allowlist(update.effective_user.id):
-        log.warning("unauthorized /start", extra={"extra": {"telegram_user_id": update.effective_user.id}})
-        await update.message.reply_text("⛔ Not authorized.")
-        return
-    await update.message.reply_text(
-        "👋 QROS Control Center online.\n"
-        "Pipeline: Telegram → Bot → Gateway → GitHub → AgentOS\n"
-        "Mission: /mission help | /mission create <title> | /mission list | /queue\n"
-        "Legacy: /help /status /tasks /reports /events /validate"
-    )
+    _log_pipeline("Update received", update, handler="handle_start", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_start", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        if not await check_allowlist(update.effective_user.id):
+            log.warning("unauthorized /start", extra={"extra": {"telegram_user_id": update.effective_user.id}})
+            _log_pipeline("Reply sent", update, handler="handle_start", text="unauthorized")
+            await update.message.reply_text("⛔ Not authorized.")
+            return
+        await update.message.reply_text(
+            "👋 QROS Control Center online.\n"
+            "Pipeline: Telegram → Bot → Gateway → GitHub → AgentOS\n"
+            "Mission: /mission help | /mission create <title> | /mission list | /queue\n"
+            "Legacy: /help /status /tasks /reports /events /validate"
+        )
+        _log_pipeline("Reply sent", update, handler="handle_start", text="start greeting")
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_start", exc=exc)
+        raise
 
 async def handle_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not await check_allowlist(update.effective_user.id):
-        await update.message.reply_text("⛔ Not authorized.")
-        return
-    # Stage 3 help includes mission help — offload blocking dispatcher to threadpool (BUG-002 fix)
-    if ORCH_AVAILABLE and dispatcher:
-        help_text = await asyncio.to_thread(dispatcher.dispatch, "/mission help", update.effective_user.id)
-        await update.message.reply_text(
-            "QROS Control Center — remote project management (not trading, not AI)\n"
-            "/start — greeting\n"
-            "/help — this list\n"
-            "/status — PROJECT_STATUS.md via Gateway+GitHub\n"
-            "/tasks — TASK_QUEUE.md via Gateway\n"
-            "/reports — REPORT_QUEUE.md\n"
-            "/events — EVENT_BUS tail\n"
-            "/validate — AgentOS validate\n"
-            "--- Mission Queue (Stage 3) ---\n" + help_text
-        )
-    else:
-        await update.message.reply_text(
-            "QROS Control Center — remote project management (not trading, not AI)\n"
-            "/start — greeting\n"
-            "/help — this list\n"
-            "/status — PROJECT_STATUS.md via Gateway+GitHub\n"
-            "/tasks — TASK_QUEUE.md via Gateway\n"
-            "/reports — REPORT_QUEUE.md\n"
-            "/events — EVENT_BUS tail\n"
-            "/validate — AgentOS validate\n"
-            "Any text → Gateway → OpenAI → GitHub → AgentOS"
-        )
+    _log_pipeline("Update received", update, handler="handle_help", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_help", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        if not await check_allowlist(update.effective_user.id):
+            _log_pipeline("Reply sent", update, handler="handle_help", text="unauthorized")
+            await update.message.reply_text("⛔ Not authorized.")
+            return
+        # Stage 3 help includes mission help — offload blocking dispatcher to threadpool (BUG-002 fix)
+        if ORCH_AVAILABLE and dispatcher:
+            _log_pipeline("Dispatcher called", update, handler="handle_help", text="/mission help")
+            help_text = await asyncio.to_thread(dispatcher.dispatch, "/mission help", update.effective_user.id)
+            _log_pipeline("Dispatcher returned", update, handler="handle_help", text="/mission help", reply=help_text[:120])
+            await update.message.reply_text(
+                "QROS Control Center — remote project management (not trading, not AI)\n"
+                "/start — greeting\n"
+                "/help — this list\n"
+                "/status — PROJECT_STATUS.md via Gateway+GitHub\n"
+                "/tasks — TASK_QUEUE.md via Gateway\n"
+                "/reports — REPORT_QUEUE.md\n"
+                "/events — EVENT_BUS tail\n"
+                "/validate — AgentOS validate\n"
+                "--- Mission Queue (Stage 3) ---\n" + help_text
+            )
+            _log_pipeline("Reply sent", update, handler="handle_help", text="/mission help", reply=help_text[:120])
+        else:
+            await update.message.reply_text(
+                "QROS Control Center — remote project management (not trading, not AI)\n"
+                "/start — greeting\n"
+                "/help — this list\n"
+                "/status — PROJECT_STATUS.md via Gateway+GitHub\n"
+                "/tasks — TASK_QUEUE.md via Gateway\n"
+                "/reports — REPORT_QUEUE.md\n"
+                "/events — EVENT_BUS tail\n"
+                "/validate — AgentOS validate\n"
+                "Any text → Gateway → OpenAI → GitHub → AgentOS"
+            )
+            _log_pipeline("Reply sent", update, handler="handle_help", text="help fallback")
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_help", exc=exc)
+        raise
 
 async def handle_mission(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not await check_allowlist(update.effective_user.id):
-        await update.message.reply_text("⛔ Not authorized.")
-        return
-    if not ORCH_AVAILABLE or not dispatcher:
-        await update.message.reply_text("⚠️ Mission Queue unavailable (orchestrator not loaded).")
-        return
-    text = update.message.text or ""
-    # Full text includes command and args, e.g., "/mission create Foo"
-    # BUG-002 fix: offload blocking file I/O (queue.py:65 write_text) to threadpool
-    reply = await asyncio.to_thread(dispatcher.dispatch, text, update.effective_user.id)
-    if not reply:
-        reply = "Unknown mission command. Try /mission help"
-    log.info(f"Mission dispatch {text[:60]} → {reply[:60]}", extra={"extra": {"telegram_user_id": update.effective_user.id, "command": text[:40]}})
+    _log_pipeline("Update received", update, handler="handle_mission", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_mission", text=getattr(update.message, "text", "") if update and update.message else "")
     try:
-        await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
-    except asyncio.TimeoutError:
-        log.error("Telegram reply_text timeout (mission)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
+        if not await check_allowlist(update.effective_user.id):
+            _log_pipeline("Reply sent", update, handler="handle_mission", text="unauthorized")
+            await update.message.reply_text("⛔ Not authorized.")
+            return
+        if not ORCH_AVAILABLE or not dispatcher:
+            _log_pipeline("Reply sent", update, handler="handle_mission", text="orchestrator unavailable")
+            await update.message.reply_text("⚠️ Mission Queue unavailable (orchestrator not loaded).")
+            return
+        text = update.message.text or ""
+        # Full text includes command and args, e.g., "/mission create Foo"
+        # BUG-002 fix: offload blocking file I/O (queue.py:65 write_text) to threadpool
+        _log_pipeline("Dispatcher called", update, handler="handle_mission", text=text)
+        reply = await asyncio.to_thread(dispatcher.dispatch, text, update.effective_user.id)
+        if not reply:
+            reply = "Unknown mission command. Try /mission help"
+        _log_pipeline("Dispatcher returned", update, handler="handle_mission", text=text, reply=reply)
+        log.info(f"Mission dispatch {text[:60]} → {reply[:60]}", extra={"extra": {"telegram_user_id": update.effective_user.id, "command": text[:40]}})
+        try:
+            await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
+            _log_pipeline("Reply sent", update, handler="handle_mission", text=text, reply=reply)
+        except asyncio.TimeoutError as exc:
+            _log_pipeline("Exception", update, handler="handle_mission", exc=exc)
+            log.error("Telegram reply_text timeout (mission)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_mission", exc=exc)
+        raise
 
 async def handle_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not await check_allowlist(update.effective_user.id):
-        await update.message.reply_text("⛔ Not authorized.")
-        return
-    if not ORCH_AVAILABLE or not dispatcher:
-        await update.message.reply_text("⚠️ Queue unavailable")
-        return
-    reply = await asyncio.to_thread(dispatcher.dispatch, "/mission list QUEUED", update.effective_user.id)
+    _log_pipeline("Update received", update, handler="handle_queue", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_queue", text=getattr(update.message, "text", "") if update and update.message else "")
     try:
-        await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
-    except asyncio.TimeoutError:
-        log.error("Telegram reply_text timeout (queue)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
+        if not await check_allowlist(update.effective_user.id):
+            _log_pipeline("Reply sent", update, handler="handle_queue", text="unauthorized")
+            await update.message.reply_text("⛔ Not authorized.")
+            return
+        if not ORCH_AVAILABLE or not dispatcher:
+            _log_pipeline("Reply sent", update, handler="handle_queue", text="unavailable")
+            await update.message.reply_text("⚠️ Queue unavailable")
+            return
+        _log_pipeline("Dispatcher called", update, handler="handle_queue", text="/mission list QUEUED")
+        reply = await asyncio.to_thread(dispatcher.dispatch, "/mission list QUEUED", update.effective_user.id)
+        _log_pipeline("Dispatcher returned", update, handler="handle_queue", text="/mission list QUEUED", reply=reply)
+        try:
+            await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
+            _log_pipeline("Reply sent", update, handler="handle_queue", text="/mission list QUEUED", reply=reply)
+        except asyncio.TimeoutError as exc:
+            _log_pipeline("Exception", update, handler="handle_queue", exc=exc)
+            log.error("Telegram reply_text timeout (queue)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_queue", exc=exc)
+        raise
 
 async def _gateway_and_reply(update: Update, text: str):
-    if not await check_allowlist(update.effective_user.id):
-        await update.message.reply_text("⛔ Not authorized.")
-        return
-    # Intercept mission commands before Gateway — offload blocking dispatcher (BUG-002)
-    if text.strip().lower().startswith("/mission") or text.strip().lower().startswith("/queue"):
-        if ORCH_AVAILABLE and dispatcher:
-            reply = await asyncio.to_thread(dispatcher.dispatch, text, update.effective_user.id)
-            if reply:
-                try:
-                    await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
-                except asyncio.TimeoutError:
-                    log.error("Telegram reply_text timeout (_gateway_and_reply)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
-                return
-    ctx = {"chat_id": update.effective_chat.id, "username": update.effective_user.username}
-    data = await forward_to_gateway(update.effective_user.id, text, ctx)
-    reply = data.get("reply") or data.get("message") or "[no reply]"
-    for i in range(0, len(reply), 4096):
-        await update.message.reply_text(reply[i:i+4096])
+    _log_pipeline("Update received", update, handler="_gateway_and_reply", text=text)
+    _log_pipeline("Handler selected", update, handler="_gateway_and_reply", text=text)
+    try:
+        if not await check_allowlist(update.effective_user.id):
+            _log_pipeline("Reply sent", update, handler="_gateway_and_reply", text="unauthorized")
+            await update.message.reply_text("⛔ Not authorized.")
+            return
+        # Intercept mission commands before Gateway — offload blocking dispatcher (BUG-002)
+        if text.strip().lower().startswith("/mission") or text.strip().lower().startswith("/queue"):
+            if ORCH_AVAILABLE and dispatcher:
+                _log_pipeline("Dispatcher called", update, handler="_gateway_and_reply", text=text)
+                reply = await asyncio.to_thread(dispatcher.dispatch, text, update.effective_user.id)
+                _log_pipeline("Dispatcher returned", update, handler="_gateway_and_reply", text=text, reply=reply or "")
+                if reply:
+                    try:
+                        await asyncio.wait_for(update.message.reply_text(reply[:4096]), timeout=5)
+                        _log_pipeline("Reply sent", update, handler="_gateway_and_reply", text=text, reply=reply)
+                    except asyncio.TimeoutError as exc:
+                        _log_pipeline("Exception", update, handler="_gateway_and_reply", exc=exc)
+                        log.error("Telegram reply_text timeout (_gateway_and_reply)", extra={"extra": {"telegram_user_id": update.effective_user.id}})
+                    return
+        ctx = {"chat_id": update.effective_chat.id, "username": update.effective_user.username}
+        _log_pipeline("Dispatcher called", update, handler="_gateway_and_reply", text=text)
+        data = await forward_to_gateway(update.effective_user.id, text, ctx)
+        reply = data.get("reply") or data.get("message") or "[no reply]"
+        _log_pipeline("Dispatcher returned", update, handler="_gateway_and_reply", text=text, reply=reply)
+        for i in range(0, len(reply), 4096):
+            await update.message.reply_text(reply[i:i+4096])
+        _log_pipeline("Reply sent", update, handler="_gateway_and_reply", text=text, reply=reply)
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="_gateway_and_reply", exc=exc)
+        raise
 
 async def handle_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await _gateway_and_reply(update, "/status" if not context.args else "/status " + " ".join(context.args))
+    _log_pipeline("Update received", update, handler="handle_status", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_status", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        await _gateway_and_reply(update, "/status" if not context.args else "/status " + " ".join(context.args))
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_status", exc=exc)
+        raise
 
 async def handle_tasks(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    txt = "/tasks" + (" " + " ".join(context.args) if context.args else "")
-    await _gateway_and_reply(update, txt)
+    _log_pipeline("Update received", update, handler="handle_tasks", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_tasks", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        txt = "/tasks" + (" " + " ".join(context.args) if context.args else "")
+        await _gateway_and_reply(update, txt)
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_tasks", exc=exc)
+        raise
 
 async def handle_reports(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await _gateway_and_reply(update, "/reports")
+    _log_pipeline("Update received", update, handler="handle_reports", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_reports", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        await _gateway_and_reply(update, "/reports")
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_reports", exc=exc)
+        raise
 
 async def handle_events(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    txt = "/events" + (" " + " ".join(context.args) if context.args else "")
-    await _gateway_and_reply(update, txt)
+    _log_pipeline("Update received", update, handler="handle_events", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_events", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        txt = "/events" + (" " + " ".join(context.args) if context.args else "")
+        await _gateway_and_reply(update, txt)
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_events", exc=exc)
+        raise
 
 async def handle_validate(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await _gateway_and_reply(update, "/validate")
+    _log_pipeline("Update received", update, handler="handle_validate", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_validate", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        await _gateway_and_reply(update, "/validate")
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_validate", exc=exc)
+        raise
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not update.message or not update.message.text:
-        return
-    if update.message.text.startswith("/"):
-        # Check if it's a mission command that wasn't caught by specific handler
-        if update.message.text.lower().startswith("/mission") or update.message.text.lower().startswith("/queue"):
-            await handle_mission(update, context)
+    _log_pipeline("Update received", update, handler="handle_text", text=getattr(update.message, "text", "") if update and update.message else "")
+    _log_pipeline("Handler selected", update, handler="handle_text", text=getattr(update.message, "text", "") if update and update.message else "")
+    try:
+        if not update.message or not update.message.text:
+            _log_pipeline("Reply sent", update, handler="handle_text", text="empty")
             return
-        return
-    await _gateway_and_reply(update, update.message.text)
+        if update.message.text.startswith("/"):
+            # Check if it's a mission command that wasn't caught by specific handler
+            if update.message.text.lower().startswith("/mission") or update.message.text.lower().startswith("/queue"):
+                _log_pipeline("Dispatcher called", update, handler="handle_text", text=update.message.text)
+                await handle_mission(update, context)
+                _log_pipeline("Dispatcher returned", update, handler="handle_text", text=update.message.text)
+                _log_pipeline("Reply sent", update, handler="handle_text", text=update.message.text)
+                return
+            _log_pipeline("Reply sent", update, handler="handle_text", text="unknown command ignored")
+            return
+        await _gateway_and_reply(update, update.message.text)
+    except Exception as exc:
+        _log_pipeline("Exception", update, handler="handle_text", exc=exc)
+        raise
 
 async def start_telegram_polling():
     global telegram_app, telegram_connected
