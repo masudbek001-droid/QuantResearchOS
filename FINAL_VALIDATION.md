@@ -4,7 +4,7 @@ Date: 2026-09-15
 
 ## Current verdict
 
-PASS through Stage 14.
+PASS through Stage 15.
 
 The project is internally coherent through:
 
@@ -19,7 +19,8 @@ The project is internally coherent through:
 - MT5 ONNX runtime;
 - replay-time ONNX inference;
 - shadow-only AI context;
-- AI shadow safety audit.
+- AI shadow safety audit;
+- final architecture/documentation reconciliation.
 
 ## Compile evidence
 
@@ -41,8 +42,10 @@ The project is internally coherent through:
 - Stage 9 Walk-Forward Model Validation: PASS
 - Stage 10 MT5 ONNX Runtime: PASS
 - Stage 11 Replay + ONNX Inference: PASS
+- Stage 12 AI Promotion Safety Gates: PASS
 - Stage 13 Shadow AI Context Runtime: PASS
 - Stage 14 Shadow AI Safety Audit: PASS
+- Stage 15 Final Reconciliation: PASS
 
 ## Remaining limitation
 

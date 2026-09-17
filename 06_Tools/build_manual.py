@@ -103,7 +103,7 @@ def sec_intro():
 def sec_files():
     m.new_page()
     section("02", "ЛОЙИҲА ФАЙЛЛАРИ")
-    m.para("Лойиҳа модулларга бўлинган: битта кичик .mq5 файл ва эллик иккита .mqh синф модули. "
+    m.para("Лойиҳа модулларга бўлинган: битта кичик .mq5 файл ва эллик учта .mqh синф модули. "
            "Ҳар бир модул фақат ўз вазифасини бажаради.")
     m.code([
         "MQL5/",
@@ -161,7 +161,7 @@ def sec_install():
         "<Маълумотлар папкаси>/MQL5/Experts/CandleBreakoutEA/CandleBreakoutEA.mq5",
         "<Маълумотлар папкаси>/MQL5/Include/CandleBreakoutEA/EASettings.mqh",
         "<Маълумотлар папкаси>/MQL5/Include/CandleBreakoutEA/EATradeManager.mqh",
-        "... (жами 10 та .mqh файл)",
+        "... (жами 53 та .mqh + 9 та .mq5 файл)",
     ], CYAN, title="КУТИЛАЁТГАН НАТИЖА")
     m.gap(2)
     sub("3-қадам — Компиляция қилиш")
@@ -498,15 +498,15 @@ def sec_extend():
     m.gap(6)
     section("14", "КОМПИЛЯЦИЯ ТЕКСИРУВИ")
     m.para("Лойиҳа ҳақиқий MetaQuotes компилятори (MetaEditor64.exe) билан текширилган. "
-           "tools/build.py скрипти манбаларни ҳақиқий MT5 маълумотлар папкасига жойлайди ва "
+           "06_Tools/build.py скрипти манбаларни ҳақиқий MT5 маълумотлар папкасига жойлайди ва "
            "компилляция қилади:")
     m.code([
-        "$ python3 tools/build.py",
+        "$ python3 06_Tools/build.py",
         "",
         "staged into     : QuantResearchOS/.build",
         "standard library: True",
         "compiler result : 0 error(s), 0 warning(s)",
-        "binary          : CandleBreakoutEA.ex5 (205146 bytes)",
+        "binary          : CandleBreakoutEA.ex5 (207,814 bytes)",
         "",
         "VERDICT: PASS - 0 errors, 0 warnings, binary produced",
     ], GREEN, title="ТЕКСИРУВ НАТИЖАСИ")
@@ -545,7 +545,7 @@ def sec_warnings():
     m.kv_panel("ҚЎЛЛАНМА ҲАҚИДА", [
         ("Эксперт", "CandleBreakoutEA v1.00"),
         ("Платформа", "MetaTrader 5 / MQL5 (OOP)"),
-        ("Модуллар", "52 та .mqh синф + 1 та .mq5"),
+        ("Модуллар", "53 та .mqh синф + 1 та .mq5"),
         ("Код ҳажми", "9 603 қатор"),
         ("Компиляция", "0 хато · 0 огоҳлантириш"),
     ], CYAN)

@@ -3,7 +3,7 @@
 ```text
 EA/MQL5/
 ├── Experts/CandleBreakoutEA/CandleBreakoutEA.mq5   ← entry point
-└── Include/CandleBreakoutEA/                       ← 52 class modules
+└── Include/CandleBreakoutEA/                       ← 53 class modules (52+ CAIShadowInference)
     ├── EAContext/  EAFeatureBuilder/  EAData/  EAReplay/  EAResearch/  EAHistory/
     └── root trading modules (FROZEN, MIPS v1.0)
 ```

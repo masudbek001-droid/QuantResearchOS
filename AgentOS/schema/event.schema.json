@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentOS Event",
+  "type": "object",
+  "required": ["EventID", "Timestamp", "Emitter", "Type", "CorrelationID", "Payload"],
+  "properties": {
+    "EventID": { "type": "string", "pattern": "^EVT-\\d{4}$" },
+    "Timestamp": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} UTC$" },
+    "Emitter": { "type": "string", "pattern": "^worker-[a-z0-9-]+$" },
+    "Type": { "type": "string", "enum": ["task.created","task.claimed","task.completed","task.blocked","task.in_progress","task.review","report.created","report.approved","report.rejected","lock.acquired","lock.released","lock.denied","lock.expired","decision.recorded","worker.registered","worker.heartbeat","worker.inactive"] },
+    "CorrelationID": { "type": "string", "pattern": "^(TASK-\\d{4}|REPORT-\\d{4}|LOCK-\\d{4}|-)$" },
+    "Payload": { "type": "object" }
+  }
+}

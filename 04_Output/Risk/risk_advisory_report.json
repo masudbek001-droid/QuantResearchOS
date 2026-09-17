@@ -1,0 +1,255 @@
+{
+  "generated_at": "2026-09-15 06:44 UTC",
+  "dataset": {
+    "statistical_baseline": "04_Output/Statistics/statistical_baseline_report.json",
+    "total_h1_bars": 56514,
+    "clean_breakouts": 40566,
+    "single_side_wr": 54.96,
+    "profit_factor": 1.945
+  },
+  "models": {
+    "feature_version": 1,
+    "feature_count": 22,
+    "label_names": {
+      "0": "RANGE",
+      "1": "UP",
+      "2": "DOWN",
+      "3": "FAKE_BREAKOUT"
+    },
+    "walk_forward": {
+      "windows": [
+        {
+          "window": 1,
+          "train_start": 0,
+          "train_end": 28249,
+          "test_start": 28249,
+          "test_end": 32768
+        },
+        {
+          "window": 2,
+          "train_start": 0,
+          "train_end": 34181,
+          "test_start": 34181,
+          "test_end": 38700
+        },
+        {
+          "window": 3,
+          "train_start": 0,
+          "train_end": 40113,
+          "test_start": 40113,
+          "test_end": 44632
+        },
+        {
+          "window": 4,
+          "train_start": 0,
+          "train_end": 46045,
+          "test_start": 46045,
+          "test_end": 50564
+        },
+        {
+          "window": 5,
+          "train_start": 0,
+          "train_end": 51977,
+          "test_start": 51977,
+          "test_end": 56496
+        }
+      ],
+      "logistic_avg_accuracy": 0.390131,
+      "rf_avg_accuracy": 0.418278
+    },
+    "supervised": {
+      "logistic_test_accuracy": 0.454159,
+      "rf_test_accuracy": 0.455693
+    }
+  },
+  "advisory_tables": {
+    "volatility_regime": {
+      "low": {
+        "atr_ratio_range": "<=0.75",
+        "win_rate": 58.87,
+        "expectancy": 0.972,
+        "multiplier": 1.0,
+        "flag": "NORMAL",
+        "rationale": "compression, 58.87% WR"
+      },
+      "normal": {
+        "atr_ratio_range": "0.75-1.50",
+        "win_rate": 53.36,
+        "expectancy": 0.774,
+        "multiplier": 0.85,
+        "flag": "REDUCED",
+        "rationale": "baseline, slight discount"
+      },
+      "high": {
+        "atr_ratio_range": ">1.50",
+        "win_rate": 49.79,
+        "expectancy": 0.4,
+        "multiplier": 0.5,
+        "flag": "CAUTION",
+        "rationale": "expansion random 49.79% WR"
+      }
+    },
+    "hourly": {
+      "0": {
+        "expectancy": 1.072,
+        "multiplier": 0.9,
+        "flag": "REDUCED"
+      },
+      "1": {
+        "expectancy": 1.664,
+        "multiplier": 1.0,
+        "flag": "NORMAL"
+      },
+      "2": {
+        "expectancy": 0.324,
+        "multiplier": 0.9,
+        "flag": "REDUCED"
+      },
+      "3": {
+        "expectancy": 0.198,
+        "multiplier": 0.9,
+        "flag": "REDUCED"
+      },
+      "4": {
+        "expectancy": 0.183,
+        "multiplier": 0.7,
+        "flag": "CAUTION"
+      },
+      "5": {
+        "expectancy": 1.323,
+        "multiplier": 1.0,
+        "flag": "NORMAL"
+      },
+      "6": {
+        "expectancy": 0.803,
+        "multiplier": 0.9,
+        "flag": "REDUCED"
+      },
+      "7": {
+        "expectancy": 0.698,
+        "multiplier": 0.9,
+        "flag": "REDUCED"
+      },
+      "8": {
+        "expectancy": 0.74,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "9": {
+        "expectancy": 0.454,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "10": {
+        "expectancy": 0.366,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "11": {
+        "expectancy": 0.725,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "12": {
+        "expectancy": 1.809,
+        "multiplier": 1.0,
+        "flag": "NORMAL"
+      },
+      "13": {
+        "expectancy": 1.515,
+        "multiplier": 1.0,
+        "flag": "NORMAL"
+      },
+      "14": {
+        "expectancy": 1.226,
+        "multiplier": 1.0,
+        "flag": "NORMAL"
+      },
+      "15": {
+        "expectancy": 0.865,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "16": {
+        "expectancy": 0.508,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "17": {
+        "expectancy": 0.322,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "18": {
+        "expectancy": 0.515,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "19": {
+        "expectancy": 0.617,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "20": {
+        "expectancy": 0.395,
+        "multiplier": 0.85,
+        "flag": "REDUCED"
+      },
+      "21": {
+        "expectancy": 0.118,
+        "multiplier": 0.7,
+        "flag": "CAUTION"
+      },
+      "22": {
+        "expectancy": 1.09,
+        "multiplier": 0.9,
+        "flag": "REDUCED"
+      },
+      "23": {
+        "expectancy": 1.143,
+        "multiplier": 0.9,
+        "flag": "REDUCED"
+      }
+    },
+    "confidence_calibration": {
+      "low_conf_threshold": 0.35,
+      "low_conf_multiplier": 0.8,
+      "high_conf_fake_threshold": 0.5,
+      "fake_label": 3,
+      "fake_multiplier": 0.5,
+      "wf_avg_accuracy_logistic": 0.390131,
+      "wf_avg_accuracy_rf": 0.418278,
+      "test_accuracy_logistic": 0.454159,
+      "test_accuracy_rf": 0.455693,
+      "rationale": "walk-forward 0.39-0.418 vs confidence 0.35 threshold; fake breakout p>0.50 whipsaw"
+    },
+    "daily_tightening": {
+      "tightening_threshold_pct": 0.8,
+      "flag_when_near_limit": "ELEVATED",
+      "rationale": "80% of daily profit/loss limit \u2192 advisory elevated, no block"
+    },
+    "carry": {
+      "disallow_when_flag_in": [
+        "CAUTION",
+        "ELEVATED"
+      ],
+      "disallow_when_trend_below": 70.0,
+      "rationale": "carry requires flag NORMAL/REDUCED and trend \u226570"
+    }
+  },
+  "normalization": {
+    "risk_multiplier_range": [
+      0.5,
+      1.5
+    ],
+    "formula": "vol_mult * hour_mult * conf_mult clamped 0.50..1.50",
+    "flag_priority": "ELEVATED > CAUTION > REDUCED > NORMAL",
+    "advisory_only": true,
+    "no_trading_authority": "ADR-0015/0016 shadow-only, dormant, explicit Update, default OFF"
+  },
+  "validation": {
+    "no_lookahead": true,
+    "multiplier_bounds_verified": true,
+    "forbidden_tokens": 0
+  }
+}

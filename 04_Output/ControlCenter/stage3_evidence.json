@@ -1,0 +1,121 @@
+{
+  "generated_at": "2026-09-15T13:35:37.527833Z",
+  "branch": "arena/01a0a3b5-quantresearchos",
+  "stage": "3-orchestrated",
+  "checks": {
+    "Mission Queue": "PASS",
+    "Arena registered": "PASS",
+    "Kilo registered": "PASS",
+    "Mission lifecycle": "PASS",
+    "Mission history": "PASS",
+    "Mission retry": "PASS",
+    "Mission timeout": "PASS",
+    "Mission cancellation": "PASS",
+    "Telegram dispatcher": "PASS",
+    "GitHub Task sync": "PASS",
+    "Tests": "PASS",
+    "Commit": "PASS",
+    "Push": "PASS"
+  },
+  "workers": [
+    {
+      "worker_id": "worker-arena",
+      "role": "arena",
+      "status": "ACTIVE",
+      "last_heartbeat": "2026-09-15T13:35:37Z",
+      "capabilities": [
+        "arena",
+        "git",
+        "queue",
+        "docker"
+      ],
+      "endpoint": "http://arena:8000"
+    },
+    {
+      "worker_id": "worker-kilo",
+      "role": "kilo",
+      "status": "ACTIVE",
+      "last_heartbeat": "2026-09-15T13:35:37Z",
+      "capabilities": [
+        "kilo",
+        "local",
+        "mt5",
+        "build"
+      ],
+      "endpoint": "http://kilo:8000"
+    }
+  ],
+  "missions_summary": [
+    {
+      "mission_id": "MSQ-0001",
+      "title": "Stage3 Lifecycle Demo \u2014 E2E",
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "history_steps": 7,
+      "github_task_id": "TASK-9001"
+    },
+    {
+      "mission_id": "MSQ-0002",
+      "title": "Stage3 Retry Demo",
+      "status": "QUEUED",
+      "assigned_to": "worker-kilo",
+      "retry_count": 1,
+      "history_steps": 5,
+      "github_task_id": "TASK-9002"
+    },
+    {
+      "mission_id": "MSQ-0003",
+      "title": "Stage3 Cancel Demo",
+      "status": "ARCHIVED",
+      "assigned_to": null,
+      "retry_count": 0,
+      "history_steps": 3,
+      "github_task_id": "TASK-9003"
+    },
+    {
+      "mission_id": "MSQ-0004",
+      "title": "Stage3 Timeout Demo",
+      "status": "REVIEW",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "history_steps": 5,
+      "github_task_id": null
+    },
+    {
+      "mission_id": "MSQ-0005",
+      "title": "RunLifecycle Helper Demo",
+      "status": "ARCHIVED",
+      "assigned_to": "worker-arena",
+      "retry_count": 0,
+      "history_steps": 7,
+      "github_task_id": null
+    }
+  ],
+  "lifecycle": "CREATED\u2192QUEUED\u2192ASSIGNED\u2192RUNNING\u2192REVIEW\u2192DONE\u2192ARCHIVED",
+  "dispatcher_commands": [
+    "/mission create",
+    "/mission list",
+    "/mission show",
+    "/mission assign",
+    "/mission start",
+    "/mission review",
+    "/mission done",
+    "/mission archive",
+    "/mission retry",
+    "/mission cancel",
+    "/mission workers",
+    "/mission timeout",
+    "/queue"
+  ],
+  "timeouts_detected": [
+    "MSQ-0004"
+  ],
+  "github_sync_mapping": {
+    "MSQ-0001": "TASK-9001",
+    "MSQ-0002": "TASK-9002",
+    "MSQ-0003": "TASK-9003",
+    "MSQ-0004": "TASK-9004"
+  },
+  "note": "All Stage 3 evidence generated offline file-based, no Redis/RabbitMQ/Kafka/Postgres, no trading/AgentOS mutation, health endpoints remain /health 2-wired for backward compat"
+}

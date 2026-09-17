@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-09-15 06:48 UTC",
+  "sources": {
+    "risk": "04_Output/Risk/risk_advisory_report.json",
+    "council": "04_Output/Council/council_report.json",
+    "wf": "05_Training/Metrics/phase_d_walk_forward_v907100.json"
+  },
+  "inputs": {
+    "logistic_wf": 0.390131,
+    "high_vol_wr": 49.79,
+    "council_caution": "CAUTION"
+  },
+  "drift": {
+    "drift_score": 1.0,
+    "retrain_hint": "URGENT",
+    "reason": "high vol CAUTION regime, council CAUTION, logistic WF 0.3901<0.40 low, high vol WR<50 drift"
+  },
+  "advisory_only": true
+}

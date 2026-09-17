@@ -1,0 +1,19 @@
+{
+  "mapping": {
+    "MSQ-0001": "TASK-9001",
+    "MSQ-0002": "TASK-9002",
+    "MSQ-0003": "TASK-9003",
+    "MSQ-0004": "TASK-9004",
+    "MSQ-0006": "TASK-9006",
+    "MSQ-0007": "TASK-9007",
+    "MSQ-0008": "TASK-9008",
+    "MSQ-0009": "TASK-9009",
+    "MSQ-0010": "TASK-9010",
+    "MSQ-0011": "TASK-9011",
+    "MSQ-0012": "TASK-9012",
+    "MSQ-0013": "TASK-9013",
+    "MSQ-0014": "TASK-9014",
+    "MSQ-0015": "TASK-9015"
+  },
+  "note": "MissionID -> TaskID (GitHub sync offline fallback)"
+}

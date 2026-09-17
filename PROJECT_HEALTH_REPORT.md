@@ -4,7 +4,7 @@ Date: 2026-09-15
 
 | Area | Status |
 |---|---|
-| Inventory | PASS — 834 project files inventoried |
+| Inventory | PASS — 834 files inventoried (incl. `.build/` stdlib); repo-only ≈300, EA 53+1 +7 scripts 0/0 |
 | Include/build | PASS — 0 errors, 0 warnings |
 | Source/install synchronization | PASS — source/include/scripts/EX5 synchronized to active MetaTrader tree |
 | Runtime databases | PASS — Research, Ticks, Market, Models, and validation DBs checked |

@@ -10,19 +10,41 @@
 | Sprint 5 | Research Platform — experiments, benchmarks, walk-forward | v10 | 0012 |
 | Sprint 6A | Historical Data Platform — Ticks/Market/Models stores, exporters, integrity, incremental sync, import history | v11 | 0013 |
 | Reorganization | QuantResearchOS clean workspace (this state) | — | — |
+| Sprint 6B | Model Architecture Platform — Models.db schema v2, 4 architectures seeded, statistical baseline (Phase C) regenerated | Models v2 | 0014 |
+| Sprint 7 | Training pipeline — 56,499 feature vectors, 2 supervised baselines (LogisticRegression, RandomForest), ONNX export with checker PASS, Models.db registry/contracts/evaluations | Models v2 | 0014 |
+| Sprint 8 | ONNX runtime — MT5 ONNX load PASS (22→4), replay+ONNX inference PASS (10 inferences), shadow AI context PASS | — | 0014 / 0015 |
+| Stages 12–15 | AI promotion safety gates, shadow-only inference, shadow safety audit, final architecture/documentation reconciliation — PASS | — | 0015 |
+| Sprint 9 | **Chief Risk AI** — advisory risk layer (CAIRiskAdvisory), volatility/hourly/confidence/daily/carry tables, risk_advisory_report.json, safety test PASS | — | 0016 |
+| Sprint 10 | **Chief Research AI** — research synthesis (CAIResearchAdvisory), feature/window/next hints, research_synthesis_report.json, synthesis test PASS | — | 0017 |
+| Sprint 11 | **Decision Bus** — advisory consensus routing (CAIDecisionBus), risk×research×shadow multiplier 0.50..1.50, decision_bus_report.json, bus test PASS | — | 0018 |
+| Sprint 12 | **AI Council** — multi-agent weighted consensus (CAIAICouncil), Risk0.35/Research0.25/Shadow0.25/Bus0.15, council_report.json, council test PASS | — | 0019 |
+| Sprint 13 | **Continuous Learning** — drift & retrain advisory (CAIContinuousLearning), drift 1.0 URGENT, learning_advisory_report.json, learning test PASS | — | 0020 |
+| AgentOS v1.0 | **Git-native collaboration layer — 8-file bus, 10 workers 1:1, CLI/validate/tests, example, no Telegram** | — | 0021 |
+| Market Digital Twin | **Single source of truth simulator — 5 MQL (TwinTypes/Clock/Bus/Validator/Core+Adapters), 100 bars FNV-1a 0 mismatches, 5 consumers identical** | — | 0022 |
+| QROS Control Center Stage 1 | **Remote project management structure — Bot+Gateway+Watcher stubs, compose + env + docs, 17 checks PASS (MISSION-001 Stage 1)** | — | 0023 |
+| QROS Control Center Stage 2 | **Wired pipeline — Telegram polling + OpenAI + webhook + parser + AgentOS forwarding + health + logs + graceful (MISSION-003 Stage 2)** | — | 0024 |
 
 ## ▶ Current
 
-* **Nothing running.** Sprint 6B awaits an explicit user command. The platform is
-  in a stable, fully compiled, fully documented state.
+* **Stable through Stage 15 + 5 advisory + AgentOS v1.0 + Market Digital Twin + Control Center Stage 2 (2026-09-15) — PASS.** Historical data, replay, research, training, ONNX runtime, shadow-AI, **5 advisory layers (ADR-0016..0020)**, **AgentOS 8-file bus (ADR-0021)**, **Market Digital Twin single source (ADR-0022, 100 bars exact, 5 consumers)** and **Control Center Stage 2 wired (ADR-0024, 13 checks wiring PASS, health/webhook/parser/forwarding, MISSION-003)** are validated. EA now 64 .mqh (58+6 Twin) + 7 scripts + 5 advisory tests + AgentOS (11 workers) + Twin (TwinEventBus 5 consumers) + Control Center (Bot+Gateway+Watcher wired, Telegram→Gateway→GitHub→AgentOS); advisory+Git+Twin single source, default OFF. Next is LIVE secrets or Twin consumer migration.
 
 ## 📋 Planned
 
 | Sprint | Scope (subject to the user's specification) |
 |---|---|
-| **6B** | Model Architecture Platform — model metadata in Models.db, feature-vector contracts, readiness for training |
-| **7** | Training pipeline — dataset export to `05_Training/`, feature vectors, model training, metrics |
-| **8** | ONNX runtime — model inference inside the EA, AI-gated decisions (context AI slot already reserved) |
+| **9** | **Chief Risk AI** — **DONE** (this sprint, ADR-0016) — advisory risk layer PASS |
+| **10** | **Chief Research AI** — **DONE** (this sprint, ADR-0017) — synthesis advisory PASS |
+| **11** | **Decision Bus** — **DONE** (this sprint, ADR-0018) — advisory consensus PASS |
+| **12** | **AI Council** — **DONE** (this sprint, ADR-0019) — multi-agent consensus PASS |
+| **13** | **Continuous Learning** — **DONE** (this sprint, ADR-0020) — drift advisory PASS |
+| AgentOS v1.0 | **DONE** (this sprint, ADR-0021) — 8-file bus + validate + example PASS |
+| Market Digital Twin | **DONE** (TASK-0005 via AgentOS, ADR-0022) — exact 100 bars, 5 consumers identical PASS |
+| QROS Control Center Stage 1 | **DONE** (MISSION-001 Stage 1, ADR-0023) — Bot+Gateway+Watcher structure + compose/env/docs PASS |
+| QROS Control Center Stage 2 | **DONE** (MISSION-003 Stage 2, ADR-0024) — polling + OpenAI + webhook + parser + forwarding + health + logs + graceful PASS |
+| **Next** | LIVE secrets — provide real TELEGRAM_BOT_TOKEN + OPENAI_API_KEY + GITHUB_TOKEN + WATCHER_PUBLIC_URL → docker compose up -d → ready:true (until MT5/secret blocker) |
+| Twin consumer migration | Replay/Training/Risk/Research/AI default to Twin (until MT5 compile blocker) |
+| **Future** | Production promotion — wire advisory behind flag, Strategy Tester regression, checksum/rollback (requires ADR) |
+| Future | Multi-broker backtesting farm (DataSources registry is multi-broker ready); live walk-forward re-validation calendar; Strategy Tester / demo campaign before any live deployment |
 
 ## 🔭 Future
 

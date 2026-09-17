@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-09-15 06:46 UTC",
+  "sources": {
+    "statistical_baseline": "04_Output/Statistics/statistical_baseline_report.json",
+    "supervised": "05_Training/Metrics/phase_d_supervised_baseline_v907100.json",
+    "walk_forward": "05_Training/Metrics/phase_d_walk_forward_v907100.json",
+    "risk_advisory": "04_Output/Risk/risk_advisory_report.json",
+    "total_bars": 56514,
+    "clean_breakouts": 40566
+  },
+  "baseline": {
+    "win_rate": 54.96,
+    "profit_factor": 1.945,
+    "high_vol_wr": 49.79,
+    "low_vol_wr": 58.87
+  },
+  "models": {
+    "logistic_wf_avg_accuracy": 0.390131,
+    "rf_wf_avg_accuracy": 0.418278,
+    "logistic_std": 0.03967,
+    "rf_std": 0.02095
+  },
+  "synthesis": {
+    "feature_hint": "ABLATE_ATR",
+    "feature_reason": "High vol WR 49.79% random \u2014 test ATR/ATRRatio ablation",
+    "window_hint": "NONE",
+    "window_reason": "Walk-forward variance low \u2014 keep 5 windows",
+    "next_experiment_hint": "TRY_GRADIENT_BOOST",
+    "next_reason": "Risk CAUTION (high vol) \u2014 try GradientBoosting (seeded arch) vs RF | logistic WF 0.39 suggests quality re-run",
+    "quality_hint": "RERUN_QUALITY",
+    "confidence": 0.65
+  },
+  "advisory_only": true,
+  "no_trading_authority": "ADR-0017 shadow-only, dormant OFF"
+}

@@ -5,4 +5,4 @@ This folder is an **index**, not a copy: the compilable MQL5 tree lives intact a
 
 ## Contents of this category
 
-`01_Source/EA/MQL5/Include/CandleBreakoutEA/EAData/` — 13 modules: IDataProvider, SQLiteProvider, DatabaseTypes, DatabaseSchema, DatabaseVersion, DatabaseValidation, DatabaseManager, MarketSnapshotWriter, TradeWriter, ObservationWriter, LabelGenerator, DatasetBuilder, DataQualityAnalyzer, FeatureRegistry.
+`01_Source/EA/MQL5/Include/CandleBreakoutEA/EAData/` — 14 modules: IDataProvider, SQLiteProvider, DatabaseTypes, DatabaseSchema, DatabaseVersion, DatabaseValidation, DatabaseManager, MarketSnapshotWriter, TradeWriter, ObservationWriter, LabelGenerator, DatasetBuilder, DataQualityAnalyzer, FeatureRegistry.

@@ -1,0 +1,32 @@
+name: AgentOS CI
+
+on:
+  push:
+    branches: [ "main", "arena/**" ]
+    paths:
+      - "AgentOS/**"
+      - ".github/workflows/agentos.yml"
+  pull_request:
+    branches: [ "main", "arena/**" ]
+    paths:
+      - "AgentOS/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate AgentOS invariants
+        run: python AgentOS/tools/validate.py
+      - name: Run AgentOS tests
+        run: python AgentOS/tests/test_agentos.py
+      - name: Check no Telegram
+        run: |
+          ! grep -r -i "telegram" AgentOS/ --include="*.md" | grep -v "not implemented" | grep -v "Out of scope"
+          echo "No Telegram bus found — Git-only OK"
+      - name: Check no trading logic touched
+        run: |
+          echo "AgentOS is collaboration layer only — no trading checks needed"

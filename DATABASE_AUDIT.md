@@ -20,4 +20,4 @@ Validation DBs:
 - `candlebreakout_907001.db`
 - `candlebreakout_911001.db`
 
-Integrity checks passed for the active stores used in Stages 3–14.
+Integrity checks passed for the active stores used in Stages 3–15.

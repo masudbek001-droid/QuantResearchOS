@@ -28,7 +28,9 @@ Recursive scan found 834 files:
 | `.txt` | 1 |
 | `.gitignore` | 1 |
 
-Primary source: `C:\QuantResearchOS\01_Source\EA\MQL5`.
+Primary source: `C:\QuantResearchOS\01_Source\EA\MQL5` (EA build unit: 53 `.mqh` + 9 `.mq5` with validation scripts; 52+1 for the core EA).
+
+> **Note 2026-09-15 audit:** 834 counted the staged `.build/` copy of the MT5 standard library (≈500 `.mqh`) plus 13 `.ex5`/`.log`/`.db` artifacts. Repo-only without `.build/` is ≈300 files (53 `.mqh`, 9 `.mq5`, 128 `.md`, 15 `.py`). The authoritative EA build unit remains 53 `.mqh` + 1 `.mq5` + 7 isolated validation scripts (all 0/0).
 
 Active MetaTrader runtime:
 

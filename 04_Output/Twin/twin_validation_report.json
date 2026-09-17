@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-09-15 10:28:48 UTC",
+  "source": "synthetic:H1_100bars",
+  "bars": 100,
+  "twin_events": 100,
+  "validation": {
+    "exact_reproduction": {
+      "checked": 100,
+      "mismatches": 0,
+      "pass": true,
+      "hash": "FNV-1a"
+    },
+    "identical_dispatch": {
+      "consumers": [
+        "Replay",
+        "Training",
+        "Risk",
+        "Research",
+        "AI"
+      ],
+      "events_per_consumer": 100,
+      "pass": true,
+      "proof": "All 5 consumers received same event_hash per event_id"
+    },
+    "single_source": {
+      "pass": true,
+      "detail": "No consumer read HistoryStore directly; all received via TwinEventBus Dispatch()"
+    },
+    "hash_sum": {
+      "expected": 470302504459829577872,
+      "emitted": 470302504459829577872,
+      "pass": true
+    }
+  },
+  "overall": "PASS",
+  "advisory_only": false,
+  "note": "Market Digital Twin is single source of truth \u2014 Replay/Training/Risk/Research/AI receive identical SMarketEvent copies via TwinEventBus."
+}

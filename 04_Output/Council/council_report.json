@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-09-15 06:48 UTC",
+  "sources": {
+    "risk": "04_Output/Risk/risk_advisory_report.json",
+    "research": "04_Output/Research/research_synthesis_report.json",
+    "bus": "04_Output/DecisionBus/decision_bus_report.json"
+  },
+  "weights": {
+    "Risk": 0.35,
+    "Research": 0.25,
+    "Shadow": 0.25,
+    "Bus": 0.15
+  },
+  "inputs": {
+    "risk_high": 0.5,
+    "research_conf": 0.65,
+    "bus_low": 0.9,
+    "logistic_wf": 0.390131
+  },
+  "council": {
+    "multiplier_range": [
+      0.5,
+      1.5
+    ],
+    "confidence": 0.64,
+    "vote_enum": [
+      "NORMAL",
+      "REDUCED",
+      "CAUTION",
+      "ELEVATED"
+    ],
+    "examples": {
+      "calm": {
+        "multiplier": 0.95,
+        "vote": "NORMAL"
+      },
+      "reduced": {
+        "multiplier": 0.85,
+        "vote": "REDUCED"
+      },
+      "caution": {
+        "multiplier": 0.83,
+        "vote": "CAUTION"
+      }
+    }
+  },
+  "consensus_rule": "Risk0.35/Research0.25/Shadow0.25/Bus0.15 -> council_multiplier 0.50..1.50, vote ELEVATED>CAUTION>REDUCED>NORMAL",
+  "advisory_only": true
+}

@@ -11,8 +11,9 @@ before touching anything.
    states what the most recent sprint froze and forbade.
 4. Read the spec of the module you will touch (`03_Documents/Specifications/`)
    and the last sprint report (`03_Documents/SprintReports/`).
-5. **Wait for the user's explicit task/sprint command.** Do not start Sprint 6B
-   or any feature work on your own initiative.
+5. **Wait for the user's explicit task/sprint command.** Do not start a new
+   sprint or any feature work on your own initiative (Sprints 6B–8 and Stages
+   8–15 are complete; next work requires a new ADR).
 
 ## Which files must be read first (in order)
 
@@ -20,8 +21,8 @@ before touching anything.
 2. `QuantResearchOS/NEXT_TASK.md`
 3. `QuantResearchOS/PROJECT_PRINCIPLES.md`
 4. `QuantResearchOS/ARCHITECTURE_MAP.md`
-5. `QuantResearchOS/03_Documents/ADR/ADR-0013_historical_data_platform.md`
-   (latest frozen state)
+5. `QuantResearchOS/03_Documents/ADR/ADR-0015-ai-promotion-and-safety-gates.md`
+   (latest frozen state — ADR-0015; prior chain 0001–0014 still binding)
 6. The specification document for the module under work.
 
 ## What must NEVER be modified

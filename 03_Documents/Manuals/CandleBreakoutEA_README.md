@@ -32,7 +32,8 @@ MQL5/
             ├── EAContextTrade.mqh      CTradeContext: runtime trade state
             ├── EAContextMarket.mqh     CMarketContext: market snapshot (cached per bar)
             ├── EAContextStrategy.mqh   CStrategyContext: cycle state + enabled stack
-            ├── EAContextAI.mqh         CAIContext: placeholder only
+            ├── EAContextAI.mqh         CAIContext: prediction fields (shadow-only, ADR-0015)
+            ├── EAContextAIShadowInference.mqh  CAIShadowInference: shadow ONNX adapter (Stages 13–14)
             └── EAContextLayer.mqh      CContextLayer: facade, single update funnel
         ├── EAFeatureBuilder/           Feature Builder (Task 0004):
             ├── FeatureTypes.mqh        status/session/trend enums + analysis constants
@@ -43,7 +44,7 @@ MQL5/
             ├── DatabaseTypes.mqh       status enum + schema/table constants
             ├── IDataProvider.mqh       pure persistence interface
             ├── SQLiteProvider.mqh      CSQLiteProvider: isolated SQLite binding
-            ├── DatabaseSchema.mqh      schema v1 DDL (metadata tables only)
+            ├── DatabaseSchema.mqh      schema v1–v11 DDL (additive chain 1→11)
             ├── DatabaseVersion.mqh     versioning + migration funnel
             ├── DatabaseValidation.mqh  stateless validation rules
             ├── DatabaseManager.mqh     CDatabaseManager: the ONLY public class
@@ -356,14 +357,15 @@ Behaviour of every parameter is unchanged.
 
 ## 12. Verification
 
-`tools/build.py` stages the sources into a real MetaTrader 5 data folder and compiles them with
+`06_Tools/build.py` stages the sources into a real MetaTrader 5 data folder and compiles them with
 `MetaEditor64.exe`:
 
 ```
-staged into     : /home/user/.build
+staged into     : QuantResearchOS/.build
 standard library: True
 compiler result : 0 error(s), 0 warning(s)
-binary          : CandleBreakoutEA.ex5 (205146 bytes)
+binary          : CandleBreakoutEA.ex5 (207,814 bytes)
+project output  : QuantResearchOS/04_Output/EX5/CandleBreakoutEA.ex5
 
 VERDICT: PASS - 0 errors, 0 warnings, binary produced
 ```
