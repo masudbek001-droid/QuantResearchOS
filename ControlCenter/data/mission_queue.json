@@ -344,20 +344,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T16:53:11Z",
-          "by": "worker-arena",
-          "reason": "Commit: 1dab642 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0006 TEST Final Check 2026-09-16T16:53:10Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0006_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0006_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T16:53:11Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 1dab642 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T16:53:11Z",
           "by": "worker-arena",
@@ -438,20 +424,6 @@
           "at": "2026-09-16T17:36:48Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:36:50Z",
-          "by": "worker-arena",
-          "reason": "Commit: e2ffcb4 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0007 BUG012 TEST 2026-09-16T17:36:48Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0007_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0007_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:36:50Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e2ffcb4 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -538,20 +510,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:36Z",
-          "by": "worker-arena",
-          "reason": "Commit: 7a7bf9c Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0008 CONCURRENT ARENA 2026-09-16T17:37:34Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0008_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0008_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:36Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 7a7bf9c Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T17:37:36Z",
           "by": "worker-arena",
@@ -632,20 +590,6 @@
           "at": "2026-09-16T17:37:36Z",
           "by": "worker-kilo",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:37Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 30e1962 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0009 CONCURRENT KILO 2026-09-16T17:37:34Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0009_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0009_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:37Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 30e1962 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -732,20 +676,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:44Z",
-          "by": "worker-arena",
-          "reason": "Commit: 3fa8b98 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0010 SEPARATE ARENA 2026-09-16T17:37:43Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0010_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0010_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:44Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 3fa8b98 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T17:37:44Z",
           "by": "worker-arena",
@@ -826,20 +756,6 @@
           "at": "2026-09-16T17:37:44Z",
           "by": "worker-kilo",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:46Z",
-          "by": "worker-kilo",
-          "reason": "Commit: f8bec18 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0011 SEPARATE KILO 2026-09-16T17:37:43Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0011_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0011_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:46Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: f8bec18 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -926,20 +842,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:53Z",
-          "by": "worker-arena",
-          "reason": "Commit: 3ab256f Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0012 RACE TEST 2026-09-16T17:37:52Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0012_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0012_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:37:53Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 3ab256f Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T17:37:53Z",
           "by": "worker-arena",
@@ -1020,20 +922,6 @@
           "at": "2026-09-16T17:39:13Z",
           "by": "worker-kilo",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:15Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 86717ca Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0013 RACE DISPATCHER 2026-09-16T17:37:54Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0013_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0013_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:15Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 86717ca Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -1167,20 +1055,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:17Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 82f730d Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0015 DISPATCHER RACE 2026-09-16T17:38:06Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0015_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0015_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:17Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 82f730d Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T17:39:17Z",
           "by": "worker-kilo",
@@ -1261,20 +1135,6 @@
           "at": "2026-09-16T17:39:01Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:03Z",
-          "by": "worker-arena",
-          "reason": "Commit: 2b8db7c Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0016 SEPARATE RACE 2026-09-16T17:39:01Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0016_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0016_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:03Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 2b8db7c Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -1361,20 +1221,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:19Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 91dfaca Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0017 DISPATCHER RACE 2026-09-16T17:39:04Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0017_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0017_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:19Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 91dfaca Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T17:39:19Z",
           "by": "worker-kilo",
@@ -1455,20 +1301,6 @@
           "at": "2026-09-16T17:39:12Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:13Z",
-          "by": "worker-arena",
-          "reason": "Commit: 67243c3 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0018 SEPARATE ARENA 2026-09-16T17:39:12Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0018_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0018_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:13Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 67243c3 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -1555,20 +1387,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:20Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 89e8885 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0019 SEPARATE KILO 2026-09-16T17:39:12Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0019_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0019_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:20Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 89e8885 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T17:39:20Z",
           "by": "worker-kilo",
@@ -1649,20 +1467,6 @@
           "at": "2026-09-16T17:39:20Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:22Z",
-          "by": "worker-arena",
-          "reason": "Commit: 686624b Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0020 CONCURRENT ARENA 2026-09-16T17:39:20Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0020_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0020_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:22Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 686624b Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -1749,20 +1553,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:23Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 709b581 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0021 CONCURRENT KILO 2026-09-16T17:39:20Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0021_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0021_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:23Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 709b581 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T17:39:23Z",
           "by": "worker-kilo",
@@ -1843,20 +1633,6 @@
           "at": "2026-09-16T17:39:23Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:24Z",
-          "by": "worker-arena",
-          "reason": "Commit: e08fb87 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0022 BUG012 TEST 2026-09-16T17:39:23Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0022_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0022_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T17:39:24Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e08fb87 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -3410,20 +3186,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:31Z",
-          "by": "worker-arena",
-          "reason": "Commit: 0ac385f Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0056 SEPARATE RACE 2026-09-16T18:06:30Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0056_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0056_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:31Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 0ac385f Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:06:31Z",
           "by": "worker-arena",
@@ -3504,20 +3266,6 @@
           "at": "2026-09-16T18:06:34Z",
           "by": "worker-kilo",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:35Z",
-          "by": "worker-kilo",
-          "reason": "Commit: d738967 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0057 DISPATCHER RACE 2026-09-16T18:06:31Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0057_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0057_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:35Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: d738967 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -3604,20 +3352,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:34Z",
-          "by": "worker-arena",
-          "reason": "Commit: 9eca0ac Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0058 SEPARATE ARENA 2026-09-16T18:06:33Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0058_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0058_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:34Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 9eca0ac Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:06:34Z",
           "by": "worker-arena",
@@ -3698,20 +3432,6 @@
           "at": "2026-09-16T18:06:35Z",
           "by": "worker-kilo",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:37Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 6cd7764 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0059 SEPARATE KILO 2026-09-16T18:06:33Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0059_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0059_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:06:37Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 6cd7764 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -3819,20 +3539,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:08Z",
-          "by": "worker-arena",
-          "reason": "Commit: 6120d98 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0060 ASYNC TEST 2026-09-16T18:06:54Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0060_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0060_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:08Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 6120d98 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:08Z",
           "by": "worker-arena",
@@ -3937,20 +3643,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:09Z",
-          "by": "worker-arena",
-          "reason": "Commit: 72c16db Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0061 ASYNC TEST 2026-09-16T18:07:12Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0061_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0061_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:09Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 72c16db Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:09Z",
           "by": "worker-arena",
@@ -4031,20 +3723,6 @@
           "at": "2026-09-16T18:07:21Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:07:22Z",
-          "by": "worker-arena",
-          "reason": "Commit: 338162d Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0062 ASYNC TEST 2026-09-16T18:07:21Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0062_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0062_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:07:22Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 338162d Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -7105,20 +6783,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:07:45Z",
-          "by": "worker-arena",
-          "reason": "Commit: f84732f Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0130 SEPARATE RACE 2026-09-16T18:07:43Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0130_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0130_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:07:45Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: f84732f Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:07:45Z",
           "by": "worker-arena",
@@ -7199,20 +6863,6 @@
           "at": "2026-09-16T18:08:07Z",
           "by": "worker-kilo",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:07Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 6120d98 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0131 DISPATCHER RACE 2026-09-16T18:07:44Z [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0131_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0131_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:07Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 6120d98 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -7299,20 +6949,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:07:47Z",
-          "by": "worker-arena",
-          "reason": "Commit: 1fdf1c6 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0132 ASYNC TEST 2026-09-16T18:07:46Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0132_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0132_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:07:47Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 1fdf1c6 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:07:47Z",
           "by": "worker-arena",
@@ -7393,20 +7029,6 @@
           "at": "2026-09-16T18:08:09Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:11Z",
-          "by": "worker-arena",
-          "reason": "Commit: 7a36c4e Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0133 FINAL STRESS 000 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0133_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0133_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:11Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 7a36c4e Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -7493,20 +7115,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:10Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 5979f57 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0134 FINAL STRESS 001 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0134_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0134_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:10Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 5979f57 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:10Z",
           "by": "worker-kilo",
@@ -7587,20 +7195,6 @@
           "at": "2026-09-16T18:08:11Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:12Z",
-          "by": "worker-arena",
-          "reason": "Commit: fa10538 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0135 FINAL STRESS 002 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0135_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0135_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:12Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: fa10538 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -7687,20 +7281,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:13Z",
-          "by": "worker-kilo",
-          "reason": "Commit: e880cb3 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0136 FINAL STRESS 003 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0136_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0136_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:13Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e880cb3 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:13Z",
           "by": "worker-kilo",
@@ -7781,20 +7361,6 @@
           "at": "2026-09-16T18:08:12Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:16Z",
-          "by": "worker-arena",
-          "reason": "Commit: 1dffca4 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0137 FINAL STRESS 004 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0137_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0137_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:16Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 1dffca4 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -7881,20 +7447,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:15Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 978728d Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0138 FINAL STRESS 005 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0138_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0138_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:15Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 978728d Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:15Z",
           "by": "worker-kilo",
@@ -7975,20 +7527,6 @@
           "at": "2026-09-16T18:08:16Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:19Z",
-          "by": "worker-arena",
-          "reason": "Commit: 24f19d0 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0139 FINAL STRESS 006 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0139_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0139_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:19Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 24f19d0 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -8075,20 +7613,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:16Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 568f514 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0140 FINAL STRESS 007 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0140_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0140_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:16Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 568f514 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:16Z",
           "by": "worker-kilo",
@@ -8169,20 +7693,6 @@
           "at": "2026-09-16T18:08:19Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:22Z",
-          "by": "worker-arena",
-          "reason": "Commit: cc3d886 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0141 FINAL STRESS 008 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0141_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0141_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:22Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: cc3d886 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -8269,20 +7779,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:17Z",
-          "by": "worker-kilo",
-          "reason": "Commit: fbbf0c8 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0142 FINAL STRESS 009 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0142_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0142_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:17Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: fbbf0c8 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:17Z",
           "by": "worker-kilo",
@@ -8363,20 +7859,6 @@
           "at": "2026-09-16T18:08:22Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:24Z",
-          "by": "worker-arena",
-          "reason": "Commit: 86d5bcc Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0143 FINAL STRESS 010 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0143_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0143_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:24Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 86d5bcc Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -8463,20 +7945,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:19Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 2ce7575 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0144 FINAL STRESS 011 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0144_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0144_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:19Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 2ce7575 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:19Z",
           "by": "worker-kilo",
@@ -8557,20 +8025,6 @@
           "at": "2026-09-16T18:08:25Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:28Z",
-          "by": "worker-arena",
-          "reason": "Commit: ba4e54b Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0145 FINAL STRESS 012 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0145_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0145_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:28Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: ba4e54b Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -8657,20 +8111,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:20Z",
-          "by": "worker-kilo",
-          "reason": "Commit: e6fd4f4 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0146 FINAL STRESS 013 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0146_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0146_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:20Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e6fd4f4 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:20Z",
           "by": "worker-kilo",
@@ -8751,20 +8191,6 @@
           "at": "2026-09-16T18:08:28Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:30Z",
-          "by": "worker-arena",
-          "reason": "Commit: b1e7cc1 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0147 FINAL STRESS 014 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0147_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0147_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:30Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: b1e7cc1 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -8851,20 +8277,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:22Z",
-          "by": "worker-kilo",
-          "reason": "Commit: b8aa5ac Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0148 FINAL STRESS 015 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0148_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0148_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:22Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: b8aa5ac Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:22Z",
           "by": "worker-kilo",
@@ -8945,20 +8357,6 @@
           "at": "2026-09-16T18:08:30Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:32Z",
-          "by": "worker-arena",
-          "reason": "Commit: 0bfb532 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0149 FINAL STRESS 016 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0149_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0149_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:32Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 0bfb532 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -9045,20 +8443,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:23Z",
-          "by": "worker-kilo",
-          "reason": "Commit: bf3d14c Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0150 FINAL STRESS 017 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0150_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0150_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:23Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: bf3d14c Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:23Z",
           "by": "worker-kilo",
@@ -9139,20 +8523,6 @@
           "at": "2026-09-16T18:08:32Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:36Z",
-          "by": "worker-arena",
-          "reason": "Commit: 962a04e Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0151 FINAL STRESS 018 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0151_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0151_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:36Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 962a04e Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -9239,20 +8609,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:24Z",
-          "by": "worker-kilo",
-          "reason": "Commit: e47318e Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0152 FINAL STRESS 019 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0152_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0152_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:24Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e47318e Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:24Z",
           "by": "worker-kilo",
@@ -9333,20 +8689,6 @@
           "at": "2026-09-16T18:08:36Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:39Z",
-          "by": "worker-arena",
-          "reason": "Commit: 8c177aa Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0153 FINAL STRESS 020 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0153_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0153_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:39Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 8c177aa Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -9433,20 +8775,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:26Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 7c79991 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0154 FINAL STRESS 021 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0154_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0154_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:26Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 7c79991 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:26Z",
           "by": "worker-kilo",
@@ -9527,20 +8855,6 @@
           "at": "2026-09-16T18:08:39Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:41Z",
-          "by": "worker-arena",
-          "reason": "Commit: e412b83 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0155 FINAL STRESS 022 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0155_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0155_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:41Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: e412b83 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -9627,20 +8941,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:27Z",
-          "by": "worker-kilo",
-          "reason": "Commit: c421cd2 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0156 FINAL STRESS 023 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0156_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0156_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:27Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: c421cd2 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:27Z",
           "by": "worker-kilo",
@@ -9721,20 +9021,6 @@
           "at": "2026-09-16T18:08:42Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:44Z",
-          "by": "worker-arena",
-          "reason": "Commit: de90dc2 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0157 FINAL STRESS 024 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0157_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0157_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:44Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: de90dc2 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -9821,20 +9107,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:28Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 2d8f94d Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0158 FINAL STRESS 025 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0158_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0158_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:28Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 2d8f94d Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:28Z",
           "by": "worker-kilo",
@@ -9915,20 +9187,6 @@
           "at": "2026-09-16T18:08:45Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:46Z",
-          "by": "worker-arena",
-          "reason": "Commit: aa0fb14 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0159 FINAL STRESS 026 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0159_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0159_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:46Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: aa0fb14 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -10015,20 +9273,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:29Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 6dede57 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0160 FINAL STRESS 027 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0160_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0160_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:29Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 6dede57 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:29Z",
           "by": "worker-kilo",
@@ -10109,20 +9353,6 @@
           "at": "2026-09-16T18:08:46Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:47Z",
-          "by": "worker-arena",
-          "reason": "Commit: 9aa0a3c Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0161 FINAL STRESS 028 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0161_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0161_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:47Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 9aa0a3c Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -10209,20 +9439,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:31Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 713691f Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0162 FINAL STRESS 029 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0162_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0162_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:31Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 713691f Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:31Z",
           "by": "worker-kilo",
@@ -10303,20 +9519,6 @@
           "at": "2026-09-16T18:08:47Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:48Z",
-          "by": "worker-arena",
-          "reason": "Commit: 5b94f58 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0163 FINAL STRESS 030 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0163_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0163_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:48Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 5b94f58 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -10403,20 +9605,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:32Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 7740396 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0164 FINAL STRESS 031 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0164_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0164_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:32Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 7740396 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:32Z",
           "by": "worker-kilo",
@@ -10497,20 +9685,6 @@
           "at": "2026-09-16T18:08:49Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:50Z",
-          "by": "worker-arena",
-          "reason": "Commit: 99985e3 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0165 FINAL STRESS 032 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0165_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0165_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:50Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 99985e3 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -10597,20 +9771,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:33Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 0607beb Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0166 FINAL STRESS 033 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0166_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0166_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:33Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 0607beb Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:33Z",
           "by": "worker-kilo",
@@ -10691,20 +9851,6 @@
           "at": "2026-09-16T18:08:50Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:51Z",
-          "by": "worker-arena",
-          "reason": "Commit: df5141b Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0167 FINAL STRESS 034 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0167_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0167_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:51Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: df5141b Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -10791,20 +9937,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:35Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 3688c2f Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0168 FINAL STRESS 035 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0168_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0168_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:35Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 3688c2f Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:35Z",
           "by": "worker-kilo",
@@ -10885,20 +10017,6 @@
           "at": "2026-09-16T18:08:51Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:52Z",
-          "by": "worker-arena",
-          "reason": "Commit: 9d2ab1a Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0169 FINAL STRESS 036 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0169_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0169_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:52Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 9d2ab1a Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -10985,20 +10103,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:36Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 9863b06 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0170 FINAL STRESS 037 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0170_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0170_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:36Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 9863b06 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:36Z",
           "by": "worker-kilo",
@@ -11079,20 +10183,6 @@
           "at": "2026-09-16T18:08:52Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:54Z",
-          "by": "worker-arena",
-          "reason": "Commit: 98eeeac Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0171 FINAL STRESS 038 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0171_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0171_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:54Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 98eeeac Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -11179,20 +10269,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:37Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 93051f9 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0172 FINAL STRESS 039 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0172_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0172_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:37Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 93051f9 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:37Z",
           "by": "worker-kilo",
@@ -11273,20 +10349,6 @@
           "at": "2026-09-16T18:08:54Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:55Z",
-          "by": "worker-arena",
-          "reason": "Commit: ee594b6 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0173 FINAL STRESS 040 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0173_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0173_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:55Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: ee594b6 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -11373,20 +10435,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:38Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 6b7beec Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0174 FINAL STRESS 041 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0174_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0174_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:38Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 6b7beec Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:38Z",
           "by": "worker-kilo",
@@ -11467,20 +10515,6 @@
           "at": "2026-09-16T18:08:55Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:56Z",
-          "by": "worker-arena",
-          "reason": "Commit: 55ed7ae Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0175 FINAL STRESS 042 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0175_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0175_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:56Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 55ed7ae Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -11567,20 +10601,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:40Z",
-          "by": "worker-kilo",
-          "reason": "Commit: f0b40a0 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0176 FINAL STRESS 043 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0176_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0176_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:40Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: f0b40a0 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:40Z",
           "by": "worker-kilo",
@@ -11661,20 +10681,6 @@
           "at": "2026-09-16T18:08:57Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:58Z",
-          "by": "worker-arena",
-          "reason": "Commit: 842a8da Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0177 FINAL STRESS 044 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0177_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0177_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:58Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 842a8da Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -11761,20 +10767,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:41Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 3b6c373 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0178 FINAL STRESS 045 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0178_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0178_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:41Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 3b6c373 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:41Z",
           "by": "worker-kilo",
@@ -11855,20 +10847,6 @@
           "at": "2026-09-16T18:08:58Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:59Z",
-          "by": "worker-arena",
-          "reason": "Commit: 7861986 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0179 FINAL STRESS 046 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0179_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0179_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:59Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 7861986 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -11955,20 +10933,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:42Z",
-          "by": "worker-kilo",
-          "reason": "Commit: 639d0c1 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0180 FINAL STRESS 047 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0180_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0180_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:42Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 639d0c1 Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:42Z",
           "by": "worker-kilo",
@@ -12049,20 +11013,6 @@
           "at": "2026-09-16T18:08:59Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:09:01Z",
-          "by": "worker-arena",
-          "reason": "Commit: f872ca6 Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0181 FINAL STRESS 048 [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0181_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0181_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:09:01Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: f872ca6 Files: 2"
         },
         {
           "from_status": "RUNNING",
@@ -12149,20 +11099,6 @@
         },
         {
           "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:44Z",
-          "by": "worker-kilo",
-          "reason": "Commit: cf9772b Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0182 FINAL STRESS 049 [worker-kilo] Files: 04_Output/ControlCenter/worker_executions/MSQ-0182_worker-kilo.md, ControlCenter/data/worker_executions/MSQ-0182_worker-kilo.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:08:44Z",
-          "by": "worker-kilo",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: cf9772b Files: 2"
-        },
-        {
-          "from_status": "RUNNING",
           "to_status": "REVIEW",
           "at": "2026-09-16T18:08:44Z",
           "by": "worker-kilo",
@@ -12243,20 +11179,6 @@
           "at": "2026-09-16T18:09:23Z",
           "by": "worker-arena",
           "reason": ""
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:09:25Z",
-          "by": "worker-arena",
-          "reason": "Commit: 2c4392c Branch: arena/01a0a3b5-quantresearchos Message: feat(mission): MSQ-0183 ASYNC TEST 2026-09-16T18:09:23Z [worker-arena] Files: 04_Output/ControlCenter/worker_executions/MSQ-0183_worker-arena.md, ControlCenter/data/worker_executions/MSQ-0183_worker-arena.md"
-        },
-        {
-          "from_status": "RUNNING",
-          "to_status": "RUNNING",
-          "at": "2026-09-16T18:09:25Z",
-          "by": "worker-arena",
-          "reason": "Push: origin/arena/01a0a3b5-quantresearchos Commit: 2c4392c Files: 2"
         },
         {
           "from_status": "RUNNING",
